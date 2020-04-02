@@ -34,10 +34,10 @@ package net.sf.jasperreports.engine.export;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
@@ -189,6 +189,43 @@ public class JRGraphics2DExporter extends JRAbstractExporter
 		}
 	}
 		
+    /**
+     *
+     */
+   public void exportReportFast_loadParams() throws JRException
+    {
+        progressMonitor = (JRExportProgressMonitor)parameters.get(JRExporterParameter.PROGRESS_MONITOR);
+        
+        /*   */
+        setOffset();
+
+            /*   */
+            setExportContext();
+    
+            /*   */
+            setInput();
+    
+            /*   */
+            setPageRange();
+    
+            /*   */
+            setTextRenderer();
+            
+            Float zoomRatio = (Float)parameters.get(JRGraphics2DExporterParameter.ZOOM_RATIO);
+            if (zoomRatio != null)
+            {
+                zoom = zoomRatio.floatValue();
+                if (zoom <= 0)
+                {
+                    throw new JRException("Invalid zoom ratio : " + zoom);
+                }
+            }
+            else
+            {
+                zoom = DEFAULT_ZOOM;
+            }
+    }
+        
 
 	protected void setTextRenderer()
 	{
@@ -220,6 +257,17 @@ public class JRGraphics2DExporter extends JRAbstractExporter
 	/**
 	 *
 	 */
+        public void exportReportFast(Graphics2D g) throws JRException {
+            grx = g;
+            if (grx == null) {
+                throw new JRException("No output specified for the exporter. java.awt.Graphics2D object expected.");
+            }
+            exportReportToGraphics2D();
+        }
+     
+    /**
+	 *
+	 */
 	public void exportReportToGraphics2D() throws JRException
 	{
 		grx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -237,7 +285,7 @@ public class JRGraphics2DExporter extends JRAbstractExporter
 		{
 			Shape oldClipShape = grx.getClip();
 	
-			grx.clip(new Rectangle(0, 0, jasperPrint.getPageWidth(), jasperPrint.getPageHeight()));
+			grx.clip(new Rectangle2D.Float(0, 0, jasperPrint.getPageWidth(), jasperPrint.getPageHeight()));
 	
 			try
 			{
@@ -258,11 +306,11 @@ public class JRGraphics2DExporter extends JRAbstractExporter
 	protected void exportPage(JRPrintPage page) throws JRException
 	{
 		grx.setColor(Color.white);
-		grx.fillRect(
+		grx.fill( new Rectangle2D.Float(
 			0, 
 			0, 
 			jasperPrint.getPageWidth(), 
-			jasperPrint.getPageHeight()
+			jasperPrint.getPageHeight() )
 			);
 
 		grx.setColor(Color.black);

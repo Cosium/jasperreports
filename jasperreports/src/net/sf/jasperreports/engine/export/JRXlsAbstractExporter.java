@@ -533,8 +533,8 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 	protected String autoFilterEnd;		
 
 	protected Float columnWidthRatio;
-	protected Integer documentPageScale;
-	protected Integer sheetPageScale;		
+	protected Float documentPageScale;
+	protected Float sheetPageScale;		
 	protected Integer documentFirstPageNumber;		
 	protected Integer sheetFirstPageNumber;		
 	protected boolean firstPageNotSet;
@@ -838,7 +838,7 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 		gridRowFreezeIndex = Math.max(0, getPropertiesUtil().getIntegerProperty(jasperPrint, PROPERTY_FREEZE_ROW, 0) - 1);
 		gridColumnFreezeIndex = Math.max(0, getColumnIndex(getPropertiesUtil().getProperty(jasperPrint, PROPERTY_FREEZE_COLUMN)));	
 		columnWidthRatio = getPropertiesUtil().getFloatProperty(jasperPrint, JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH_RATIO, 0f);
-		documentPageScale = getPropertiesUtil().getIntegerProperty(jasperPrint, JRXlsAbstractExporter.PROPERTY_PAGE_SCALE, 0);
+		documentPageScale = getPropertiesUtil().getFloatProperty(jasperPrint, JRXlsAbstractExporter.PROPERTY_PAGE_SCALE, 0);
 		documentFirstPageNumber = getPropertiesUtil().getIntegerProperty(jasperPrint, JRXlsAbstractExporter.PROPERTY_FIRST_PAGE_NUMBER, 0);
 		ignoreAnchors = getPropertiesUtil().getBooleanProperty(jasperPrint,	PROPERTY_IGNORE_ANCHORS, false);
 		if(jasperPrint.hasProperties() && jasperPrint.getPropertiesMap().containsProperty(JRXmlExporter.PROPERTY_REPLACE_INVALID_CHARS))
@@ -1318,10 +1318,10 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 		{
 			if (!isRemoveEmptySpaceBetweenColumns || (xCuts.isCutNotEmpty(col) || xCuts.isCutSpanned(col)))
 			{
-				Integer width = (Integer)xCutsProperties.get(PROPERTY_COLUMN_WIDTH);
+				Float width = (Float)xCutsProperties.get(PROPERTY_COLUMN_WIDTH);
 				width = 
 					width == null 
-					? (int)((xCuts.getCutOffset(col + 1) - xCuts.getCutOffset(col)) * sheetRatio) 
+					? (float)((xCuts.getCutOffset(col + 1) - xCuts.getCutOffset(col)) * sheetRatio) 
 					: width;  
 				
 				Map<String, Object> cutProperties = xCuts.getCut(col).getPropertiesMap();
@@ -1336,7 +1336,7 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 	protected void setScale(CutsInfo xCuts, boolean isToApply)
 	{
 		Map<String, Object> xCutsProperties = xCuts.getPropertiesMap();
-		Integer scale = (Integer)xCutsProperties.get(PROPERTY_PAGE_SCALE);
+		Float scale = (Float)xCutsProperties.get(PROPERTY_PAGE_SCALE);
 
 		sheetPageScale = (isValidScale(scale))
 						? scale 
@@ -1800,7 +1800,7 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 		return value;
 	}
 	
-	protected boolean isValidScale(Integer scale)
+	protected boolean isValidScale(Float scale)
 	{
 		return scale != null && scale > 9 && scale < 401;
 	}
@@ -1848,13 +1848,13 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 
 	protected abstract void closeWorkbook(OutputStream os) throws JRException;
 
-	protected abstract void setColumnWidth(int col, int width, boolean autoFit);
+	protected abstract void setColumnWidth(int col, float width, boolean autoFit);
 	
 	protected abstract void removeColumn(int col);
 
 	protected abstract void updateColumn(int col, boolean autoFit);
 
-	protected abstract void setRowHeight(int rowIndex, int lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException;
+	protected abstract void setRowHeight(int rowIndex, float lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException;
 
 	protected abstract void setCell(JRExporterGridCell gridCell, int colIndex, int rowIndex);
 
@@ -1882,6 +1882,6 @@ public abstract class JRXlsAbstractExporter extends JRAbstractExporter
 	
 	protected abstract void setRowLevels(XlsRowLevelInfo levelInfo, String level);
 	
-	protected abstract void setScale(Integer scale);
+	protected abstract void setScale(Float scale);
 	
 }

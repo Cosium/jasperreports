@@ -39,7 +39,7 @@ import net.sf.jasperreports.engine.fill.JRFillObjectFactory;
 public class FillListContents extends JRFillElementContainer
 {
 
-	private final int contentsHeight;
+	private final float contentsHeight;
 	
 	protected FillListContents(ListContents listContents,
 			JRFillObjectFactory factory)
@@ -63,12 +63,12 @@ public class FillListContents extends JRFillElementContainer
 		initConditionalStyles();
 	}
 
-	public int getHeight()
+	public float getHeight()
 	{
 		return contentsHeight;
 	}
 	
-	protected int getContainerHeight()
+	protected float getContainerHeight()
 	{
 		return contentsHeight;
 	}
@@ -79,7 +79,7 @@ public class FillListContents extends JRFillElementContainer
 		evaluate(JRExpression.EVALUATION_DEFAULT);
 	}
 	
-	protected void prepare(int availableHeight) throws JRException
+	protected void prepare(float availableHeight) throws JRException
 	{
 		initFill();
 		resetElements();
@@ -98,7 +98,7 @@ public class FillListContents extends JRFillElementContainer
 	}
 	
 	// overridden for access
-	protected int getStretchHeight()
+	protected float getStretchHeight()
 	{
 		return super.getStretchHeight();
 	}
@@ -109,7 +109,7 @@ public class FillListContents extends JRFillElementContainer
 		super.rewind();
 	}
 	
-	protected void stretchTo(int height)
+	protected void stretchTo(float height)
 	{
 		setStretchHeight(height);
 	}

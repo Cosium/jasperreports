@@ -53,7 +53,7 @@ public interface JRPrintElement extends JRCommonElement, JRPropertiesHolder, JRI
 	/**
 	 *
 	 */
-	public int getX();
+	public float getX();
 	
 	/**
 	 *
@@ -63,37 +63,37 @@ public interface JRPrintElement extends JRCommonElement, JRPropertiesHolder, JRI
 	/**
 	 *
 	 */
-	public void setX(int x);
+	public void setX(float x);
 	
 	/**
 	 *
 	 */
-	public int getY();
+	public float getY();
 	
 	/**
 	 *
 	 */
-	public void setY(int y);
+	public void setY(float y);
 	
 	/**
 	 *
 	 */
-	public int getWidth();
+	public float getWidth();
 	
 	/**
 	 *
 	 */
-	public void setWidth(int width);
+	public void setWidth(float width);
 	
 	/**
 	 *
 	 */
-	public int getHeight();
+	public float getHeight();
 	
 	/**
 	 *
 	 */
-	public void setHeight(int height);
+	public void setHeight(float height);
 	
 	
 	/**

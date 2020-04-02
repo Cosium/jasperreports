@@ -84,6 +84,6 @@ public interface JRCommonText extends JRCommonElement, JRBoxContainer, JRParagra
 	
 	public void setMarkup(String markup);
 
-	int getFontSize();
+	float getFontSize();
 	
 }

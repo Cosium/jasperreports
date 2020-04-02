@@ -33,11 +33,11 @@ import net.sf.jasperreports.web.commands.Command;
 public class ResizeElementCommand implements Command 
 {
 	
-	private int width;
-	private int oldWidth;
+	private float width;
+	private float oldWidth;
 	private JRBaseElement receiver;
 	
-	public ResizeElementCommand(JRBaseElement receiver, int width) {
+	public ResizeElementCommand(JRBaseElement receiver, float width) {
 		this.receiver = receiver;
 		this.width = width;
 		this.oldWidth = receiver.getWidth();

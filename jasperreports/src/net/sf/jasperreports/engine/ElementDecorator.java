@@ -104,12 +104,12 @@ public abstract class ElementDecorator implements JRElement
 		return element.getStretchTypeValue();
 	}
 
-	public int getX()
+	public float getX()
 	{
 		return element.getX();
 	}
 
-	public int getY()
+	public float getY()
 	{
 		return element.getY();
 	}
@@ -176,12 +176,12 @@ public abstract class ElementDecorator implements JRElement
 		throw new UnsupportedOperationException();
 	}
 
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public void setX(int x)
+	public void setX(float x)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -192,7 +192,7 @@ public abstract class ElementDecorator implements JRElement
 	}
 
 	@Override
-	public JRElement clone(JRElementGroup parentGroup, int y)
+	public JRElement clone(JRElementGroup parentGroup, float y)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -212,7 +212,7 @@ public abstract class ElementDecorator implements JRElement
 		return element.getForecolor();
 	}
 
-	public int getHeight()
+	public float getHeight()
 	{
 		return element.getHeight();
 	}
@@ -237,7 +237,7 @@ public abstract class ElementDecorator implements JRElement
 		return element.getOwnModeValue();
 	}
 
-	public int getWidth()
+	public float getWidth()
 	{
 		return element.getWidth();
 	}

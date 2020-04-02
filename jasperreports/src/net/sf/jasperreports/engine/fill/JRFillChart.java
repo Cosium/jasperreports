@@ -824,7 +824,7 @@ public class JRFillChart extends JRFillElement implements JRChart
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		)
 	{

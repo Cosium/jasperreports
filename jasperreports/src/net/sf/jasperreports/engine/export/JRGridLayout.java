@@ -55,10 +55,10 @@ public class JRGridLayout
 {
 	private final ExporterNature nature;
 
-	private int width;
-	private int height;
-	private int offsetX;
-	private int offsetY;
+	private float width;
+	private float height;
+	private float offsetX;
+	private float offsetY;
 	private final String address;
 
 	private CutsInfo xCuts;
@@ -88,10 +88,10 @@ public class JRGridLayout
 	public JRGridLayout(
 		ExporterNature nature,
 		List<JRPrintElement> elements,
-		int width,
-		int height,
-		int offsetX,
-		int offsetY
+		float width,
+		float height,
+		float offsetX,
+		float offsetY
 		)
 	{
 		this(
@@ -118,10 +118,10 @@ public class JRGridLayout
 	public JRGridLayout(
 		ExporterNature nature,
 		List<JRPrintElement> elements,
-		int width,
-		int height,
-		int offsetX,
-		int offsetY,
+		float width,
+		float height,
+		float offsetX,
+		float offsetY,
 		CutsInfo xCuts
 		)
 	{
@@ -158,10 +158,10 @@ public class JRGridLayout
 	protected JRGridLayout(
 		ExporterNature nature,
 		ElementWrapper[] wrappers,
-		int width,
-		int height,
-		int offsetX,
-		int offsetY,
+		float width,
+		float height,
+		float offsetX,
+		float offsetY,
 		String address
 		)
 	{
@@ -254,7 +254,7 @@ public class JRGridLayout
 		boolean createXCuts = (xCuts == null);
 
 		xCuts = createXCuts ? new CutsInfo() : xCuts;
-		yCuts = nature.isIgnoreLastRow() ? new CutsInfo(0) : new CutsInfo(height);
+		yCuts = nature.isIgnoreLastRow() ? new CutsInfo(0f) : new CutsInfo(height);
 
 		if(!isNested && nature.isIgnorePageMargins()) //FIXMEXLS left and right margins are not ignored when all pages on a single sheet
 		{
@@ -262,23 +262,23 @@ public class JRGridLayout
 
 			if(createXCuts)
 			{
-				List<Integer> xCutsList = xCuts.getCutOffsets();
+				List<Float> xCutsList = xCuts.getCutOffsets();
 
 				if(hasLeftMargin)
 				{
-					xCutsList.remove(Integer.valueOf(0));
+					xCutsList.remove(Float.valueOf(0));
 				}
 			}
 
-			List<Integer> yCutsList = yCuts.getCutOffsets();
+			List<Float> yCutsList = yCuts.getCutOffsets();
 
 			if(hasTopMargin)
 			{
-				yCutsList.remove(Integer.valueOf(0));
+				yCutsList.remove(Float.valueOf(0));
 			}
 			if(hasBottomMargin)
 			{
-				yCutsList.remove(Integer.valueOf(height));
+				yCutsList.remove(height);
 			}
 		}
 
@@ -323,7 +323,7 @@ public class JRGridLayout
 		height = yCuts.getTotalLength();
 	}
 
-	protected void createCuts(ElementWrapper[] wrappers, int elementOffsetX, int elementOffsetY, boolean createXCuts)
+	protected void createCuts(ElementWrapper[] wrappers, float elementOffsetX, float elementOffsetY, boolean createXCuts)
 	{
 		for(int elementIndex = 0; elementIndex < wrappers.length; elementIndex++)
 		{
@@ -390,7 +390,7 @@ public class JRGridLayout
 
 
 	protected void setGridElements(ElementWrapper[] wrappers,
-			int elementOffsetX, int elementOffsetY,
+			float elementOffsetX, float elementOffsetY,
 			int startRow, int startCol, int endRow, int endCol)
 	{
 		for(int elementIndex = wrappers.length - 1; elementIndex >= 0; elementIndex--)
@@ -400,8 +400,8 @@ public class JRGridLayout
 
 			if (nature.isToExport(element))
 			{
-				int x = element.getX() + elementOffsetX;
-				int y = element.getY() + elementOffsetY;
+				float x = element.getX() + elementOffsetX;
+				float y = element.getY() + elementOffsetY;
 
 				int col1 = xCuts.indexOfCutOffset(x);
 				int row1 = yCuts.indexOfCutOffset(y);
@@ -639,7 +639,7 @@ public class JRGridLayout
 	{
 		for(int col = 0; col < grid[row1].length;)
 		{
-			int colSpan = getSharedColSpan(row1, row2, col);
+			int colSpan = (int)getSharedColSpan(row1, row2, col);
 			//negative col span means it is not shared col span
 			if (colSpan > 0)
 			{
@@ -685,9 +685,9 @@ public class JRGridLayout
 		return sharedSpanCount > 1 ? rowSpan : -rowSpan;
 	}
 
-	private int getSharedColSpan(int row1, int row2, int col1)
+	private float getSharedColSpan(int row1, int row2, int col1)
 	{
-		int colSpan = 1;
+		float colSpan = 1;
 		boolean isSharedSpan = false;
 
 		for(int col = 0; col < colSpan; col++)
@@ -750,28 +750,28 @@ public class JRGridLayout
 	 *
 	 * @return the width available for the grid
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
 
 
-	public int getColumnWidth(int col)
+	public float getColumnWidth(int col)
 	{
 		return xCuts.getCutOffset(col + 1) - xCuts.getCutOffset(col);
 	}
 
 
-	public int getRowHeight(int row)
+	public float getRowHeight(int row)
 	{
 		return yCuts.getCutOffset(row + 1) - yCuts.getCutOffset(row);
 	}
 
 
-	public int getMaxRowHeight(int rowIndex)
+	public float getMaxRowHeight(int rowIndex)
 	{
 		JRExporterGridCell[] row = grid[rowIndex];
-		int maxRowHeight = row[0].getHeight();
+		float maxRowHeight = row[0].getHeight();
 		for (int col = 0; col < row.length; col++)
 		{
 			JRExporterGridCell cell = row[col];
@@ -788,14 +788,14 @@ public class JRGridLayout
 	}
 
 
-	public static int getRowHeight(JRExporterGridCell[] row)//FIXMEODT are we still using this?
+	public static float getRowHeight(JRExporterGridCell[] row)//FIXMEODT are we still using this?
 	{
 		if (row[0].getRowSpan() == 1 && row[0].getType() != JRExporterGridCell.TYPE_OCCUPIED_CELL) //quick exit
 		{
 			return row[0].getHeight();
 		}
 
-		int rowHeight = 0;
+		float rowHeight = 0;
 		int minSpanIdx = 0;
 
 		int colCount = row.length;
@@ -843,7 +843,7 @@ public class JRGridLayout
 	 * @param offsetX
 	 *            horizontal element position offset
 	 */
-	public static CutsInfo calculateXCuts(ExporterNature nature, List<JRPrintPage> pages, int startPageIndex, int endPageIndex, int width, int offsetX)
+	public static CutsInfo calculateXCuts(ExporterNature nature, List<JRPrintPage> pages, int startPageIndex, int endPageIndex, float width, float offsetX)
 	{
 		CutsInfo xCuts = new CutsInfo();
 
@@ -854,7 +854,7 @@ public class JRGridLayout
 		}
 		
 		// add a cut at the page width if no element goes beyond the width
-		int lastCut = xCuts.getLastCutOffset();
+		float lastCut = xCuts.getLastCutOffset();
 		if (lastCut < width)
 		{
 			xCuts.addCutOffset(width);
@@ -874,7 +874,7 @@ public class JRGridLayout
 	 * @param xCuts
 	 *            The list to which the X cuts are to be added.
 	 */
-	protected static void addXCuts(ExporterNature nature, List<JRPrintElement> elementsList, int elementOffsetX, CutsInfo xCuts)
+	protected static void addXCuts(ExporterNature nature, List<JRPrintElement> elementsList, float elementOffsetX, CutsInfo xCuts)
 	{
 		for (Iterator<JRPrintElement> it = elementsList.iterator(); it.hasNext();)
 		{

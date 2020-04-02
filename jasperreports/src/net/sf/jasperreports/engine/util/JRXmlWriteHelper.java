@@ -543,7 +543,7 @@ public class JRXmlWriteHelper
 		writeAttribute(name, String.valueOf(value));
 	}
 	
-	public void addAttributePositive(String name, int value)
+	public void addAttributePositive(String name, float value)
 	{
 		if (value > 0)
 		{

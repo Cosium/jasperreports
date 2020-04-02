@@ -107,7 +107,7 @@ public class JRVerticalFiller extends JRBaseFiller
 	/**
 	 *
 	 */
-	protected void setPageHeight(int pageHeight)
+    protected void setPageHeight(float pageHeight)
 	{
 		this.pageHeight = pageHeight;
 
@@ -442,7 +442,7 @@ public class JRVerticalFiller extends JRBaseFiller
 
 	private boolean fillBandNoOverflow(JRFillBand band, byte evaluation) throws JRException
 	{
-		int availableHeight = columnFooterOffsetY - offsetY;
+		float availableHeight = columnFooterOffsetY - offsetY;
 		boolean overflow = availableHeight < band.getHeight();
 
 		if (!overflow)
@@ -977,7 +977,7 @@ public class JRVerticalFiller extends JRBaseFiller
 			columnFooterOffsetY = offsetY;
 		}
 
-		int oldOffsetY = offsetY;
+        float oldOffsetY = offsetY;
 		if (!isFloatColumnFooter && !fillContext.isIgnorePagination())
 		{
 			offsetY = columnFooterOffsetY;

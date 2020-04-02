@@ -114,12 +114,12 @@ public abstract class JRAbstractExporter implements JRExporter
 			return parameters;
 		}
 
-		public int getOffsetX()
+		public float getOffsetX()
 		{
 			return JRAbstractExporter.this.getOffsetX();
 		}
 
-		public int getOffsetY()
+		public float getOffsetY()
 		{
 			return JRAbstractExporter.this.getOffsetY();
 		}
@@ -504,8 +504,8 @@ public abstract class JRAbstractExporter implements JRExporter
 	protected boolean isModeBatch = true;
 	protected int startPageIndex;
 	protected int endPageIndex;
-	protected int globalOffsetX;
-	protected int globalOffsetY;
+	protected float globalOffsetX;
+	protected float globalOffsetY;
 	protected ExporterFilter filter;
 
 	/**
@@ -516,9 +516,9 @@ public abstract class JRAbstractExporter implements JRExporter
 	/**
 	 *
 	 */
-	private LinkedList<int[]> elementOffsetStack = new LinkedList<int[]>();
-	private int elementOffsetX = globalOffsetX;
-	private int elementOffsetY = globalOffsetY;
+	private LinkedList<float[]> elementOffsetStack = new LinkedList<float[]>();
+	private float elementOffsetX = globalOffsetX;
+	private float elementOffsetY = globalOffsetY;
 
 	/**
 	 *
@@ -561,7 +561,7 @@ public abstract class JRAbstractExporter implements JRExporter
 	public void reset()
 	{
 		parameters = new HashMap<JRExporterParameter,Object>();
-		elementOffsetStack = new LinkedList<int[]>();
+		elementOffsetStack = new LinkedList<float[]>();
 	}
 	
 	
@@ -747,20 +747,20 @@ public abstract class JRAbstractExporter implements JRExporter
 	 */
 	protected void setOffset(boolean setElementOffsets)
 	{
-		Integer offsetX = (Integer)parameters.get(JRExporterParameter.OFFSET_X);
+		Float offsetX = (Float)parameters.get(JRExporterParameter.OFFSET_X);
 		if (offsetX != null)
 		{
-			globalOffsetX = offsetX.intValue();
+			globalOffsetX = offsetX.floatValue();
 		}
 		else
 		{
 			globalOffsetX = 0;
 		}
 
-		Integer offsetY = (Integer)parameters.get(JRExporterParameter.OFFSET_Y);
+		Float offsetY = (Float)parameters.get(JRExporterParameter.OFFSET_Y);
 		if (offsetY != null)
 		{
-			globalOffsetY = offsetY.intValue();
+			globalOffsetY = offsetY.floatValue();
 		}
 		else
 		{
@@ -1003,7 +1003,7 @@ public abstract class JRAbstractExporter implements JRExporter
 	 * 
 	 * @return the X axis offset
 	 */
-	protected int getOffsetX()
+	protected float getOffsetX()
 	{
 		return elementOffsetX;
 	}
@@ -1017,7 +1017,7 @@ public abstract class JRAbstractExporter implements JRExporter
 	 * 
 	 * @return the Y axis offset
 	 */
-	protected int getOffsetY()
+	protected float getOffsetY()
 	{
 		return elementOffsetY;
 	}
@@ -1043,17 +1043,17 @@ public abstract class JRAbstractExporter implements JRExporter
 		}
 		else
 		{
-			int topPadding = frame.getLineBox().getTopPadding().intValue();
-			int leftPadding = frame.getLineBox().getLeftPadding().intValue();
+			float topPadding = frame.getLineBox().getTopPadding().intValue();
+			float leftPadding = frame.getLineBox().getLeftPadding().intValue();
 
 			setElementOffsets(getOffsetX() + frame.getX() + leftPadding, getOffsetY() + frame.getY() + topPadding);
 		}
 	}
 	
 	
-	private void setElementOffsets(int offsetX, int offsetY)
+	private void setElementOffsets(float offsetX, float offsetY)
 	{
-		elementOffsetStack.addLast(new int[]{elementOffsetX, elementOffsetY});
+		elementOffsetStack.addLast(new float[]{elementOffsetX, elementOffsetY});
 		
 		elementOffsetX = offsetX;
 		elementOffsetY = offsetY;
@@ -1066,7 +1066,7 @@ public abstract class JRAbstractExporter implements JRExporter
 	 */
 	protected void restoreElementOffsets()
 	{
-		int[] offsets = elementOffsetStack.removeLast();
+		float[] offsets = elementOffsetStack.removeLast();
 		elementOffsetX = offsets[0];
 		elementOffsetY = offsets[1];
 	}

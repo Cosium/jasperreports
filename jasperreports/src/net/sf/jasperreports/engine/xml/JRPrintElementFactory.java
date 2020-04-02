@@ -73,25 +73,25 @@ public class JRPrintElementFactory extends JRBaseFactory
 		String x = atts.getValue(JRXmlConstants.ATTRIBUTE_x);
 		if (x != null && x.length() > 0)
 		{
-			element.setX(Integer.parseInt(x));
+			element.setX(Float.parseFloat(x));
 		}
 
 		String y = atts.getValue(JRXmlConstants.ATTRIBUTE_y);
 		if (y != null && y.length() > 0)
 		{
-			element.setY(Integer.parseInt(y));
+			element.setY(Float.parseFloat(y));
 		}
 
 		String width = atts.getValue(JRXmlConstants.ATTRIBUTE_width);
 		if (width != null && width.length() > 0)
 		{
-			element.setWidth(Integer.parseInt(width));
+			element.setWidth(Float.parseFloat(width));
 		}
 
 		String height = atts.getValue(JRXmlConstants.ATTRIBUTE_height);
 		if (height != null && height.length() > 0)
 		{
-			element.setHeight(Integer.parseInt(height));
+			element.setHeight(Float.parseFloat(height));
 		}
 
 		String forecolor = atts.getValue(JRXmlConstants.ATTRIBUTE_forecolor);

@@ -41,7 +41,7 @@ public interface JRPrintElementContainer
 	 * 
 	 * @return the height of the container
 	 */
-	public int getHeight();
+	public float getHeight();
 	
 	
 	/**
@@ -49,7 +49,7 @@ public interface JRPrintElementContainer
 	 * 
 	 * @param height the height
 	 */
-	public void setHeight(int height);
+	public void setHeight(float height);
 
 	
 	/**

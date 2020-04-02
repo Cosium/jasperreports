@@ -475,7 +475,7 @@ public class JRFillTextField extends JRFillTextElement implements JRTextField
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{

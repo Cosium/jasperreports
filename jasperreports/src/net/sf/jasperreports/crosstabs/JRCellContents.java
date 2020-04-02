@@ -52,7 +52,7 @@ public interface JRCellContents extends JRElementGroup, JRStyleContainer, JRBoxC
 	/**
 	 * Width or height value indicating that the value has not been computed.
 	 */
-	public static final int NOT_CALCULATED = Integer.MIN_VALUE;
+	public static final float NOT_CALCULATED = Float.MIN_VALUE;
 	
 	
 	/**
@@ -143,7 +143,7 @@ public interface JRCellContents extends JRElementGroup, JRStyleContainer, JRBoxC
 	 * @return the computed cell width
 	 * @see #NOT_CALCULATED
 	 */
-	public int getWidth();
+	public float getWidth();
 	
 		
 	/**
@@ -152,7 +152,7 @@ public interface JRCellContents extends JRElementGroup, JRStyleContainer, JRBoxC
 	 * @return the computed cell height
 	 * @see #NOT_CALCULATED
 	 */
-	public int getHeight();
+	public float getHeight();
 	
 	
 	/**

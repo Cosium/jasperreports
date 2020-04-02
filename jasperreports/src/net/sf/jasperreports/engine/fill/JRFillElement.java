@@ -105,13 +105,13 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	private boolean isReprinted;
 	private boolean isAlreadyPrinted;
 	private Collection<JRElement> dependantElements = new ArrayList<JRElement>();
-	private int relativeY;
-	private int stretchHeight;
+	private float relativeY;
+	private float stretchHeight;
 
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	private float x;
+	private float y;
+	private float width;
+	private float height;
 	
 	private boolean isValueRepeating;
 	
@@ -307,7 +307,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public int getX()
+	public float getX()
 	{
 		return x;
 	}
@@ -315,7 +315,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = x;
 	}
@@ -323,7 +323,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = y;
 	}
@@ -331,7 +331,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public int getY()
+	public float getY()
 	{
 		return y;
 	}
@@ -339,7 +339,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -347,7 +347,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		this.width = width;
 	}
@@ -355,7 +355,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
 		this.height = height;
 	}
@@ -363,7 +363,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -594,7 +594,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	protected int getRelativeY()
+	protected float getRelativeY()
 	{
 		return relativeY;
 	}
@@ -602,7 +602,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	protected void setRelativeY(int relativeY)
+	protected void setRelativeY(float relativeY)
 	{
 		this.relativeY = relativeY;
 	}
@@ -610,7 +610,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	protected int getStretchHeight()
+	protected float getStretchHeight()
 	{
 		return stretchHeight;
 	}
@@ -618,7 +618,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	protected void setStretchHeight(int stretchHeight)
+	protected void setStretchHeight(float stretchHeight)
 	{
 		if (stretchHeight > getHeight() || (shrinkable && isRemoveLineWhenBlank()))
 		{
@@ -743,7 +743,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{
@@ -770,7 +770,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	/**
 	 *
 	 */
-	protected void stretchElement(int bandStretch)
+	protected void stretchElement(float bandStretch)
 	{
 		switch (getStretchTypeValue())
 		{
@@ -807,7 +807,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 		if (elements != null && elements.size() > 0)
 		{
 			JRFillElement element = null;
-			int diffY = 0;
+			float diffY = 0;
 			for(Iterator<JRElement> it = elements.iterator(); it.hasNext();)
 			{
 				element = (JRFillElement)it.next();
@@ -1365,7 +1365,7 @@ public abstract class JRFillElement implements JRElement, JRFillCloneable, JRSty
 	}
 
 	@Override
-	public JRElement clone(JRElementGroup parentGroup, int y)
+	public JRElement clone(JRElementGroup parentGroup, float y)
 	{
 		throw new UnsupportedOperationException();
 	}

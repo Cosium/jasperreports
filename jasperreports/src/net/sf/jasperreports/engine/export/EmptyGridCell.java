@@ -37,8 +37,8 @@ public class EmptyGridCell extends JRExporterGridCell
 	 *
 	 */
 	public EmptyGridCell(
-		int width, 
-		int height,
+		float width, 
+		float height,
 		int colSpan, 
 		int rowSpan
 		)

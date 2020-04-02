@@ -77,6 +77,7 @@ import net.sf.jasperreports.engine.util.JRStyledText;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -387,7 +388,7 @@ public class JRPptxExporter extends JRAbstractExporter
 					renderer =
 						new JRWrappingSvgRenderer(
 							renderer,
-							new Dimension(image.getWidth(), image.getHeight()),
+							new FloatDimension(image.getWidth(), image.getHeight()),
 							ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 							);
 				}
@@ -551,10 +552,10 @@ public class JRPptxExporter extends JRAbstractExporter
 	 */
 	protected void exportLine(JRPrintLine line)
 	{
-		int x = line.getX() + getOffsetX();
-		int y = line.getY() + getOffsetY();
-		int height = line.getHeight();
-		int width = line.getWidth();
+		float x = line.getX() + getOffsetX();
+		float y = line.getY() + getOffsetY();
+		float height = line.getHeight();
+		float width = line.getWidth();
 
 		if (width <= 1 || height <= 1)
 		{
@@ -763,16 +764,16 @@ public class JRPptxExporter extends JRAbstractExporter
 			textLength = styledText.length();
 		}
 	
-		int x = 0;
-		int y = 0;
-		int width = 0;
-		int height = 0;
+		float x = 0;
+		float y = 0;
+		float width = 0;
+		float height = 0;
 		int rotation = 0;
 		
-		int leftPadding = text.getLineBox().getLeftPadding();
-		int topPadding = text.getLineBox().getTopPadding();
-		int rightPadding = text.getLineBox().getRightPadding();
-		int bottomPadding = text.getLineBox().getBottomPadding();
+		float leftPadding = text.getLineBox().getLeftPadding();
+		float topPadding = text.getLineBox().getTopPadding();
+		float rightPadding = text.getLineBox().getRightPadding();
+		float bottomPadding = text.getLineBox().getBottomPadding();
 
 		switch (text.getRotationValue())
 		{
@@ -783,7 +784,7 @@ public class JRPptxExporter extends JRAbstractExporter
 				y = text.getY() + getOffsetY() + (text.getHeight() - text.getWidth()) / 2;
 				width = text.getHeight();
 				height = text.getWidth();
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = leftPadding;
 				leftPadding = bottomPadding;
 				bottomPadding = rightPadding;
@@ -797,7 +798,7 @@ public class JRPptxExporter extends JRAbstractExporter
 				y = text.getY() + getOffsetY() + (text.getHeight() - text.getWidth()) / 2;
 				width = text.getHeight();
 				height = text.getWidth();
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = rightPadding;
 				rightPadding = bottomPadding;
 				bottomPadding = leftPadding;
@@ -811,7 +812,7 @@ public class JRPptxExporter extends JRAbstractExporter
 				y = text.getY() + getOffsetY();
 				width = text.getWidth();
 				height = text.getHeight();
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = bottomPadding;
 				bottomPadding = tmpPadding;
 				tmpPadding = leftPadding;
@@ -1023,15 +1024,15 @@ public class JRPptxExporter extends JRAbstractExporter
 	 */
 	public void exportImage(JRPrintImage image) throws JRException
 	{
-		int leftPadding = image.getLineBox().getLeftPadding().intValue();
-		int topPadding = image.getLineBox().getTopPadding().intValue();//FIXMEDOCX maybe consider border thickness
-		int rightPadding = image.getLineBox().getRightPadding().intValue();
-		int bottomPadding = image.getLineBox().getBottomPadding().intValue();
+		float leftPadding = image.getLineBox().getLeftPadding().intValue();
+		float topPadding = image.getLineBox().getTopPadding().intValue();//FIXMEDOCX maybe consider border thickness
+		float rightPadding = image.getLineBox().getRightPadding().intValue();
+		float bottomPadding = image.getLineBox().getBottomPadding().intValue();
 
-		int availableImageWidth = image.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = image.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-		int availableImageHeight = image.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = image.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
 		Renderable renderer = image.getRenderable();
@@ -1056,8 +1057,8 @@ public class JRPptxExporter extends JRAbstractExporter
 
 		if (renderer != null)
 		{
-			int width = availableImageWidth;
-			int height = availableImageHeight;
+			float width = availableImageWidth;
+			float height = availableImageHeight;
 
 			double normalWidth = availableImageWidth;
 			double normalHeight = availableImageHeight;

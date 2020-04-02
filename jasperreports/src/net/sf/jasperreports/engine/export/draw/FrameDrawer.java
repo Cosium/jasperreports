@@ -32,8 +32,8 @@
 package net.sf.jasperreports.engine.export.draw;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -136,7 +136,7 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintFrame frame, int offsetX, int offsetY) throws JRException
+	public void draw(Graphics2D grx, JRPrintFrame frame, float offsetX, float offsetY) throws JRException
 	{
 		setGraphics(grx);
 		
@@ -145,7 +145,7 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 		{
 			oldClipShape = grx.getClip();
 			grx.clip(
-				new Rectangle(
+				new Rectangle2D.Float(
 					frame.getX() + offsetX, 
 					frame.getY() + offsetY, 
 					frame.getWidth(), 
@@ -157,12 +157,11 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 		if (frame.getModeValue() == ModeEnum.OPAQUE)
 		{
 			grx.setColor(frame.getBackcolor());
-			grx.fillRect(
+			grx.fill(new Rectangle2D.Float(
 				frame.getX() + offsetX, 
 				frame.getY() + offsetY, 
 				frame.getWidth(),
-				frame.getHeight()
-				);
+				frame.getHeight()));
 		}
 
 		grx.setColor(frame.getForecolor());//FIXMENOW is this needed?
@@ -189,7 +188,7 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, Collection<JRPrintElement> elements, int offsetX, int offsetY) throws JRException
+	public void draw(Graphics2D grx, Collection<JRPrintElement> elements, float offsetX, float offsetY) throws JRException
 	{
 		setGraphics(grx);
 		
@@ -258,7 +257,7 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 	/**
 	 *
 	 */
-	private void setFrameElementsOffset(JRPrintFrame frame, int offsetX, int offsetY)
+	private void setFrameElementsOffset(JRPrintFrame frame, float offsetX, float offsetY)
 	{	
 		setElementOffsets(
 			offsetX + frame.getX() + frame.getLineBox().getLeftPadding().intValue(), 
@@ -270,7 +269,7 @@ public class FrameDrawer extends ElementDrawer<JRPrintFrame>
 	/**
 	 *
 	 */
-	private void setElementOffsets(int offsetX, int offsetY)
+	private void setElementOffsets(float offsetX, float offsetY)
 	{
 		elementOffsetStack.addLast(elementOffset);
 		

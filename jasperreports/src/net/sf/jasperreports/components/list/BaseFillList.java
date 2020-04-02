@@ -47,14 +47,14 @@ import org.apache.commons.logging.LogFactory;
  * Base fill list component implementation.
  * 
  * @author Lucian Chirita (lucianc@users.sourceforge.net)
- * @version $Id$
+ * @version $Id: BaseFillList.java 5564 2012-08-10 12:17:33Z teodord $
  */
 public abstract class BaseFillList extends BaseFillComponent
 {
 	
 	private static final Log log = LogFactory.getLog(BaseFillList.class);
 	
-	protected final int contentsHeight;
+	protected final float contentsHeight;
 	protected final FillDatasetRun datasetRun;
 	
 	protected Map<JRStyle, JRTemplateFrame> printFrameTemplates = new HashMap<JRStyle, JRTemplateFrame>();
@@ -167,8 +167,8 @@ public abstract class BaseFillList extends BaseFillComponent
 	protected static class AppendingPrintElementContainer implements JRPrintElementContainer
 	{
 		private final JRPrintElementContainer container;
-		private final int initialContainerHeight;
-		private int xOffset;
+		private final float initialContainerHeight;
+		private float xOffset;
 
 		public AppendingPrintElementContainer(JRPrintElementContainer container)
 		{
@@ -192,21 +192,21 @@ public abstract class BaseFillList extends BaseFillComponent
 			return container.getElements();
 		}
 
-		public int getHeight()
+		public float getHeight()
 		{
 			throw new UnsupportedOperationException();
 		}
 
-		public void setHeight(int height)
+		public void setHeight(float height)
 		{
-			int newHeight = initialContainerHeight + height;
+			float newHeight = initialContainerHeight + height;
 			if (newHeight > container.getHeight())
 			{
 				container.setHeight(newHeight);
 			}
 		}
 
-		public void setXOffset(int xOffset)
+		public void setXOffset(float xOffset)
 		{
 			this.xOffset = xOffset;
 		}

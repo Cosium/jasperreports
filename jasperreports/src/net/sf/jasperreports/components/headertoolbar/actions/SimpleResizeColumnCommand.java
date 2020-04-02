@@ -33,11 +33,11 @@ import net.sf.jasperreports.web.commands.Command;
 public class SimpleResizeColumnCommand implements Command 
 {
 	private StandardBaseColumn column;
-	private int oldWidth;
-	private int width;
+	private float oldWidth;
+	private float width;
 	
 
-	public SimpleResizeColumnCommand(StandardBaseColumn column, int width) 
+	public SimpleResizeColumnCommand(StandardBaseColumn column, float width) 
 	{
 		this.column = column;
 		this.width = width;

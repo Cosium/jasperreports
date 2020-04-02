@@ -64,10 +64,10 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	protected JRTemplateElement template;
 
 	private UUID uuid;
-	private int x;
-	private int y;
-	private int height;
-	private int width;
+	private float x;
+	private float y;
+	private float height;
+	private float width;
 
 	private JRPropertiesMap properties;
 	private int sourceElementId;
@@ -175,7 +175,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getX()
+	public float getX()
 	{
 		return x;
 	}
@@ -183,7 +183,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = x;
 	}
@@ -191,7 +191,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getY()
+	public float getY()
 	{
 		return y;
 	}
@@ -199,7 +199,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = y;
 	}
@@ -207,7 +207,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -215,7 +215,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		this.width = width;
 	}
@@ -223,7 +223,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -231,7 +231,7 @@ public class JRTemplatePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
 		this.height = height;
 	}

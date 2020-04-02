@@ -88,7 +88,7 @@ public class SortComponentFill extends BaseFillComponent {
 		return printElement;
 	}
 
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		FillPrepareResult result = null;
 		

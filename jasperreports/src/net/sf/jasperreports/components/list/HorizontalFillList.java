@@ -45,7 +45,7 @@ public class HorizontalFillList extends BaseFillList
 	
 	private static final Log log = LogFactory.getLog(HorizontalFillList.class);
 	
-	private final int contentsWidth;
+	private final float contentsWidth;
 	private final boolean ignoreWidth;
 	private final List<FillListContents> contentsList;
 
@@ -57,7 +57,7 @@ public class HorizontalFillList extends BaseFillList
 		super(component, factory);
 		
 		ListContents listContents = component.getContents();
-		this.contentsWidth = listContents.getWidth().intValue();
+		this.contentsWidth = listContents.getWidth();
 		
 		Boolean listIgnoreWidth = component.getIgnoreWidth();
 		this.ignoreWidth = listIgnoreWidth != null && listIgnoreWidth.booleanValue();
@@ -70,7 +70,7 @@ public class HorizontalFillList extends BaseFillList
 		this.contentsList.add(fillContents);
 	}
 
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		createPrintFrame();
 		try
@@ -118,7 +118,7 @@ public class HorizontalFillList extends BaseFillList
 			// also breaks when there are no more records, see below
 			while(!overflow)
 			{
-				int contentsAvailableHeight = availableHeight 
+				float contentsAvailableHeight = availableHeight 
 						- printFrame.getHeight();
 				if (contentsAvailableHeight < contentsHeight)
 				{
@@ -269,11 +269,11 @@ public class HorizontalFillList extends BaseFillList
 			new AppendingPrintElementContainer(printFrame);
 
 		// compute the row height
-		int rowHeight = 0;
+		float rowHeight = 0;
 		for (int idx = 0; idx < columnCount; ++idx)
 		{
 			FillListContents contents = contentsList.get(idx);
-			int cellHeight = contents.getStretchHeight();
+			float cellHeight = contents.getStretchHeight();
 			if (cellHeight > rowHeight)
 			{
 				rowHeight = cellHeight;

@@ -35,7 +35,7 @@ import net.sf.jasperreports.engine.JRElementGroup;
 public interface Cell extends JRElementGroup, JRBoxContainer
 {
 
-	Integer getHeight();
+	Float getHeight();
 	
 	Integer getRowSpan();
 	

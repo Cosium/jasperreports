@@ -47,6 +47,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jfree.ui.FloatDimension;
+
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRException;
@@ -377,7 +379,7 @@ public abstract class JROpenDocumentExporter extends JRAbstractExporter
 					renderer =
 						new JRWrappingSvgRenderer(
 							renderer,
-							new Dimension(image.getWidth(), image.getHeight()),
+							new FloatDimension(image.getWidth(), image.getHeight()),
 							ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 							);
 				}
@@ -454,7 +456,7 @@ public abstract class JROpenDocumentExporter extends JRAbstractExporter
 		{
 			int emptyCellColSpan = 0;
 			//int emptyCellWidth = 0;
-			int rowHeight = gridLayout.getRowHeight(row);
+			float rowHeight = gridLayout.getRowHeight(row);
 
 			tableBuilder.buildRowStyle(row, rowHeight);
 			tableBuilder.buildRowHeader(row);

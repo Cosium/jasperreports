@@ -90,6 +90,7 @@ import net.sf.jasperreports.engine.util.JRStyledText;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -167,7 +168,7 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 	
 	protected JasperPrint currentSheetJasperPrint;	
 	
-	protected Integer currentSheetPageScale;	
+	protected Float currentSheetPageScale;	
 	
 	protected Integer currentSheetFirstPageNumber;		
 	
@@ -689,7 +690,7 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 						renderer =
 							new JRWrappingSvgRenderer(
 								renderer,
-								new Dimension(image.getWidth(), image.getHeight()),
+								new FloatDimension(image.getWidth(), image.getHeight()),
 								ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 								);
 					}
@@ -908,10 +909,10 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 		int rightPadding =
 			Math.max(image.getLineBox().getRightPadding().intValue(), getImageBorderCorrection(image.getLineBox().getRightPen()));
 
-		int availableImageWidth = image.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = image.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-		int availableImageHeight = image.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = image.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
 		cellHelper.exportHeader(gridCell, rowIndex, colIndex);
@@ -938,8 +939,8 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 
 		if (renderer != null)
 		{
-			int width = availableImageWidth;
-			int height = availableImageHeight;
+			float width = availableImageWidth;
+			float height = availableImageHeight;
 
 			double normalWidth = availableImageWidth;
 			double normalHeight = availableImageHeight;
@@ -1498,7 +1499,7 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 	}
 
 
-	protected void setColumnWidth(int col, int width, boolean autoFit) 
+	protected void setColumnWidth(int col, float width, boolean autoFit) 
 	{
 		sheetHelper.exportColumn(col, width, autoFit);
 	}
@@ -1511,7 +1512,7 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 
 	protected void setRowHeight(
 			int rowIndex, 
-			int rowHeight,
+			float rowHeight,
 			Cut yCut,
 			XlsRowLevelInfo levelInfo
 			) throws JRException 
@@ -1565,7 +1566,7 @@ public class JRXlsxExporter extends JRXlsAbstractExporter
 		this.macroTemplate = macroTemplate;
 	}
 	
-	protected void setScale(Integer scale)
+	protected void setScale(Float scale)
 	{
 		/* nothing to do here; it's already done in the abstract exporter */
 	}

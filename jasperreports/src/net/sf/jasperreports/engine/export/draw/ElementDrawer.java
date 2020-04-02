@@ -35,6 +35,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
@@ -88,13 +89,13 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 	/**
 	 *
 	 */
-	public abstract void draw(Graphics2D grx, T element, int offsetX, int offsetY) throws JRException;
+	public abstract void draw(Graphics2D grx, T element, float offsetX, float offsetY) throws JRException;
 	
 	
 	/**
 	 *
 	 */
-	protected void drawBox(Graphics2D grx, JRLineBox box, JRPrintElement element, int offsetX, int offsetY)
+	protected void drawBox(Graphics2D grx, JRLineBox box, JRPrintElement element, float offsetX, float offsetY)
 	{
 		drawTopPen(
 			grx, 
@@ -138,7 +139,7 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 	/**
 	 *
 	 */
-	protected void drawPen(Graphics2D grx, JRPen pen, JRPrintElement element, int offsetX, int offsetY)
+	protected void drawPen(Graphics2D grx, JRPen pen, JRPrintElement element, float offsetX, float offsetY)
 	{
 		drawTopPen(grx, pen, pen, pen, element, offsetX, offsetY);
 		drawLeftPen(grx, pen, pen, pen, element, offsetX, offsetY);
@@ -156,12 +157,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 		JRPen leftPen, 
 		JRPen rightPen, 
 		JRPrintElement element, 
-		int offsetX, 
-		int offsetY
+		float offsetX, 
+		float offsetY
 		)
 	{
 		Stroke topStroke = JRPenUtil.getStroke(topPen, BasicStroke.CAP_BUTT);
-		int width = element.getWidth();
+		float width = element.getWidth();
 		float leftOffset = leftPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(leftPen);
 		float rightOffset = rightPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(rightPen);
 		
@@ -185,12 +186,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						/ width, 
 					1
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					width,
 					0
-					);
+					));
 
 				grx.setTransform(oldTx);
 
@@ -206,12 +207,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						1
 						);
 				}
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					width,
 					0
-					);
+					));
 			}
 			else
 			{
@@ -224,12 +225,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						/ width, 
 					1
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					width,
 					0
-					);
+					));
 			}
 			
 			grx.setTransform(oldTx);
@@ -246,12 +247,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 		JRPen leftPen, 
 		JRPen bottomPen, 
 		JRPrintElement element, 
-		int offsetX, 
-		int offsetY
+		float offsetX, 
+		float offsetY
 		)
 	{
 		Stroke leftStroke = JRPenUtil.getStroke(leftPen, BasicStroke.CAP_BUTT);
-		int height = element.getHeight();
+		float height = element.getHeight();
 		float topOffset = topPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(topPen);
 		float bottomOffset = bottomPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(bottomPen);
 		
@@ -275,12 +276,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						(height + (topOffset + bottomOffset)) 
 							/ height 
 						);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					0,
 					height
-					);
+					));
 
 				grx.setTransform(oldTx);
 
@@ -296,12 +297,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 							/ height
 						);
 				}
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					0,
 					height
-					);
+					));
 			}
 			else
 			{
@@ -314,12 +315,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 					(height + topOffset + bottomOffset) 
 						/ height
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0, 
 					0,
 					height
-					);
+					));
 			}
 
 			grx.setTransform(oldTx);
@@ -336,13 +337,13 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 		JRPen bottomPen, 
 		JRPen rightPen, 
 		JRPrintElement element, 
-		int offsetX, 
-		int offsetY
+		float offsetX, 
+		float offsetY
 		)
 	{
 		Stroke bottomStroke = JRPenUtil.getStroke(bottomPen, BasicStroke.CAP_BUTT);
-		int width = element.getWidth();
-		int height = element.getHeight();
+		float width = element.getWidth();
+		float height = element.getHeight();
 		float leftOffset = leftPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(leftPen);
 		float rightOffset = rightPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(rightPen);
 		
@@ -366,12 +367,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						/ width, 
 					1
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0,
 					width,
 					0
-					);
+					));
 
 				grx.setTransform(oldTx);
 
@@ -387,12 +388,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						1
 						);
 				}
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0,
 					width,
 					0
-					);
+					));
 			}
 			else
 			{
@@ -405,12 +406,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 						/ width, 
 					1
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0, 
 					0,
 					width,
 					0
-					);
+					));
 			}
 
 			grx.setTransform(oldTx);
@@ -427,13 +428,13 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 		JRPen bottomPen, 
 		JRPen rightPen, 
 		JRPrintElement element, 
-		int offsetX, 
-		int offsetY
+		float offsetX, 
+		float offsetY
 		)
 	{
 		Stroke rightStroke = JRPenUtil.getStroke(rightPen, BasicStroke.CAP_BUTT);
-		int height = element.getHeight();
-		int width = element.getWidth();
+		float height = element.getHeight();
+		float width = element.getWidth();
 		float topOffset = topPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(topPen);
 		float bottomOffset = bottomPen.getLineWidth().floatValue() / 2 - BorderOffset.getOffset(bottomPen);
 		
@@ -457,12 +458,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 					(height + topOffset + bottomOffset) 
 						/ height 
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0,
 					0,
 					0,
 					height
-					);
+					));
 
 				grx.setTransform(oldTx);
 
@@ -478,12 +479,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 							/ height 
 						);
 				}
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0,
 					0,
 					0,
 					height
-					);
+					));
 			}
 			else
 			{
@@ -496,12 +497,12 @@ public abstract class ElementDrawer<T extends JRPrintElement>
 					(height + topOffset + bottomOffset) 
 						/ height 
 					);
-				grx.drawLine(
+				grx.draw(new Line2D.Float(
 					0,
 					0,
 					0,
 					height
-					);
+					));
 			}
 
 			grx.setTransform(oldTx);

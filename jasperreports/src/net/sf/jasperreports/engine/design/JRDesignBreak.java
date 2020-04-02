@@ -71,7 +71,7 @@ public class JRDesignBreak extends JRDesignElement implements JRBreak
 	/**
 	 *
 	 */
-	public int getX()
+    public float getX()
 	{
 		return 0;
 	}
@@ -79,7 +79,7 @@ public class JRDesignBreak extends JRDesignElement implements JRBreak
 	/**
 	 *
 	 */
-	public int getHeight()
+    public float getHeight()
 	{
 		return 1;
 	}

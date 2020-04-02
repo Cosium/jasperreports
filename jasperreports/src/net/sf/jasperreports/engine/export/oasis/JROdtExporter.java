@@ -206,17 +206,17 @@ public class JROdtExporter extends JROpenDocumentExporter
 		int rightPadding = 
 			Math.max(image.getLineBox().getRightPadding().intValue(), Math.round(image.getLineBox().getRightPen().getLineWidth().floatValue()));
 
-		int availableImageWidth = image.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = image.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-		int availableImageHeight = image.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = image.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
-		int width = availableImageWidth;
-		int height = availableImageHeight;
+		float width = availableImageWidth;
+		float height = availableImageHeight;
 
-		int xoffset = 0;
-		int yoffset = 0;
+		float xoffset = 0;
+		float yoffset = 0;
 
 		tableBuilder.buildCellHeader(styleCache.getCellStyle(gridCell), gridCell.getColSpan(), gridCell.getRowSpan());
 

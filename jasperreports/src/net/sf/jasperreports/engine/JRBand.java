@@ -46,7 +46,7 @@ public interface JRBand extends JRElementGroup
 	/**
 	 *
 	 */
-	public int getHeight();
+	public float getHeight();
 
 	/**
 	 * Specifies the band split behavior.

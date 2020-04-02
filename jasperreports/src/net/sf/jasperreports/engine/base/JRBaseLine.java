@@ -73,7 +73,7 @@ public class JRBaseLine extends JRBaseGraphicElement implements JRLine
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+    public void setWidth(float width)
 	{
 		if (width == 0)
 		{

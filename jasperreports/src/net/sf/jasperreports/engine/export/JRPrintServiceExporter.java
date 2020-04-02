@@ -357,8 +357,8 @@ public class JRPrintServiceExporter extends JRAbstractExporter implements Printa
 	{
 		if (!printRequestAttributeSet.containsKey(MediaPrintableArea.class))
 		{
-			int printableWidth;
-			int printableHeight;
+			float printableWidth;
+			float printableHeight;
 			switch (jPrint.getOrientationValue())
 			{
 				case LANDSCAPE:

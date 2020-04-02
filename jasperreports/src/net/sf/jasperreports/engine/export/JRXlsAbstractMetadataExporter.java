@@ -710,21 +710,21 @@ public abstract class JRXlsAbstractMetadataExporter extends JRXlsAbstractExporte
 
 	protected abstract void closeWorkbook(OutputStream os) throws JRException;
 
-	protected void setColumnWidth(int col, int width)
+	protected void setColumnWidth(int col, float width)
 	{
 		setColumnWidth(col, width, false);
 	}
 
-	protected abstract void setColumnWidth(int col, int width, boolean autoFit);
+	protected abstract void setColumnWidth(int col, float width, boolean autoFit);
 
 	protected abstract void removeColumn(int col);
 
-	protected void setRowHeight(int rowIndex, int lastRowHeight) throws JRException
+	protected void setRowHeight(int rowIndex, float lastRowHeight) throws JRException
 	{
 		setRowHeight(rowIndex, lastRowHeight, null, null);
 	}
 
-	protected abstract void setRowHeight(int rowIndex, int lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException;
+	protected abstract void setRowHeight(int rowIndex, float lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException;
 
 	protected abstract void exportText(JRPrintText textElement) throws JRException;
 

@@ -102,12 +102,12 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 *
 	 */
 	private String name;
-	private int pageWidth;
-	private int pageHeight;
-	private Integer topMargin;
-	private Integer leftMargin;
-	private Integer bottomMargin;
-	private Integer rightMargin;
+	private float pageWidth;
+	private float pageHeight;
+	private Float topMargin;
+	private Float leftMargin;
+	private Float bottomMargin;
+	private Float rightMargin;
 	private OrientationEnum orientationValue = OrientationEnum.PORTRAIT;
 
 	private Map<String, JRStyle> stylesMap = new HashMap<String, JRStyle>();
@@ -159,7 +159,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the page width
 	 */
-	public int getPageWidth()
+	public float getPageWidth()
 	{
 		return pageWidth;
 	}
@@ -169,7 +169,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param pageWidth page width
 	 */
-	public void setPageWidth(int pageWidth)
+	public void setPageWidth(float pageWidth)
 	{
 		this.pageWidth = pageWidth;
 	}
@@ -177,7 +177,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the page height.
 	 */
-	public int getPageHeight()
+	public float getPageHeight()
 	{
 		return pageHeight;
 	}
@@ -187,7 +187,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param pageHeight page height
 	 */
-	public void setPageHeight(int pageHeight)
+	public void setPageHeight(float pageHeight)
 	{
 		this.pageHeight = pageHeight;
 	}
@@ -195,7 +195,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the top page margin
 	 */
-	public Integer getTopMargin()
+	public Float getTopMargin()
 	{
 		return topMargin;
 	}
@@ -205,7 +205,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param topMargin top page margin
 	 */
-	public void setTopMargin(Integer topMargin)
+	public void setTopMargin(Float topMargin)
 	{
 		this.topMargin = topMargin;
 	}
@@ -213,7 +213,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the left page margin
 	 */
-	public Integer getLeftMargin()
+	public Float getLeftMargin()
 	{
 		return leftMargin;
 	}
@@ -223,7 +223,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param leftMargin left page margin
 	 */
-	public void setLeftMargin(Integer leftMargin)
+	public void setLeftMargin(Float leftMargin)
 	{
 		this.leftMargin = leftMargin;
 	}
@@ -231,7 +231,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the bottom page margin
 	 */
-	public Integer getBottomMargin()
+	public Float getBottomMargin()
 	{
 		return bottomMargin;
 	}
@@ -241,7 +241,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param bottomMargin bottom page margin
 	 */
-	public void setBottomMargin(Integer bottomMargin)
+	public void setBottomMargin(Float bottomMargin)
 	{
 		this.bottomMargin = bottomMargin;
 	}
@@ -249,7 +249,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	/**
 	 * @return Returns the right page margin
 	 */
-	public Integer getRightMargin()
+	public Float getRightMargin()
 	{
 		return rightMargin;
 	}
@@ -259,7 +259,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 	 * 
 	 * @param rightMargin right page margin
 	 */
-	public void setRightMargin(Integer rightMargin)
+	public void setRightMargin(Float rightMargin)
 	{
 		this.rightMargin = rightMargin;
 	}
@@ -556,7 +556,7 @@ public class JasperPrint implements Serializable, JRPropertiesHolder
 		return anchorIndexes;
 	}
 
-	protected void collectAnchors(Collection<JRPrintElement> elements, int pageIndex, int offsetX, int offsetY)
+	protected void collectAnchors(Collection<JRPrintElement> elements, int pageIndex, float offsetX, float offsetY)
 	{
 		if (elements != null && elements.size() > 0)
 		{

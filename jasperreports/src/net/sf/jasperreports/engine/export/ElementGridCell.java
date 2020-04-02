@@ -38,8 +38,8 @@ public class ElementGridCell extends JRExporterGridCell
 	 */
 	public ElementGridCell(
 		ElementWrapper wrapper, 
-		int width, 
-		int height,
+		float width, 
+		float height,
 		int colSpan, 
 		int rowSpan
 		)

@@ -202,14 +202,14 @@ public class JRXlsAbstractExporterNature extends AbstractExporterNature
 		return null;
 	}
 
-	public Integer getCustomColumnWidth(JRPrintElement element) {
+	public Float getCustomColumnWidth(JRPrintElement element) {
 		if (element.hasProperties()
 			&& element.getPropertiesMap().containsProperty(JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH)
 			)
 		{
 			// we make this test to avoid reaching the global default value of the property directly
 			// and thus skipping the report level one, if present
-			return getPropertiesUtil().getIntegerProperty(element, JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH, 0);
+			return getPropertiesUtil().getFloatProperty(element, JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH, 0);
 		}
 		return null;
 	}
@@ -249,7 +249,7 @@ public class JRXlsAbstractExporterNature extends AbstractExporterNature
 			return null;
 	}
 	
-	public Integer getPageScale(JRPrintElement element)
+	public Float getPageScale(JRPrintElement element)
 	{
 		if (element.hasProperties()
 				&& element.getPropertiesMap().containsProperty(JRXlsAbstractExporter.PROPERTY_PAGE_SCALE)
@@ -257,7 +257,7 @@ public class JRXlsAbstractExporterNature extends AbstractExporterNature
 			{
 				// we make this test to avoid reaching the global default value of the property directly
 				// and thus skipping the report level one, if present
-				return getPropertiesUtil().getIntegerProperty(element, JRXlsAbstractExporter.PROPERTY_PAGE_SCALE, 0);
+				return getPropertiesUtil().getFloatProperty(element, JRXlsAbstractExporter.PROPERTY_PAGE_SCALE, 0);
 			}
 			return null;
 	}
@@ -294,8 +294,8 @@ public class JRXlsAbstractExporterNature extends AbstractExporterNature
 			}
 		}
 
-		Integer columnCustomWidth = getCustomColumnWidth(element);
-		Integer cutColumnCustomWidth = (Integer)cutProperties.get(JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH);
+		Float columnCustomWidth = getCustomColumnWidth(element);
+		Float cutColumnCustomWidth = (Float)cutProperties.get(JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH);
 		if (columnCustomWidth != null && (cutColumnCustomWidth == null || cutColumnCustomWidth < columnCustomWidth))
 		{
 			cutProperties.put(JRXlsAbstractExporter.PROPERTY_COLUMN_WIDTH, columnCustomWidth);
@@ -321,7 +321,7 @@ public class JRXlsAbstractExporterNature extends AbstractExporterNature
 			xCutsProperties.put(JRXlsAbstractExporterParameter.PROPERTY_SHEET_NAME, sheetName);
 		}
 
-		Integer pageScale = getPageScale(element);
+		Float pageScale = getPageScale(element);
 		if(pageScale != null && pageScale > 9 && pageScale < 401)
 		{
 			xCutsProperties.put(JRXlsAbstractExporter.PROPERTY_PAGE_SCALE, pageScale);

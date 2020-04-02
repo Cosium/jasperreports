@@ -110,9 +110,9 @@ public abstract class JRDesignElement extends JRBaseElement
 	/**
 	 * Sets the vertical section relative offset for the element.
 	 */
-	public void setY(int y)
+	public void setY(float y)
 	{
-		int old = this.y;
+		float old = this.y;
 		this.y = y;
 		getEventSupport().firePropertyChange(PROPERTY_Y, old, this.y);
 	}
@@ -120,9 +120,9 @@ public abstract class JRDesignElement extends JRBaseElement
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
-		int old = this.height;
+		float old = this.height;
 		this.height = height;
 		getEventSupport().firePropertyChange(PROPERTY_HEIGHT, old, this.height);
 	}

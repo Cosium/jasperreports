@@ -48,7 +48,7 @@ public abstract class MaxFontSizeFinder//FIXMETAB deprecate?
 			/**
 			 * 
 			 */
-			public int findMaxFontSize(AttributedCharacterIterator line, int defaultFontSize)
+            public float findMaxFontSize(AttributedCharacterIterator line, float defaultFontSize)
 			{
 				line.setIndex(0);
 				Float maxFontSize = ZERO;
@@ -78,7 +78,7 @@ public abstract class MaxFontSizeFinder//FIXMETAB deprecate?
 			/**
 			 * 
 			 */
-			public int findMaxFontSize(AttributedCharacterIterator line, int defaultFontSize)
+            public float findMaxFontSize(AttributedCharacterIterator line, float defaultFontSize)
 			{
 				return defaultFontSize;
 			}
@@ -101,5 +101,5 @@ public abstract class MaxFontSizeFinder//FIXMETAB deprecate?
 	/**
 	 * 
 	 */
-	public abstract int findMaxFontSize(AttributedCharacterIterator line, int defaultFontSize);
+	public abstract float findMaxFontSize(AttributedCharacterIterator line, float defaultFontSize);
 }

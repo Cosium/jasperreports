@@ -528,7 +528,7 @@ public class JRVerifier
 	 * @param bottomMargin the page bottom margin
 	 */
 	public static void verifyBandHeights(Collection<JRValidationFault> brokenRules, JRReport report,
-			int pageHeight, int topMargin, int bottomMargin)
+			float pageHeight, float topMargin, float bottomMargin)
 	{
 		if (
 			topMargin +
@@ -1981,12 +1981,12 @@ public class JRVerifier
 					rightPadding = box.getRightPadding().intValue();
 				}
 
-				int cellWidth = contents.getWidth();
+				float cellWidth = contents.getWidth();
 				boolean widthCalculated = cellWidth != JRCellContents.NOT_CALCULATED;
-				int avlblWidth = cellWidth - leftPadding - rightPadding;
-				int cellHeight = contents.getHeight();
+				float avlblWidth = cellWidth - leftPadding - rightPadding;
+				float cellHeight = contents.getHeight();
 				boolean heightCalculated = cellHeight != JRCellContents.NOT_CALCULATED;
-				int avlblHeight = cellHeight - topPadding - bottomPadding;
+				float avlblHeight = cellHeight - topPadding - bottomPadding;
 
 				for (int i = 0; i < elements.length; i++)
 				{
@@ -2193,8 +2193,8 @@ public class JRVerifier
 			int bottomPadding = frame.getLineBox().getBottomPadding().intValue();
 			int rightPadding = frame.getLineBox().getRightPadding().intValue();
 
-			int avlblWidth = frame.getWidth() - leftPadding - rightPadding;
-			int avlblHeight = frame.getHeight() - topPadding - bottomPadding;
+			float avlblWidth = frame.getWidth() - leftPadding - rightPadding;
+			float avlblHeight = frame.getHeight() - topPadding - bottomPadding;
 
 			for (int i = 0; i < elements.length; i++)
 			{
@@ -2568,9 +2568,9 @@ public class JRVerifier
 		}
 	}
 
-	private static int getBreakHeight(JRBand band)
+	private static float getBreakHeight(JRBand band)
 	{
-		int breakHeight = 0;
+		float breakHeight = 0;
 
 		if (band != null)
 		{
@@ -2584,7 +2584,7 @@ public class JRVerifier
 				for(int i = 0; i < elements.length; i++)
 				{
 					JRElement element = elements[i];
-					int bottom = element.getY() + element.getHeight();
+					float bottom = element.getY() + element.getHeight();
 					breakHeight = bottom < breakHeight ? bottom : breakHeight;
 				}
 			}

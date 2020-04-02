@@ -23,13 +23,14 @@
  */
 package net.sf.jasperreports.engine;
 
-import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.batik.ext.awt.geom.Polygon2D;
 
 
 /**
@@ -113,7 +114,7 @@ public class JRPrintImageArea implements Serializable
 	}
 	
 	private byte shape = SHAPE_DEFAULT;
-	private int[] coordinates;
+	private float[] coordinates;
 	
 	private transient Shape cachedAWTShape;
 	
@@ -158,7 +159,7 @@ public class JRPrintImageArea implements Serializable
 	 * 
 	 * @return the shape coordinates
 	 */
-	public int[] getCoordinates()
+	public float[] getCoordinates()
 	{
 		return coordinates;
 	}
@@ -169,7 +170,7 @@ public class JRPrintImageArea implements Serializable
 	 * 
 	 * @param coordinates the shape coordinates
 	 */
-	public void setCoordinates(int[] coordinates)
+	public void setCoordinates(float[] coordinates)
 	{
 		this.coordinates = coordinates;
 	}
@@ -242,7 +243,7 @@ public class JRPrintImageArea implements Serializable
 			throw new JRRuntimeException("A rectangle must have exactly 4 coordinates");
 		}
 		
-		return new Rectangle(
+		return new Rectangle2D.Float(
 				coordinates[0], 
 				coordinates[1], 
 				coordinates[2] - coordinates[0],
@@ -268,7 +269,7 @@ public class JRPrintImageArea implements Serializable
 			throw new JRRuntimeException("A polygon must have an even number of coordinates");
 		}
 		
-		Polygon polygon = new Polygon();
+		Polygon2D polygon = new Polygon2D();
 		
 		int i;
 		for (i = 0; i < coordinates.length - 2; i += 2)

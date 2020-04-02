@@ -49,7 +49,7 @@ public class CompiledCell extends JRBaseElementGroup implements Cell
 	protected String styleNameReference;
 	private JRLineBox box;
 	private Integer rowSpan;
-	private Integer height;
+	private Float height;
 	
 	public CompiledCell()
 	{
@@ -70,7 +70,7 @@ public class CompiledCell extends JRBaseElementGroup implements Cell
 		this.height = cell.getHeight();
 	}
 
-	public Integer getHeight()
+	public Float getHeight()
 	{
 		return height;
 	}

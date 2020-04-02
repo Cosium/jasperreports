@@ -33,8 +33,8 @@ package net.sf.jasperreports.engine.export.draw;
 public class Offset
 {
 
-	private final int x;
-	private final int y;
+	private final float x;
+	private final float y;
 	
 	/**
 	 * Creates an offset object.
@@ -42,7 +42,7 @@ public class Offset
 	 * @param x the horizontal offset
 	 * @param y the vertical offset
 	 */
-	public Offset(int x, int y)
+	public Offset(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
@@ -53,7 +53,7 @@ public class Offset
 	 * 
 	 * @return the horizontal offset
 	 */
-	public int getX()
+	public float getX()
 	{
 		return x;
 	}
@@ -63,7 +63,7 @@ public class Offset
 	 * 
 	 * @return the vertical offset
 	 */
-	public int getY()
+	public float getY()
 	{
 		return y;
 	}

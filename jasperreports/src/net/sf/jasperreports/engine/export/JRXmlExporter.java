@@ -28,7 +28,6 @@
  */
 package net.sf.jasperreports.engine.export;
 
-import java.awt.Dimension;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -96,6 +95,7 @@ import net.sf.jasperreports.engine.xml.XmlValueHandlerUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 import org.w3c.tools.codec.Base64Encoder;
 
 
@@ -835,7 +835,7 @@ public class JRXmlExporter extends JRAbstractExporter
 				renderer = 
 					new JRWrappingSvgRenderer(
 						renderer, 
-						new Dimension(image.getWidth(), image.getHeight()),
+						new FloatDimension(image.getWidth(), image.getHeight()),
 						ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 						);
 			}

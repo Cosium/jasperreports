@@ -94,7 +94,7 @@ public interface FillContext extends JRFillExpressionEvaluator
 	 * 
 	 * @return the position on the vertical axis of the component element
 	 */
-	int getElementPrintY();
+	float getElementPrintY();
 	
 	/**
 	 * Returns the current style of the component element.

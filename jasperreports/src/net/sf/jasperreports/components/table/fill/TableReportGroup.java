@@ -115,7 +115,7 @@ public class TableReportGroup implements JRGroup
 		return headerSection;
 	}
 
-	public int getMinHeightToStartNewPage()
+	public float getMinHeightToStartNewPage()
 	{
 		return 0;
 	}
@@ -160,7 +160,7 @@ public class TableReportGroup implements JRGroup
 		throw new UnsupportedOperationException();
 	}
 
-	public void setMinHeightToStartNewPage(int minHeight)
+	public void setMinHeightToStartNewPage(float minHeight)
 	{
 		throw new UnsupportedOperationException();
 	}

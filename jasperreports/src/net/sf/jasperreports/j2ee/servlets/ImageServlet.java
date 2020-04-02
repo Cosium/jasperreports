@@ -23,7 +23,6 @@
  */
 package net.sf.jasperreports.j2ee.servlets;
 
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,6 +30,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.jfree.ui.FloatDimension;
 
 import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRException;
@@ -103,7 +104,7 @@ public class ImageServlet extends BaseHttpServlet
 				renderer = 
 					new JRWrappingSvgRenderer(
 						renderer, 
-						new Dimension(image.getWidth(), image.getHeight()),
+						new FloatDimension(image.getWidth(), image.getHeight()),
 						ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 						);
 			}

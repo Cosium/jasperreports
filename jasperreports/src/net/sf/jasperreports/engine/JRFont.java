@@ -143,22 +143,22 @@ public interface JRFont extends JRStyleContainer
 	/**
 	 *
 	 */
-	public int getFontSize();
+	public float getFontSize();
 	
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize();
+	public Float getOwnFontSize();
 	
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize);
+	public void setFontSize(float fontSize);
 
 	/**
 	 *
 	 */
-	public void setFontSize(Integer fontSize);
+	public void setFontSize(Float fontSize);
 
 	/**
 	 *

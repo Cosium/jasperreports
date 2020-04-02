@@ -59,7 +59,7 @@ public class JRBaseBand extends JRBaseElementGroup implements JRBand, JRChangeEv
 	/**
 	 *
 	 */
-	protected int height;
+	protected float height;
 	protected SplitTypeEnum splitTypeValue;
 
 	/**
@@ -85,7 +85,7 @@ public class JRBaseBand extends JRBaseElementGroup implements JRBand, JRChangeEv
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}

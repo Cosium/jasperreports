@@ -130,7 +130,7 @@ public class JdkGlyphFixTextMeasurer extends TextMeasurer
 	 * Calls {@link TextMeasurer#measure(JRStyledText, int, int, boolean) super.measure}, catches
 	 * <code>sun.font.GlyphLayout</code> NPEs and reattempts the call.
 	 */
-	public JRMeasuredText measure(JRStyledText styledText, int remainingTextStart, int availableStretchHeight, boolean canOverflow)
+	public JRMeasuredText measure(JRStyledText styledText, int remainingTextStart, float availableStretchHeight, boolean canOverflow)
 	{
 		int count = 0;
 		do

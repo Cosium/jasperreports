@@ -32,6 +32,7 @@
 package net.sf.jasperreports.engine.export.draw;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRPrintText;
@@ -81,7 +82,7 @@ public class TextDrawer extends ElementDrawer<JRPrintText>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintText text, int offsetX, int offsetY)
+	public void draw(Graphics2D grx, JRPrintText text, float offsetX, float offsetY)
 	{
 		textRenderer.initialize(grx, text, offsetX, offsetY);
 		
@@ -122,7 +123,7 @@ public class TextDrawer extends ElementDrawer<JRPrintText>
 		if (text.getModeValue() == ModeEnum.OPAQUE)
 		{
 			grx.setColor(text.getBackcolor());
-			grx.fillRect(textRenderer.getX(), textRenderer.getY(), textRenderer.getWidth(), textRenderer.getHeight()); 
+			grx.fill(new Rectangle2D.Float(textRenderer.getX(), textRenderer.getY(), textRenderer.getWidth(), textRenderer.getHeight())); 
 		}
 //		else
 //		{

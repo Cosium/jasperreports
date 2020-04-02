@@ -666,7 +666,7 @@ public class JRFillSubreport extends JRFillElement implements JRSubreport
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{
@@ -1038,9 +1038,9 @@ public class JRFillSubreport extends JRFillElement implements JRSubreport
 	{
 		if (!filler.fillContext.isIgnorePagination())
 		{
-			int pageHeight;
-			int topMargin = jasperReport.getTopMargin();
-			int bottomMargin = jasperReport.getBottomMargin();
+			float pageHeight;
+			float topMargin = jasperReport.getTopMargin();
+			float bottomMargin = jasperReport.getBottomMargin();
 			
 			JRBaseFiller parentFiller = filler;
 			do
@@ -1163,7 +1163,7 @@ public class JRFillSubreport extends JRFillElement implements JRSubreport
 		return runnerFactoryCache.getCachedInstance(factoryClassName);
 	}
 
-	protected int getContentsStretchHeight()
+	protected float getContentsStretchHeight()
 	{
 		return subreportFiller.getCurrentPageStretchHeight();
 	}

@@ -40,6 +40,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -481,7 +483,7 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, viewerContext.getJasperPrint());
 			exporter.setParameter(JRGraphics2DExporterParameter.GRAPHICS_2D, grx.create());
 			exporter.setParameter(JRExporterParameter.PAGE_INDEX, Integer.valueOf(viewerContext.getPageIndex()));
-			exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, new Float(realZoom));
+			exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, realZoom);
 			exporter.setParameter(JRExporterParameter.OFFSET_X, Integer.valueOf(1)); //lblPage border
 			exporter.setParameter(JRExporterParameter.OFFSET_Y, Integer.valueOf(1));
 			exporter.exportReport();
@@ -531,10 +533,10 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 		}
 	}
 
-	protected void drawPageError(Graphics grx)
+	protected void drawPageError(Graphics2D grx)
 	{
 		grx.setColor(Color.white);
-		grx.fillRect(0, 0, viewerContext.getJasperPrint().getPageWidth() + 1, viewerContext.getJasperPrint().getPageHeight() + 1);
+		grx.fill(new Rectangle2D.Float(0, 0, viewerContext.getJasperPrint().getPageWidth() + 1, viewerContext.getJasperPrint().getPageHeight() + 1));
 	}
 
 	class PageRenderer extends JLabel
@@ -778,7 +780,7 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 		createHyperlinks(page.getElements(), 0, 0);
 	}
 
-	protected void createHyperlinks(List<JRPrintElement> elements, int offsetX, int offsetY)
+	protected void createHyperlinks(List<JRPrintElement> elements, float offsetX, float offsetY)
 	{
 		if(elements != null && elements.size() > 0)
 		{
@@ -815,7 +817,7 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 					JPanel link;
 					if (hasImageMap)
 					{
-						Rectangle renderingArea = new Rectangle(0, 0, element.getWidth(), element.getHeight());
+						Rectangle2D renderingArea = new Rectangle2D.Float(0, 0, element.getWidth(), element.getHeight());
 						link = new ImageMapPanel(renderingArea, imageMap);
 					}
 					else //hasImageMap
@@ -856,8 +858,8 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 				if (element instanceof JRPrintFrame)
 				{
 					JRPrintFrame frame = (JRPrintFrame) element;
-					int frameOffsetX = offsetX + frame.getX() + frame.getLineBox().getLeftPadding().intValue();
-					int frameOffsetY = offsetY + frame.getY() + frame.getLineBox().getTopPadding().intValue();
+					float frameOffsetX = offsetX + frame.getX() + frame.getLineBox().getLeftPadding().intValue();
+					float frameOffsetY = offsetY + frame.getY() + frame.getLineBox().getTopPadding().intValue();
 					createHyperlinks(frame.getElements(), frameOffsetX, frameOffsetY);
 				}
 			}
@@ -871,7 +873,7 @@ public class JRViewerPanel extends JPanel implements JRHyperlinkListener, JRView
 
 		protected final List<JRPrintImageAreaHyperlink> imageAreaHyperlinks;
 
-		public ImageMapPanel(Rectangle renderingArea, ImageMapRenderable imageMap)
+		public ImageMapPanel(Rectangle2D renderingArea, ImageMapRenderable imageMap)
 		{
 			try
 			{

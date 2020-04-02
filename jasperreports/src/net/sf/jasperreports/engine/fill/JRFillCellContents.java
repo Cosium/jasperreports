@@ -68,11 +68,11 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	
 	private JRLineBox lineBox;
 	
-	private int height;
-	private int width;
+	private float height;
+	private float width;
 	
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	private int verticalSpan;
 	private CrosstabRowPositionEnum verticalPositionType = CrosstabRowPositionEnum.TOP;
 	private int horizontalSpan;
@@ -81,7 +81,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	
 	private JRDefaultStyleProvider defaultStyleProvider;
 	private JRStyle initStyle;
-	private int prepareStretchHeight;
+	private float prepareStretchHeight;
 
 	public JRFillCellContents(JRBaseFiller filler, JRCellContents cell, String cellType, 
 			JRFillCrosstabObjectFactory factory)
@@ -175,25 +175,25 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		initTemplatesMap();
 	}
 	
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
 	
 	
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
 	
 	
-	protected void setHeight(int height)
+	protected void setHeight(float height)
 	{
 		this.height = height;
 	}
 	
 	
-	protected void setWidth(int width)
+	protected void setWidth(float width)
 	{
 		this.width = width;
 	}
@@ -248,7 +248,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	
 	
 	public JRFillCellContents getTransformedContents(
-			int newWidth, int newHeight,
+			float newWidth, float newHeight,
 			CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition) throws JRException
 	{
 		if ((getHeight() == newHeight) && 
@@ -277,7 +277,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	}
 	
 	
-	private void transform(int newWidth, int newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
+	private void transform(float newWidth, float newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
 	{
 		transformElements(newWidth, newHeight, xPosition, yPosition);
 		
@@ -285,7 +285,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		height = newHeight;
 	}
 
-	private void transformElements(int newWidth, int newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
+	private void transformElements(float newWidth, float newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
 	{
 		if ((height == newHeight || yPosition == CrosstabRowPositionEnum.TOP) && 
 				(width == newWidth || xPosition == CrosstabColumnPositionEnum.LEFT))
@@ -294,7 +294,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		}
 
 		double scaleX =  -1d;
-		int offsetX = 0;
+		float offsetX = 0;
 		switch (xPosition)
 		{
 			case CENTER:
@@ -309,7 +309,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		}
 		
 		double scaleY =  -1d;
-		int offsetY = 0;
+		float offsetY = 0;
 		switch (yPosition)
 		{
 			case MIDDLE:
@@ -326,7 +326,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		transformElements(getElements(), scaleX, offsetX, scaleY, offsetY);
 	}
 
-	private static void transformElements(JRElement[] elements, double scaleX, int offsetX, double scaleY, int offsetY)
+	private static void transformElements(JRElement[] elements, double scaleX, float offsetX, double scaleY, float offsetY)
 	{
 		if (elements != null)
 		{
@@ -336,8 +336,8 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 				
 				if (scaleX != -1d)
 				{
-					element.setX((int) (element.getX() * scaleX));
-					element.setWidth((int) (element.getWidth() * scaleX));
+					element.setX((float) (element.getX() * scaleX));
+					element.setWidth((float) (element.getWidth() * scaleX));
 				}
 				
 				if (offsetX != 0)
@@ -347,8 +347,8 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 				
 				if (scaleY != -1d)
 				{
-					element.setY((int) (element.getY() * scaleY));
-					element.setHeight((int) (element.getHeight() * scaleY));
+					element.setY((float) (element.getY() * scaleY));
+					element.setHeight((float) (element.getHeight() * scaleY));
 				}
 				
 				if (offsetY != 0)
@@ -366,7 +366,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	}
 	
 	
-	protected void prepare(int availableHeight) throws JRException
+	protected void prepare(float availableHeight) throws JRException
 	{
 		initFill();
 		resetElements();
@@ -407,13 +407,13 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		if (verticalSpan > 1)
 		{
 			printCell.getPropertiesMap().setProperty(
-					JRCellContents.PROPERTY_ROW_SPAN, Integer.toString(verticalSpan));
+					JRCellContents.PROPERTY_ROW_SPAN, Float.toString(verticalSpan));
 		}
 		
 		if (horizontalSpan > 1)
 		{
 			printCell.getPropertiesMap().setProperty(
-					JRCellContents.PROPERTY_COLUMN_SPAN, Integer.toString(horizontalSpan));
+					JRCellContents.PROPERTY_COLUMN_SPAN, Float.toString(horizontalSpan));
 		}
 	}
 
@@ -442,7 +442,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	
 	protected void verticallyPositionElements(JRTemplatePrintFrame printCell)
 	{
-		int positionOffset;
+        float positionOffset;
 		
 		switch (verticalPositionType)
 		{
@@ -461,7 +461,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		{
 			List<JRPrintElement> printElements = printCell.getElements();
 			
-			int positionY = getStretchHeight() - positionOffset;
+			float positionY = getStretchHeight() - positionOffset;
 			boolean outside = false;
 			for (Iterator<JRPrintElement> it = printElements.iterator(); !outside && it.hasNext();)
 			{
@@ -480,12 +480,12 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		}
 	}
 
-	protected int getPrintHeight()
+	protected float getPrintHeight()
 	{
 		return getStretchHeight() + getTopPadding() + getBottomPadding();
 	}
 
-	protected void stretchTo(int stretchHeight)
+	protected void stretchTo(float stretchHeight)
 	{
 		setStretchHeight(stretchHeight - getTopPadding() - getBottomPadding());
 	}
@@ -530,22 +530,22 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 	
 	protected static class StretchedContents
 	{
-		final int newHeight;
-		final int newWidth;
+		final float newHeight;
+		final float newWidth;
 		final int hashCode;
 		final CrosstabColumnPositionEnum xPosition;
 		final CrosstabRowPositionEnum yPosition;
 		
 		StretchedContents(
-				int newWidth, int newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
+				float newWidth, float newHeight, CrosstabColumnPositionEnum xPosition, CrosstabRowPositionEnum yPosition)
 		{
 			this.newHeight = newHeight;
 			this.newWidth = newWidth;
 			this.xPosition = xPosition;
 			this.yPosition = yPosition;
 			
-			int hash = newHeight;
-			hash = 31*hash + newWidth;
+			int hash = (int)newHeight;
+			hash = (int)(31*hash + newWidth);
 			hash = 31*hash + xPosition.getValue();
 			hash = 31*hash + yPosition.getValue();
 			hashCode = hash;
@@ -571,7 +571,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		}
 	}
 
-	protected int getContainerHeight()
+    protected float getContainerHeight()
 	{
 		return getHeight() - getTopPadding() - getBottomPadding();
 	}
@@ -609,12 +609,12 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		original.clonePool.releaseClone(this);
 	}
 
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = x;
 	}
 
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = y;
 	}
@@ -634,7 +634,7 @@ public class JRFillCellContents extends JRFillElementContainer implements JRCell
 		this.verticalPositionType = positionType;
 	}
 	
-	public int getHorizontalSpan()
+	public float getHorizontalSpan()
 	{
 		return horizontalSpan;
 	}

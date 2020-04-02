@@ -69,7 +69,7 @@ public class ResizeColumnCommand implements Command
 		
 		StandardColumn modColumn = (StandardColumn) tableColumns.get(modIndex);
 		
-		int deltaWidth = resizeColumnData.getWidth() - modColumn.getWidth();
+		float deltaWidth = resizeColumnData.getWidth() - modColumn.getWidth();
 		int startX = 0;
 		List<BaseColumn> allColumns = TableUtil.getAllColumns(table);
 		if (allColumns != null)
@@ -96,7 +96,7 @@ public class ResizeColumnCommand implements Command
 		resizeColumn(modColumn, modColumn.getWidth(), deltaWidth);
 	}
 	
-	private void resizeColumn(BaseColumn column, int startX, int amount) throws CommandException 
+	private void resizeColumn(BaseColumn column, float startX, float amount) throws CommandException 
 	{
 		if (amount < -startX)
 		{
@@ -130,14 +130,14 @@ public class ResizeColumnCommand implements Command
 		}
 	}
 
-	private void resizeChildren(JRElementGroup elementGroup, int startX, int amount) throws CommandException 
+	private void resizeChildren(JRElementGroup elementGroup, float startX, float amount) throws CommandException 
 	{
 		if (elementGroup != null && startX >= 0) 
 		{
 			for (JRChild child: elementGroup.getChildren()) 
 			{
-				int childStartX = startX;
-				int childAmount = amount;
+				float childStartX = startX;
+				float childAmount = amount;
 				if (child instanceof JRFrame)
 				{
 					childStartX = startX - ((JRFrame)child).getX();
@@ -147,8 +147,8 @@ public class ResizeColumnCommand implements Command
 				{
 					JRBaseElement be = (JRBaseElement) child;
 
-					int resizeAmount = 0;
-					int moveAmount = 0;
+					float resizeAmount = 0;
+					float moveAmount = 0;
 
 					if (startX <= be.getX())
 					{

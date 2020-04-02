@@ -96,7 +96,7 @@ public class DocxTableHelper extends BaseHelper
 		write("   </w:tblGrid>\n");
 	}
 	
-	public void exportFooter(boolean lastPage, int pageWidth, int pageHeight) 
+	public void exportFooter(boolean lastPage, float pageWidth, float pageHeight) 
 	{
 		write("  </w:tbl>\n");
 		if (lastPage)
@@ -113,7 +113,7 @@ public class DocxTableHelper extends BaseHelper
 		}
 	}
 	
-	public void exportRowHeader(int rowHeight, boolean allowRowResize) 
+	public void exportRowHeader(float rowHeight, boolean allowRowResize) 
 	{
 		write("   <w:tr>\n");
 		write("    <w:trPr>\n");

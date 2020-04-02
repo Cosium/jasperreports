@@ -48,7 +48,7 @@ public interface JRTextMeasurer
 	 */
 	JRMeasuredText measure(JRStyledText styledText,
 			int remainingTextStart,
-			int availableStretchHeight,
+			float availableStretchHeight,
 			boolean canOverflow);
 
 }

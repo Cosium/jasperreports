@@ -138,25 +138,25 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 
 	protected RunDirectionEnum columnDirection = RunDirectionEnum.LTR;
 
-	protected int pageWidth;
+	protected float pageWidth;
 
-	protected int pageHeight;
+	protected float pageHeight;
 
 	protected OrientationEnum orientation = OrientationEnum.PORTRAIT;
 
 	protected WhenNoDataTypeEnum whenNoDataType = WhenNoDataTypeEnum.NO_PAGES;
 
-	protected int columnWidth;
+	protected float columnWidth;
 
-	protected int columnSpacing;
+	protected float columnSpacing;
 
-	protected int leftMargin;
+	protected float leftMargin;
 
-	protected int rightMargin;
+	protected float rightMargin;
 
-	protected int topMargin;
+	protected float topMargin;
 
-	protected int bottomMargin;
+	protected float bottomMargin;
 
 	protected boolean isTitleNewPage;
 
@@ -229,7 +229,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 
 	protected JRPrintPage printPage;
 
-	protected int printPageStretchHeight;
+	protected float printPageStretchHeight;
 
 	/**
 	 * List of {@link JRFillBand JRFillBand} objects containing all bands of the
@@ -289,11 +289,11 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 
 	protected int columnIndex;
 
-	protected int offsetX;
-	protected int offsetY;
-	protected int columnHeaderOffsetY;
-	protected int columnFooterOffsetY;
-	protected int lastPageColumnFooterOffsetY;
+	protected float offsetX;
+	protected float offsetY;
+	protected float columnHeaderOffsetY;
+	protected float columnFooterOffsetY;
+	protected float lastPageColumnFooterOffsetY;
 
 	protected boolean isLastPageFooter;
 
@@ -789,7 +789,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 	/**
 	 *
 	 */
-	protected int getCurrentPageStretchHeight()
+	protected float getCurrentPageStretchHeight()
 	{
 		return printPageStretchHeight;
 	}
@@ -797,7 +797,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 	/**
 	 *
 	 */
-	protected abstract void setPageHeight(int pageHeight);
+	protected abstract void setPageHeight(float pageHeight);
 
 	
 	/**
@@ -1327,7 +1327,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 	protected void setVirtualPageSize(Map<String, Object> parameterValues)
 	{
 		// see if we have a parameter for the page size
-		Integer virtualPageSize = (Integer) parameterValues.get(
+		Float virtualPageSize = (Float) parameterValues.get(
 				JRVirtualPrintPage.PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE);
 		if (virtualPageSize == null)
 		{
@@ -1336,7 +1336,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 					JRVirtualPrintPage.PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE);
 			if (pageSizeProp != null)
 			{
-				virtualPageSize = JRPropertiesUtil.asInteger(pageSizeProp);
+				virtualPageSize = JRPropertiesUtil.asFloat(pageSizeProp);
 			}
 		}
 		
@@ -1399,7 +1399,7 @@ public abstract class JRBaseFiller implements JRDefaultStyleProvider
 					groups[i].setStartNewColumn(false);
 				}
 			}
-			setPageHeight(Integer.MAX_VALUE);
+			setPageHeight(Float.MAX_VALUE);
 		}
 	}
 
@@ -2229,11 +2229,11 @@ class SavePoint
 	protected int columnIndex;
 	protected boolean isNewPage;
 	protected boolean isNewColumn;
-	protected int startOffsetY;
-	protected int endOffsetY;
+	protected float startOffsetY;
+	protected float endOffsetY;
 	protected int startElementIndex;
 	protected int endElementIndex;
-	protected int heightOffset;
+	protected float heightOffset;
 	protected int groupIndex;
 	protected FooterPositionEnum footerPosition = FooterPositionEnum.NORMAL;
 	protected List<JRPrintElement> elementsToMove = new ArrayList<JRPrintElement>();
@@ -2243,7 +2243,7 @@ class SavePoint
 		int columnIndex,
 		boolean isNewPage,
 		boolean isNewColumn,
-		int startOffsetY
+		float startOffsetY
 		)
 	{
 		this.page = page;
@@ -2257,14 +2257,14 @@ class SavePoint
 		this.startOffsetY = startOffsetY;
 	}
 	
-	protected void saveHeightOffset(int heightOffset)
+	protected void saveHeightOffset(float heightOffset)
 	{
 		this.heightOffset = heightOffset;
 		
 		save();
 	}
 	
-	protected void saveEndOffsetY(int endOffsetY)
+	protected void saveEndOffsetY(float endOffsetY)
 	{
 		this.endOffsetY = endOffsetY;
 		
@@ -2290,7 +2290,7 @@ class SavePoint
 	/**
 	 *
 	 */
-	protected void addContent(JRPrintPage printPage, int xdelta, int ydelta)
+	protected void addContent(JRPrintPage printPage, float xdelta, float ydelta)
 	{
 		for(int i = elementsToMove.size() - 1; i >= 0; i--)// elementsToMove were added in reverse order
 		{

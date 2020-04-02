@@ -308,7 +308,7 @@ class ElementsBlock implements JRVirtualizable<VirtualElementsData>, ElementStor
 		int elementCount = DeepPrintElementCounter.count(element);
 		if (!force && !elements.isEmpty())
 		{
-			int pageSize = context.getPageElementSize();
+			float pageSize = context.getPageElementSize();
 			if (pageSize > 0 && deepElementCount + elementCount > pageSize)
 			{
 				if (log.isDebugEnabled())

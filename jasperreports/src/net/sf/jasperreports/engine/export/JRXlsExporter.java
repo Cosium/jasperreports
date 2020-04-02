@@ -35,6 +35,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.TextAttribute;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -115,6 +116,7 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -445,11 +447,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 	}
 
-	protected void setColumnWidth(int col, int width, boolean autoFit)
+	protected void setColumnWidth(int col, float width, boolean autoFit)
 	{
 		if (!autoFit)
 		{
-			sheet.setColumnWidth(col, Math.min(43 * width, 256*255));
+			sheet.setColumnWidth(col, Math.min((int)(43 * width), 256*255));
 		}
 	}
 
@@ -461,7 +463,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 	}
 
-	protected void setRowHeight(int rowIndex, int lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo)
+	protected void setRowHeight(int rowIndex, float lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo)
 	{
 		row = sheet.getRow(rowIndex);
 		
@@ -1297,21 +1299,21 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	{
 		try
 		{
-			int topPadding =
+			float topPadding =
 				Math.max(element.getLineBox().getTopPadding().intValue(), getImageBorderCorrection(element.getLineBox().getTopPen()));
-			int leftPadding =
+			float leftPadding =
 				Math.max(element.getLineBox().getLeftPadding().intValue(), getImageBorderCorrection(element.getLineBox().getLeftPen()));
-			int bottomPadding =
+			float bottomPadding =
 				Math.max(element.getLineBox().getBottomPadding().intValue(), getImageBorderCorrection(element.getLineBox().getBottomPen()));
-			int rightPadding =
+			float rightPadding =
 				Math.max(element.getLineBox().getRightPadding().intValue(), getImageBorderCorrection(element.getLineBox().getRightPen()));
 
 			//pngEncoder.setImage( null );
 
-			int availableImageWidth = element.getWidth() - leftPadding - rightPadding;
+			float availableImageWidth = element.getWidth() - leftPadding - rightPadding;
 			availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-			int availableImageHeight = element.getHeight() - topPadding - bottomPadding;
+			float availableImageHeight = element.getHeight() - topPadding - bottomPadding;
 			availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
 			Renderable renderer = element.getRenderable();
@@ -1337,7 +1339,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					renderer =
 						new JRWrappingSvgRenderer(
 							renderer,
-							new Dimension(element.getWidth(), element.getHeight()),
+							new FloatDimension(element.getWidth(), element.getHeight()),
 							ModeEnum.OPAQUE == element.getModeValue() ? element.getBackcolor() : null
 							);
 				}
@@ -1349,8 +1351,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 
 			if (renderer != null)
 			{
-				int normalWidth = availableImageWidth;
-				int normalHeight = availableImageHeight;
+				float normalWidth = availableImageWidth;
+				float normalHeight = availableImageHeight;
 
 				Dimension2D dimension = renderer.getDimension(jasperReportsContext);
 				if (dimension != null)
@@ -1402,10 +1404,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 				}
 
 				byte[] imageData = null;
-				int topOffset = 0;
-				int leftOffset = 0;
-				int bottomOffset = 0;
-				int rightOffset = 0;
+				float topOffset = 0;
+				float leftOffset = 0;
+				float bottomOffset = 0;
+				float rightOffset = 0;
 				
 				switch (element.getScaleImageValue())
 				{
@@ -1424,7 +1426,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 						Graphics2D grx = bi.createGraphics();
 						grx.scale(scale, scale);
 						grx.clip(
-							new Rectangle(
+							new Rectangle2D.Float(
 								0,
 								0,
 								availableImageWidth,
@@ -1435,7 +1437,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 						renderer.render(
 							jasperReportsContext,
 							grx,
-							new Rectangle(
+							new Rectangle2D.Float(
 								(int) (xalignFactor * (availableImageWidth - normalWidth)),
 								(int) (yalignFactor * (availableImageHeight - normalHeight)),
 								normalWidth,
@@ -1565,7 +1567,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	/**
 	 *
 	 */
-	protected double getColumnRelativePosition(JRGridLayout layout, int col, int offset)
+	protected double getColumnRelativePosition(JRGridLayout layout, int col, float offset)
 	{
 		double colRelPos = 0;
 		
@@ -1573,7 +1575,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		int colIndex = 0;
 		while(cumulativeColWidth < offset)
 		{
-			int colWidth = layout.getColumnWidth(col + colIndex);
+			float colWidth = layout.getColumnWidth(col + colIndex);
 			if (cumulativeColWidth + colWidth < offset)
 			{
 				colIndex++;
@@ -1591,16 +1593,16 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	/**
 	 *
 	 */
-	protected double getRowRelativePosition(JRGridLayout layout, int row, int offset)
+	protected double getRowRelativePosition(JRGridLayout layout, int row, float offset)
 	{
 		double rowRelPos = 0;
 		
 		//isCollapseRowSpan
-		int cumulativeRowHeight = 0;
+		float cumulativeRowHeight = 0;
 		int rowIndex = 0;
 		while(cumulativeRowHeight < offset)
 		{
-			int rowHeight = isCollapseRowSpan ? layout.getMaxRowHeight(row + rowIndex) : layout.getRowHeight(row + rowIndex);
+			float rowHeight = isCollapseRowSpan ? layout.getMaxRowHeight(row + rowIndex) : layout.getRowHeight(row + rowIndex);
 			if (cumulativeRowHeight + rowHeight < offset)
 			{
 				rowIndex++;
@@ -1934,7 +1936,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 	}
 	
-	protected void setScale(Integer scale)
+	protected void setScale(Float scale)
 	{
 		if (isValidScale(scale))
 		{

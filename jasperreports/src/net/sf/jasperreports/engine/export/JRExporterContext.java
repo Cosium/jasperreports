@@ -80,12 +80,12 @@ public interface JRExporterContext
 	 * 
 	 * @return the current X-axis offset
 	 */
-	int getOffsetX();
+	float getOffsetX();
 
 	/**
 	 * Returns the current Y-axis offset at which elements should be exported.
 	 * 
 	 * @return the current Y-axis offset
 	 */
-	int getOffsetY();
+	float getOffsetY();
 }

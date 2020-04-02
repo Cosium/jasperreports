@@ -23,7 +23,7 @@
  */
 package net.sf.jasperreports.components.table.util;
 
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class TableUtil
 	public static final int COLUMN_GROUP_FOOTER = 6;
 	
 	private TableComponent table;
-	private Map<Cell, Rectangle> boundsMap = new HashMap<Cell, Rectangle>();
+	private Map<Cell, Rectangle2D.Float> boundsMap = new HashMap<Cell, Rectangle2D.Float>();
 	private JasperDesign jasperDesign;
 
 	public TableUtil(TableComponent table, JasperDesign jasperDesign) {
@@ -72,7 +72,7 @@ public class TableUtil
 		init(table);
 	}
 
-	public Map<Cell, Rectangle> getCellBounds() {
+	public Map<Cell, Rectangle2D.Float> getCellBounds() {
 		return boundsMap;
 	}
 
@@ -84,21 +84,23 @@ public class TableUtil
 		boundsMap.clear();
 
 		List<BaseColumn> allColumns = getAllColumns(table.getColumns());
-		int y = 0;
-		int h = 0;
-		Rectangle r = new Rectangle(0, 0, 0, 0);
+		float y = 0;
+		float h = 0;
+		Rectangle2D.Float r = new Rectangle2D.Float(0, 0, 0, 0);
+//		Rectangle2D.Float rTemp = (Rectangle2D.Float)r;
 		for (BaseColumn bc : table.getColumns()) {
 			r = initHeader(r, bc, TABLE_HEADER, null);
-			r.setLocation(r.x , y);
+//			r.setLocation(r.x , y);
+			r.setRect(r.x, y, r.width, r.height);
 			if (h < r.height)
 				h = r.height;
 		}
 		y += h;
-		r = new Rectangle(0, y, 0, 0);
+		r = new Rectangle2D.Float(0, y, 0, 0);
 		h = 0;
 		for (BaseColumn bc : table.getColumns()) {
 			r = initHeader(r, bc, COLUMN_HEADER, null);
-			r.setLocation(r.x, y);
+			r.setRect(r.x, y, r.width, r.height);
 			if (h < r.height)
 				h = r.height;
 		}
@@ -108,22 +110,22 @@ public class TableUtil
 			for (Iterator<?> it = groupsList.iterator(); it.hasNext();) {
 				JRGroup jrGroup = (JRGroup) it.next();
 				y += h;
-				r = new Rectangle(0, y, 0, 0);
+				r = new Rectangle2D.Float(0, y, 0, 0);
 				h = 0;
 				for (BaseColumn bc : table.getColumns()) {
 					r = initHeader(r, bc, COLUMN_GROUP_HEADER, jrGroup.getName());
-					r.setLocation(r.x, y);
+					r.setRect(r.x, y, r.width, r.height);
 					if (h < r.height)
 						h = r.height;
 				}
 			}
 
 		y += h;
-		r = new Rectangle(0, y, 0, 0);
+		r = new Rectangle2D.Float(0, y, 0, 0);
 		h = 0;
 		for (BaseColumn bc : allColumns) {
 			r = initDetail(r, bc);
-			r.setLocation(r.x, y);
+			r.setRect(r.x, y, r.width, r.height);
 			if (h < r.height)
 				h = r.height;
 		}
@@ -132,30 +134,30 @@ public class TableUtil
 			for (ListIterator<?> it = groupsList.listIterator(groupsList.size()); it.hasPrevious();) {
 				JRGroup jrGroup = (JRGroup) it.previous();
 				y += h;
-				r = new Rectangle(0, y, 0, 0);
+				r = new Rectangle2D.Float(0, y, 0, 0);
 				h = 0;
 				for (BaseColumn bc : table.getColumns()) {
 					r = initFooter(r, bc, COLUMN_GROUP_FOOTER, jrGroup.getName());
-					r.setLocation(r.x, y);
+					r.setRect(r.x, y, r.width, r.height);
 					if (h < r.height)
 						h = r.height;
 				}
 			}
 
 		y += h;
-		r = new Rectangle(0, y, 0, 0);
+		r = new Rectangle2D.Float(0, y, 0, 0);
 		h = 0;
 		for (BaseColumn bc : table.getColumns()) {
 			r = initFooter(r, bc, COLUMN_FOOTER, null);
-			r.setLocation(r.x, y);
+			r.setRect(r.x, y, r.width, r.height);
 			if (h < r.height)
 				h = r.height;
 		}
 		y += h;
-		r = new Rectangle(0, y, 0, 0);
+		r = new Rectangle2D.Float(0, y, 0, 0);
 		for (BaseColumn bc : table.getColumns()) {
 			r = initFooter(r, bc, TABLE_FOOTER, null);
-			r.setLocation(r.x, y);
+			r.setRect(r.x, y, r.width, r.height);
 		}
 	}
 
@@ -174,54 +176,54 @@ public class TableUtil
 		return lst;
 	}
 
-	private Rectangle initDetail(Rectangle p, BaseColumn bc) {
-		int h = 0;
-		int w = 0;
+	private Rectangle2D.Float initDetail(Rectangle2D.Float p, BaseColumn bc) {
+		float h = 0;
+		float w = 0;
 		if (bc != null && bc instanceof Column) {
 			Cell c = ((Column) bc).getDetailCell();
 			w = bc.getWidth();
 			if (c != null)
 				h = c.getHeight();
-			boundsMap.put(c, new Rectangle(p.x, p.y, w, h));
+			boundsMap.put(c, new Rectangle2D.Float(p.x, p.y, w, h));
 		}
-		return new Rectangle(p.x + w, p.y, w, h);
+		return new Rectangle2D.Float(p.x + w, p.y, w, h);
 	}
 
-	private Rectangle initHeader(Rectangle p, BaseColumn bc, int type, String grName) {
-		int y = p.y;
-		int h = 0;
-		int w = bc.getWidth();
+	private Rectangle2D.Float initHeader(Rectangle2D.Float p, BaseColumn bc, int type, String grName) {
+		float y = p.y;
+		float h = 0;
+		float w = bc.getWidth();
 		Cell c = getCell(bc, type, grName);
 		if (c != null) {
 			y = p.y + c.getHeight();
 			h = c.getHeight();
-			boundsMap.put(c, new Rectangle(p.x, p.y, w, h));
+			boundsMap.put(c, new Rectangle2D.Float(p.x, p.y, w, h));
 		}
 		if (bc instanceof ColumnGroup) {
-			Rectangle pi = new Rectangle(p.x, y, w, h);
-			int hi = 0;
+			Rectangle2D.Float pi = new Rectangle2D.Float(p.x, y, w, h);
+			float hi = 0;
 			for (BaseColumn bcg : ((ColumnGroup) bc).getColumns()) {
 				pi = initHeader(pi, bcg, type, grName);
-				pi.setLocation(pi.x, y);
+				pi.setRect(pi.x, y, pi.width, pi.height);
 				if (hi < pi.height)
 					hi = pi.height;
 			}
 			h += hi;
 		}
-		return new Rectangle(p.x + w, y, w, h);
+		return new Rectangle2D.Float(p.x + w, y, w, h);
 	}
 
-	private Rectangle initFooter(Rectangle p, BaseColumn bc, int type, String grName) {
-		int y = p.y;
-		int h = 0;
-		int w = bc.getWidth();
+	private Rectangle2D.Float initFooter(Rectangle2D.Float p, BaseColumn bc, int type, String grName) {
+		float y = p.y;
+		float h = 0;
+		float w = bc.getWidth();
 		Cell c = getCell(bc, type, grName);
 		if (bc instanceof ColumnGroup) {
-			Rectangle pi = new Rectangle(p.x, y, w, h);
-			int hi = 0;
+			Rectangle2D.Float pi = new Rectangle2D.Float(p.x, y, w, h);
+			float hi = 0;
 			for (BaseColumn bcg : ((ColumnGroup) bc).getColumns()) {
 				pi = initFooter(pi, bcg, type, grName);
-				pi.setLocation(pi.x, y);
+				pi.setRect(pi.x, y, pi.width, pi.height);
 				if (hi < pi.height)
 					hi = pi.height;
 			}
@@ -230,18 +232,18 @@ public class TableUtil
 		if (c != null) {
 			y = p.y + h;
 			h = c.getHeight();
-			boundsMap.put(c, new Rectangle(p.x, y, w, h));
+			boundsMap.put(c, new Rectangle2D.Float(p.x, y, w, h));
 		}
-		return new Rectangle(p.x + w, y, w, h);
+		return new Rectangle2D.Float(p.x + w, y, w, h);
 	}
 
-	public Rectangle getBounds(int width, Cell cell, BaseColumn col) {
-		Rectangle b = boundsMap.get(cell);
+	public Rectangle2D.Float getBounds(float width, Cell cell, BaseColumn col) {
+		Rectangle2D.Float b = boundsMap.get(cell);
 		if (b != null)
 			return b;
-		int w = col != null ? col.getWidth() : 0;
-		int h = cell != null ? cell.getHeight() : 0;
-		return new Rectangle(0, 0, w, h);
+		float w = col != null ? col.getWidth() : 0;
+		float h = cell != null ? cell.getHeight() : 0;
+		return new Rectangle2D.Float(0, 0, w, h);
 	}
 
 	public List<?> getGroupList() {

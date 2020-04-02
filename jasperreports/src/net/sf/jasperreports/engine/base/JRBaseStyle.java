@@ -151,7 +151,7 @@ public class JRBaseStyle implements JRStyle, Serializable, JRChangeEventsSupport
 	protected Boolean isItalic;
 	protected Boolean isUnderline;
 	protected Boolean isStrikeThrough;
-	protected Integer fontSize;
+	protected Float fontSize;
 	protected String pdfFontName;
 	protected String pdfEncoding;
 	protected Boolean isPdfEmbedded;
@@ -530,12 +530,12 @@ public class JRBaseStyle implements JRStyle, Serializable, JRChangeEventsSupport
 		return isStrikeThrough;
 	}
 
-	public Integer getFontSize()
+	public Float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
 
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return fontSize;
 	}
@@ -853,15 +853,15 @@ public class JRBaseStyle implements JRStyle, Serializable, JRChangeEventsSupport
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize)
+	public void setFontSize(float fontSize)
 	{
-		setFontSize(Integer.valueOf(fontSize));
+		setFontSize(new Float(fontSize));
 	}
 
 	/**
 	 *
 	 */
-	public void setFontSize(Integer fontSize)
+	public void setFontSize(Float fontSize)
 	{
 		Object old = this.fontSize;
 		this.fontSize = fontSize;

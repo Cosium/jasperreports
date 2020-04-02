@@ -32,9 +32,9 @@
 package net.sf.jasperreports.engine.export.draw;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
@@ -73,18 +73,18 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintImage printImage, int offsetX, int offsetY) throws JRException
+	public void draw(Graphics2D grx, JRPrintImage printImage, float offsetX, float offsetY) throws JRException
 	{
 		if (printImage.getModeValue() == ModeEnum.OPAQUE)
 		{
 			grx.setColor(printImage.getBackcolor());
 
-			grx.fillRect(
+			grx.fill(new Rectangle2D.Float(
 				printImage.getX() + offsetX, 
 				printImage.getY() + offsetY, 
 				printImage.getWidth(),
 				printImage.getHeight()
-				);
+				));
 		}
 
 		int topPadding = printImage.getLineBox().getTopPadding().intValue();
@@ -92,10 +92,10 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 		int bottomPadding = printImage.getLineBox().getBottomPadding().intValue();
 		int rightPadding = printImage.getLineBox().getRightPadding().intValue();
 		
-		int availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = (availableImageWidth < 0)?0:availableImageWidth;
 
-		int availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = (availableImageHeight < 0)?0:availableImageHeight;
 		
 		Renderable renderer = printImage.getRenderable();
@@ -124,8 +124,8 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 
 		if (renderer != null)
 		{
-			int normalWidth = availableImageWidth;
-			int normalHeight = availableImageHeight;
+			float normalWidth = availableImageWidth;
+			float normalHeight = availableImageHeight;
 
 			Dimension2D dimension = renderer.getDimension(getJasperReportsContext());
 			if (dimension != null)
@@ -180,13 +180,13 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 			{
 				case CLIP :
 				{
-					int xoffset = (int)(xalignFactor * (availableImageWidth - normalWidth));
-					int yoffset = (int)(yalignFactor * (availableImageHeight - normalHeight));
+					float xoffset = (xalignFactor * (availableImageWidth - normalWidth));
+					float yoffset = (yalignFactor * (availableImageHeight - normalHeight));
 
 					Shape oldClipShape = grx.getClip();
 
 					grx.clip(
-						new Rectangle(
+						new Rectangle2D.Float(
 							printImage.getX() + leftPadding + offsetX, 
 							printImage.getY() + topPadding + offsetY, 
 							availableImageWidth, 
@@ -199,7 +199,7 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 						renderer.render(
 							getJasperReportsContext(),
 							grx, 
-							new Rectangle(
+							new Rectangle2D.Float(
 								printImage.getX() + leftPadding + offsetX + xoffset, 
 								printImage.getY() + topPadding + offsetY + yoffset, 
 								normalWidth, 
@@ -219,7 +219,7 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 					renderer.render(
 						getJasperReportsContext(),
 						grx,
-						new Rectangle(
+						new Rectangle2D.Float(
 							printImage.getX() + leftPadding + offsetX, 
 							printImage.getY() + topPadding + offsetY, 
 							availableImageWidth, 
@@ -253,7 +253,7 @@ public class ImageDrawer extends ElementDrawer<JRPrintImage>
 						renderer.render(
 							getJasperReportsContext(),
 							grx,
-							new Rectangle(
+							new Rectangle2D.Float(
 								printImage.getX() + leftPadding + offsetX + xoffset, 
 								printImage.getY() + topPadding + offsetY + yoffset, 
 								normalWidth, 

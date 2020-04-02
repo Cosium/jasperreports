@@ -102,9 +102,9 @@ public class ListComponentCompiler implements ComponentCompiler
 				verifier.addBrokenRule("List contents height must be positive.", listContents);
 			}
 			
-			int elementWidth = verifier.getCurrentComponentElement().getWidth();
+			float elementWidth = verifier.getCurrentComponentElement().getWidth();
 			Integer width = listContents.getWidth();
-			int contentsWidth;
+			float contentsWidth;
 			if (width == null)
 			{
 				contentsWidth = elementWidth;

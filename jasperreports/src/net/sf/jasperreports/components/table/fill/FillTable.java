@@ -335,7 +335,7 @@ public class FillTable extends BaseFillComponent
 		return tableReportCompileData;
 	}
 	
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		try
 		{

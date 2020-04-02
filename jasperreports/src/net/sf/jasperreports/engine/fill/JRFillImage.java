@@ -71,9 +71,9 @@ public class JRFillImage extends JRFillGraphicElement implements JRImage
 	 */
 	private Renderable renderer;
 	private boolean hasOverflowed;
-	private Integer imageHeight;
-	private Integer imageWidth;
-	private Integer imageX;
+	private Float imageHeight;
+	private Float imageWidth;
+	private Float imageX;
 	private String anchorName;
 	private String hyperlinkReference;
 	private String hyperlinkAnchor;
@@ -555,7 +555,7 @@ public class JRFillImage extends JRFillGraphicElement implements JRImage
 	
 
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{
@@ -704,7 +704,7 @@ public class JRFillImage extends JRFillGraphicElement implements JRImage
 		super.reset();
 	}
 
-	protected boolean fitImage(int availableHeight, boolean overflowAllowed,
+	protected boolean fitImage(float availableHeight, boolean overflowAllowed,
 			HorizontalAlignEnum hAlign) throws JRException
 	{
 		imageHeight = null;
@@ -717,25 +717,25 @@ public class JRFillImage extends JRFillGraphicElement implements JRImage
 			return true;
 		}
 		
-		int realHeight = (int) imageSize.getHeight();
-		int realWidth = (int) imageSize.getWidth();
+		float realHeight = (float)imageSize.getHeight();
+		float realWidth = (float)imageSize.getWidth();
 		boolean fitted;
 		
-		int reducedHeight = realHeight;
-		int reducedWidth = realWidth;
+		float reducedHeight = realHeight;
+		float reducedWidth = realWidth;
 		if (realWidth > getWidth())
 		{
 			double wRatio = ((double) getWidth()) / realWidth;
-			reducedHeight = (int) (wRatio * realHeight);
+			reducedHeight = (float)(wRatio * realHeight);
 			reducedWidth = getWidth();
 		}		
 		
 		if (reducedHeight <= availableHeight)
 		{
-			imageHeight = Integer.valueOf(reducedHeight);
+			imageHeight = reducedHeight;
 			if (getScaleImageValue() == ScaleImageEnum.REAL_SIZE)
 			{
-				imageWidth = Integer.valueOf(reducedWidth);
+				imageWidth = reducedWidth;
 			}
 			fitted = true;
 		}
@@ -745,24 +745,24 @@ public class JRFillImage extends JRFillGraphicElement implements JRImage
 		}
 		else
 		{
-			imageHeight = Integer.valueOf(availableHeight);
+			imageHeight = availableHeight;
 			if (getScaleImageValue() == ScaleImageEnum.REAL_SIZE)
 			{
 				double hRatio = ((double) availableHeight) / realHeight;
-				imageWidth = Integer.valueOf((int) (hRatio * realWidth));
+				imageWidth = (float) (hRatio * realWidth);
 			}
 			fitted = true;
 		}
 
-		if (imageWidth != null && imageWidth.intValue() != getWidth())
+		if (imageWidth != null && imageWidth != getWidth())
 		{
 			switch (hAlign)
 			{
 			case RIGHT:
-				imageX = Integer.valueOf(getX() + getWidth() - imageWidth.intValue());
+				imageX = getX() + getWidth() - imageWidth;
 				break;
 			case CENTER:
-				imageX = Integer.valueOf(getX() + (getWidth() - imageWidth.intValue()) / 2);
+				imageX = getX() + getWidth() - imageWidth/2;
 				break;
 			default:
 				break;

@@ -49,7 +49,7 @@ public class JRBandFactory extends JRBaseFactory
 		String height = atts.getValue(JRXmlConstants.ATTRIBUTE_height);
 		if (height != null && height.length() > 0)
 		{
-			band.setHeight(Integer.parseInt(height));
+			band.setHeight(Float.parseFloat(height));
 		}
 
 		String isSplitAllowed = atts.getValue(JRXmlConstants.ATTRIBUTE_isSplitAllowed);

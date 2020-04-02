@@ -87,7 +87,7 @@ public class AwtTextRenderer extends AbstractTextRenderer
 	/**
 	 * 
 	 */
-	public void initialize(Graphics2D grx, JRPrintText text, int offsetX, int offsetY)
+	public void initialize(Graphics2D grx, JRPrintText text, float offsetX, float offsetY)
 	{
 		this.grx = grx;
 		

@@ -89,6 +89,7 @@ import net.sf.jasperreports.engine.util.JRStyledText;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 /**
  * Exports a JasperReports document to RTF format. It has binary output type and exports the document to
@@ -576,10 +577,10 @@ public class JRRtfExporter extends JRAbstractExporter
 	 */
 	protected void exportLine(JRPrintLine line) throws IOException 
 	{
-		int x = line.getX() + getOffsetX();
-		int y = line.getY() + getOffsetY();
-		int height = line.getHeight();
-		int width = line.getWidth();
+		float x = line.getX() + getOffsetX();
+		float y = line.getY() + getOffsetY();
+		float height = line.getHeight();
+		float width = line.getWidth();
 
 		if (width <= 1 || height <= 1)
 		{
@@ -703,10 +704,10 @@ public class JRRtfExporter extends JRAbstractExporter
 			return;
 		}
 
-		int width = text.getWidth();
-		int height = text.getHeight();
+		float width = text.getWidth();
+		float height = text.getHeight();
 
-		int textHeight = (int)text.getTextHeight();
+		float textHeight = text.getTextHeight();
 
 		if(textHeight <= 0) {
 			if(height <= 0 ){
@@ -719,10 +720,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		startElement(text);
 
 		// padding for the text
-		int topPadding = text.getLineBox().getTopPadding().intValue();
-		int leftPadding = text.getLineBox().getLeftPadding().intValue();
-		int bottomPadding = text.getLineBox().getBottomPadding().intValue();
-		int rightPadding = text.getLineBox().getRightPadding().intValue();
+		float topPadding = text.getLineBox().getTopPadding().intValue();
+		float leftPadding = text.getLineBox().getLeftPadding().intValue();
+		float bottomPadding = text.getLineBox().getBottomPadding().intValue();
+		float rightPadding = text.getLineBox().getRightPadding().intValue();
 
 		String rotation = null;
 
@@ -1083,10 +1084,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		int rightPadding = printImage.getLineBox().getRightPadding().intValue();
 		int bottomPadding = printImage.getLineBox().getBottomPadding().intValue();
 
-		int availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-		int availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
 		Renderable renderer = printImage.getRenderable();
@@ -1116,13 +1117,13 @@ public class JRRtfExporter extends JRAbstractExporter
 				renderer =
 					new JRWrappingSvgRenderer(
 						renderer,
-						new Dimension(printImage.getWidth(), printImage.getHeight()),
+						new FloatDimension(printImage.getWidth(), printImage.getHeight()),
 						ModeEnum.OPAQUE == printImage.getModeValue() ? printImage.getBackcolor() : null
 						);
 			}
 
-			int normalWidth = availableImageWidth;
-			int normalHeight = availableImageHeight;
+			float normalWidth = availableImageWidth;
+			float normalHeight = availableImageHeight;
 
 			// Image load might fail.
 			Renderable tmpRenderer =
@@ -1135,14 +1136,14 @@ public class JRRtfExporter extends JRAbstractExporter
 				normalHeight = (int) dimension.getHeight();
 			}
 
-			int imageWidth = 0;
-			int imageHeight = 0;
-			int xoffset = 0;
-			int yoffset = 0;
-			int cropTop = 0;
-			int cropLeft = 0;
-			int cropBottom = 0;
-			int cropRight = 0;
+			float imageWidth = 0;
+			float imageHeight = 0;
+			float xoffset = 0;
+			float yoffset = 0;
+			float cropTop = 0;
+			float cropLeft = 0;
+			float cropBottom = 0;
+			float cropRight = 0;
 
 			switch (printImage.getScaleImageValue())
 			{
@@ -1307,10 +1308,10 @@ public class JRRtfExporter extends JRAbstractExporter
 			endHyperlink(startedHyperlink);
 		}
 
-		int x = printImage.getX() + getOffsetX();
-		int y = printImage.getY() + getOffsetY();
-		int width = printImage.getWidth();
-		int height = printImage.getHeight();
+		float x = printImage.getX() + getOffsetX();
+		float y = printImage.getY() + getOffsetY();
+		float width = printImage.getWidth();
+		float height = printImage.getHeight();
 
 		if (
 			printImage.getLineBox().getTopPen().getLineWidth().floatValue() <= 0f &&
@@ -1336,10 +1337,10 @@ public class JRRtfExporter extends JRAbstractExporter
 	 * @throws JRException
 	 */
 	protected void exportFrame(JRPrintFrame frame) throws JRException, IOException {
-		int x = frame.getX() + getOffsetX();
-		int y = frame.getY() + getOffsetY();
-		int width = frame.getWidth();
-		int height = frame.getHeight();
+		float x = frame.getX() + getOffsetX();
+		float y = frame.getY() + getOffsetY();
+		float width = frame.getWidth();
+		float height = frame.getHeight();
 
 		startElement(frame);
 		
@@ -1389,7 +1390,7 @@ public class JRRtfExporter extends JRAbstractExporter
 	/**
 	 *
 	 */
-	private void exportBox(JRLineBox box, int x, int y, int width, int height) throws IOException
+	private void exportBox(JRLineBox box, float x, float y, float width, float height) throws IOException
 	{
 		exportTopPen(box.getTopPen(), box.getLeftPen(), box.getRightPen(), x, y, width, height);
 		exportLeftPen(box.getTopPen(), box.getLeftPen(), box.getBottomPen(), x, y, width, height);
@@ -1400,7 +1401,7 @@ public class JRRtfExporter extends JRAbstractExporter
 	/**
 	 *
 	 */
-	private void exportPen(JRPen pen, int x, int y, int width, int height) throws IOException
+	private void exportPen(JRPen pen, float x, float y, float width, float height) throws IOException
 	{
 		exportTopPen(pen, pen, pen, x, y, width, height);
 		exportLeftPen(pen, pen, pen, x, y, width, height);
@@ -1415,10 +1416,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		JRPen topPen, 
 		JRPen leftPen, 
 		JRPen rightPen, 
-		int x, 
-		int y, 
-		int width, 
-		int height
+		float x, 
+		float y, 
+		float width, 
+		float height
 		) throws IOException
 	{
 		if (topPen.getLineWidth().floatValue() > 0f) 
@@ -1441,10 +1442,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		JRPen topPen, 
 		JRPen leftPen, 
 		JRPen bottomPen, 
-		int x, 
-		int y, 
-		int width, 
-		int height
+		float x, 
+		float y, 
+		float width, 
+		float height
 		) throws IOException
 	{
 		if (leftPen.getLineWidth().floatValue() > 0f) 
@@ -1467,10 +1468,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		JRPen leftPen, 
 		JRPen bottomPen, 
 		JRPen rightPen, 
-		int x, 
-		int y, 
-		int width, 
-		int height
+		float x, 
+		float y, 
+		float width, 
+		float height
 		) throws IOException
 	{
 		if (bottomPen.getLineWidth().floatValue() > 0f) 
@@ -1493,10 +1494,10 @@ public class JRRtfExporter extends JRAbstractExporter
 		JRPen topPen, 
 		JRPen bottomPen, 
 		JRPen rightPen, 
-		int x, 
-		int y, 
-		int width, 
-		int height
+		float x, 
+		float y, 
+		float width, 
+		float height
 		) throws IOException
 	{
 		if (rightPen.getLineWidth().floatValue() > 0f) 

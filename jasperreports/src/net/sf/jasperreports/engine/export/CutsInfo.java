@@ -47,7 +47,7 @@ public class CutsInfo
 //	public static final int USAGE_SPANNED = 2;
 //	public static final int USAGE_BREAK = 4;
 	
-	private final List<Integer> cutOffsets = new ArrayList<Integer>();
+	private final List<Float> cutOffsets = new ArrayList<Float>();
 //	private int[] cutUsage;
 	private Cut[] cuts;
 	
@@ -56,16 +56,16 @@ public class CutsInfo
 	public CutsInfo()
 	{
 		propertiesMap = new HashMap<String, Object>();
-		addCutOffset(Integer.valueOf(0));
+		addCutOffset(Float.valueOf(0));
 	}
 	
-	public CutsInfo(Integer lastCutOffset)
+	public CutsInfo(Float lastCutOffset)
 	{
 		this();
 		addCutOffset(lastCutOffset);
 	}
 	
-	public List<Integer> getCutOffsets()
+	public List<Float> getCutOffsets()
 	{
 		return cutOffsets;
 	}
@@ -83,9 +83,9 @@ public class CutsInfo
 		}
 	}
 	
-	public int getCutOffset(int index)
+	public float getCutOffset(int index)
 	{
-		return cutOffsets.get(index).intValue();
+		return cutOffsets.get(index).floatValue();
 	}
 	
 	public Cut getCut(int index)
@@ -107,7 +107,7 @@ public class CutsInfo
 		cut.setUsage(tmpUsage);
 	}
 	
-	public boolean addCutOffset(Integer cutOffset)
+	public boolean addCutOffset(Float cutOffset)
 	{
 		int idx = Collections.binarySearch(cutOffsets, cutOffset);
 		
@@ -120,7 +120,7 @@ public class CutsInfo
 		return true;
 	}
 	
-	public int indexOfCutOffset(Integer cutOffset)
+	public int indexOfCutOffset(Float cutOffset)
 	{
 		int idx = Collections.binarySearch(cutOffsets, cutOffset);
 		
@@ -168,17 +168,17 @@ public class CutsInfo
 		return !cutOffsets.isEmpty();
 	}
 	
-	public int getFirstCutOffset()
+	public float getFirstCutOffset()
 	{
 		return getCutOffset(0);
 	}
 	
-	public int getLastCutOffset()
+	public float getLastCutOffset()
 	{
 		return getCutOffset(size() - 1);
 	}
 	
-	public int getTotalLength()
+	public float getTotalLength()
 	{
 		return hasCuts() ? getLastCutOffset() - getFirstCutOffset() : 0;
 	}

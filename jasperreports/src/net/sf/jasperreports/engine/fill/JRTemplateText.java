@@ -91,7 +91,7 @@ public class JRTemplateText extends JRTemplateElement implements JRAlignment, JR
 	protected Boolean isItalic;
 	protected Boolean isUnderline;
 	protected Boolean isStrikeThrough;
-	protected Integer fontSize;
+	protected Float fontSize;
 	protected String pdfFontName;
 	protected String pdfEncoding;
 	protected Boolean isPdfEmbedded;
@@ -568,7 +568,7 @@ O	 * When hyperlink is of custom type, {@link HyperlinkTypeEnum#CUSTOM CUSTOM} i
 	/**
 	 *
 	 */
-	public int getFontSize()
+	public float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
@@ -576,7 +576,7 @@ O	 * When hyperlink is of custom type, {@link HyperlinkTypeEnum#CUSTOM CUSTOM} i
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return fontSize;
 	}
@@ -584,16 +584,16 @@ O	 * When hyperlink is of custom type, {@link HyperlinkTypeEnum#CUSTOM CUSTOM} i
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize)
+	public void setFontSize(float fontSize)
 	{
-		setFontSize(Integer.valueOf(fontSize));
+		setFontSize(new Float(fontSize));
 	}
 
 	/**
 	 * Alternative setSize method which allows also to reset
 	 * the "own" size property.
 	 */
-	public void setFontSize(Integer fontSize)
+	public void setFontSize(Float fontSize)
 	{
 		this.fontSize = fontSize;
 	}

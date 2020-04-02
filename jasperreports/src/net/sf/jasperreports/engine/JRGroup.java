@@ -91,13 +91,13 @@ public interface JRGroup extends JRCloneable
 	 * Gets the minimum amount of vertical space needed at the bottom of the column in order to place the
 	 * group header on the current column.
 	 */
-	public int getMinHeightToStartNewPage();
+	public float getMinHeightToStartNewPage();
 
 	/**
 	 * Sets the minimum amount of vertical space needed at the bottom of the column in order to place the
 	 * group header on the current column.
 	 */
-	public void setMinHeightToStartNewPage(int minHeight);
+	public void setMinHeightToStartNewPage(float minHeight);
 		
 	/**
 	 * Specifies how the group footer section behaves with regards to its position on the current page.

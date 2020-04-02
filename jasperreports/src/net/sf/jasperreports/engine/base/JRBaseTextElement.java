@@ -78,7 +78,7 @@ public abstract class JRBaseTextElement extends JRBaseElement implements JRTextE
 	protected Boolean isItalic;
 	protected Boolean isUnderline;
 	protected Boolean isStrikeThrough;
-	protected Integer fontSize;
+	protected Float fontSize;
 	protected String pdfFontName;
 	protected String pdfEncoding;
 	protected Boolean isPdfEmbedded;
@@ -435,7 +435,7 @@ public abstract class JRBaseTextElement extends JRBaseElement implements JRTextE
 	/**
 	 *
 	 */
-	public int getFontSize()
+	public float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
@@ -443,7 +443,7 @@ public abstract class JRBaseTextElement extends JRBaseElement implements JRTextE
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return fontSize;
 	}
@@ -451,16 +451,16 @@ public abstract class JRBaseTextElement extends JRBaseElement implements JRTextE
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize)
+	public void setFontSize(float fontSize)
 	{
-		setFontSize(Integer.valueOf(fontSize));
+		setFontSize(new Float(fontSize));
 	}
 
 	/**
 	 * Alternative setSize method which allows also to reset
 	 * the "own" size property.
 	 */
-	public void setFontSize(Integer fontSize)
+	public void setFontSize(Float fontSize)
 	{
 		Object old = this.fontSize;
 		this.fontSize = fontSize;

@@ -47,6 +47,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
@@ -134,6 +135,7 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 	protected static final int TYPE_FILE_NAME = 1;
 	protected static final int TYPE_INPUT_STREAM = 2;
 	protected static final int TYPE_OBJECT = 3;
+	protected static final int TYPE_JASPER_PRINT = 4;
 
 	/**
 	 * The DPI of the generated report.
@@ -202,6 +204,38 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 	protected File lastFolder;
 	protected JRSaveContributor lastSaveContributor;
 
+    /** Creates new form JRViewer */
+    public JRViewer()
+    {
+        this((Locale) null);
+    }
+
+    /** Creates new form JRViewer */
+    public JRViewer(Locale locale) {
+		if (locale != null) {
+            setLocale(locale);
+        }
+        
+        initResources(locale, null);
+
+        setScreenDetails();
+
+        setZooms();
+
+        initComponents();
+
+        cmbZoom.setSelectedIndex(defaultZoomIndex);
+
+        initSaveContributors();
+        
+        initExporter();
+
+        addHyperlinkListener(this);
+   }
+
+    /** Creates new form JRViewer */
+	
+	
 	/**
 	 * @see #JRViewer(JasperReportsContext, String, boolean, Locale, ResourceBundle)
 	 */
@@ -327,6 +361,8 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 
 		initSaveContributors();
 
+        initExporter();
+
 		addHyperlinkListener(this);
 	}
 
@@ -358,6 +394,8 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 
 		initSaveContributors();
 
+        initExporter();
+
 		addHyperlinkListener(this);
 	}
 
@@ -387,6 +425,8 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 		cmbZoom.setSelectedIndex(defaultZoomIndex);
 
 		initSaveContributors();
+
+        initExporter();
 
 		addHyperlinkListener(this);
 	}
@@ -1498,6 +1538,68 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 			txtGoTo.setText("");
 			lblStatus.setText("");
 		}
+        
+        refreshPageIndex();
+	}
+	
+	public void refreshPageIndex() {
+        if( exporter == null) {
+            return;
+        }
+        
+        try {
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.PAGE_INDEX, new Integer(pageIndex));
+
+            if (jasperPrint != null) {
+                exporter.exportReportFast_loadParams();
+            }
+            
+        } catch (JRException e) {
+            // TODO Auto-generated catch block
+            exporter = null;
+            e.printStackTrace();
+        }
+    }
+    
+    public void refreshZoom() {
+        if( exporter == null) {
+            return;
+        }
+
+        try {
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, new Float(realZoom));
+
+            if (jasperPrint != null) {
+                exporter.exportReportFast_loadParams();
+            }
+            
+        } catch (JRException e) {
+            // TODO Auto-generated catch block
+            exporter = null;
+            e.printStackTrace();
+        }
+    }
+    
+	public void initExporter() {
+        try {
+            exporter = new JRGraphics2DExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.PAGE_INDEX, new Integer(pageIndex));
+            exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, new Float(realZoom));
+            exporter.setParameter(JRExporterParameter.OFFSET_X, Float.valueOf(1)); // lblPage border
+            exporter.setParameter(JRExporterParameter.OFFSET_Y, Float.valueOf(1));
+
+            if (jasperPrint != null) {
+                exporter.exportReportFast_loadParams();
+            }
+
+        } catch (JRException e) {
+            // TODO Auto-generated catch block
+            exporter = null;
+            e.printStackTrace();
+        }
 	}
 
 
@@ -1551,6 +1653,23 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 		setPageIndex(0);
 	}
 
+    protected void loadReport2(JasperPrint jrPrint) {
+        jasperPrint = jrPrint;
+        type = TYPE_JASPER_PRINT;
+        isXML = false;
+        btnReload.setEnabled(false);
+
+        exporter = null;
+        initExporter();
+        setRealZoomRatio(((float) pnlInScroll.getVisibleRect().getWidth() - 20f) / jasperPrint.getPageWidth());
+        if (realZoom > 0)
+            refreshPage();
+
+        if (pageIndex < 1)
+            setPageIndex(0);
+        else if (pageIndex >= jrPrint.getPages().size())
+            setPageIndex(0);
+    }
 
 	/**
 	*/
@@ -1697,7 +1816,7 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 		createHyperlinks(page.getElements(), 0, 0);
 	}
 
-	protected void createHyperlinks(List<JRPrintElement> elements, int offsetX, int offsetY)
+	protected void createHyperlinks(List<JRPrintElement> elements, float offsetX, float offsetY)
 	{
 		if(elements != null && elements.size() > 0)
 		{
@@ -1734,7 +1853,7 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 					JPanel link;
 					if (hasImageMap)
 					{
-						Rectangle renderingArea = new Rectangle(0, 0, element.getWidth(), element.getHeight());
+						Rectangle2D renderingArea = new Rectangle2D.Float(0, 0, element.getWidth(), element.getHeight());
 						link = new ImageMapPanel(renderingArea, imageMap);
 					}
 					else //hasImageMap
@@ -1775,8 +1894,8 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 				if (element instanceof JRPrintFrame)
 				{
 					JRPrintFrame frame = (JRPrintFrame) element;
-					int frameOffsetX = offsetX + frame.getX() + frame.getLineBox().getLeftPadding().intValue();
-					int frameOffsetY = offsetY + frame.getY() + frame.getLineBox().getTopPadding().intValue();
+					float frameOffsetX = offsetX + frame.getX() + frame.getLineBox().getLeftPadding().intValue();
+					float frameOffsetY = offsetY + frame.getY() + frame.getLineBox().getTopPadding().intValue();
 					createHyperlinks(frame.getElements(), frameOffsetX, frameOffsetY);
 				}
 			}
@@ -1790,7 +1909,7 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 
 		protected final List<JRPrintImageAreaHyperlink> imageAreaHyperlinks;
 
-		public ImageMapPanel(Rectangle renderingArea, ImageMapRenderable imageMap)
+		public ImageMapPanel(Rectangle2D renderingArea, ImageMapRenderable imageMap)
 		{
 			try
 			{
@@ -2026,6 +2145,7 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 				zoom = newZoom;
 				realZoom = zoom * screenResolution / REPORT_RESOLUTION;
 
+                refreshZoom();
 				refreshPage();
 			}
 		}
@@ -2099,8 +2219,8 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 			exporter.setParameter(JRGraphics2DExporterParameter.GRAPHICS_2D, grx.create());
 			exporter.setParameter(JRExporterParameter.PAGE_INDEX, Integer.valueOf(pageIndex));
 			exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, new Float(realZoom));
-			exporter.setParameter(JRExporterParameter.OFFSET_X, Integer.valueOf(1)); //lblPage border
-			exporter.setParameter(JRExporterParameter.OFFSET_Y, Integer.valueOf(1));
+			exporter.setParameter(JRExporterParameter.OFFSET_X, Float.valueOf(1)); //lblPage border
+			exporter.setParameter(JRExporterParameter.OFFSET_Y, Float.valueOf(1));
 			exporter.exportReport();
 		}
 		catch(Exception e)
@@ -2142,10 +2262,10 @@ public class JRViewer extends javax.swing.JPanel implements JRHyperlinkListener
 		}
 	}
 
-	protected void drawPageError(Graphics grx)
+	protected void drawPageError(Graphics2D grx)
 	{
 		grx.setColor(Color.white);
-		grx.fillRect(0, 0, jasperPrint.getPageWidth() + 1, jasperPrint.getPageHeight() + 1);
+		grx.fill(new Rectangle2D.Float(0, 0, jasperPrint.getPageWidth() + 1, jasperPrint.getPageHeight() + 1));
 	}
 
 	protected void keyNavigate(KeyEvent evt)

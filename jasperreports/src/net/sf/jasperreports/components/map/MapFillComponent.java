@@ -77,7 +77,7 @@ public class MapFillComponent extends BaseFillComponent
 		return mapComponent.getEvaluationTime() == EvaluationTimeEnum.NOW;
 	}
 
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		return FillPrepareResult.PRINT_NO_STRETCH;
 //		return isEvaluateNow() && (latitude == null || longitude == null)  

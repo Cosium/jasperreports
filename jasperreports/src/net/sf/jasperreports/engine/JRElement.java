@@ -82,22 +82,22 @@ public interface JRElement extends JRChild, JRCommonElement, JRPropertiesHolder,
 	/**
 	 * Gets the the section relative horizontal offset of the element top left corner.
 	 */
-	public int getX();
+	public float getX();
 	
 	/**
 	 * Sets the the section relative horizontal offset of the element top left corner.
 	 */
-	public void setX(int x);
+	public void setX(float x);
 	
 	/**
 	 * Gets the the section relative vertical offset of the element top left corner.
 	 */
-	public int getY();
+	public float getY();
 	
 	/**
 	 *
 	 */
-	public void setWidth(int width);
+	public void setWidth(float width);
 	
 	/**
 	 * Returns true if the remaining blank space appearing when the value is not printed will be removed. Under certain
@@ -176,5 +176,5 @@ public interface JRElement extends JRChild, JRCommonElement, JRPropertiesHolder,
 	 */
 	public JRPropertyExpression[] getPropertyExpressions();
 	
-	public JRElement clone(JRElementGroup parentGroup, int y);
+	public JRElement clone(JRElementGroup parentGroup, float y);
 }

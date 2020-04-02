@@ -91,16 +91,16 @@ public class TextMeasurer implements JRTextMeasurer
 	 */
 	private MaxFontSizeFinder maxFontSizeFinder;
 	
-	protected int width;
-	private int height;
-	private int topPadding;
-	protected int leftPadding;
-	private int bottomPadding;
-	protected int rightPadding;
+	protected float width;
+	private float height;
+	private float topPadding;
+	protected float leftPadding;
+	private float bottomPadding;
+	protected float rightPadding;
 	private JRParagraph jrParagraph;
 
 	private float formatWidth;
-	protected int maxHeight;
+	protected float maxHeight;
 	private boolean canOverflow;
 	private Map<Attribute,Object> globalAttributes;
 	private boolean ignoreMissingFont;
@@ -122,8 +122,8 @@ public class TextMeasurer implements JRTextMeasurer
 		protected boolean isLeftToRight = true;
 		protected String textSuffix;
 		
-		protected int lastOffset;
-		protected ArrayList<Integer> lineBreakOffsets;
+		protected float lastOffset;
+		protected ArrayList<Float> lineBreakOffsets;
 		
 		public TextMeasuredState(boolean saveLineBreakOffsets)
 		{
@@ -174,7 +174,7 @@ public class TextMeasurer implements JRTextMeasurer
 				//might be a performance problem on very large texts
 				if (lineBreakOffsets != null)
 				{
-					clone.lineBreakOffsets = (ArrayList<Integer>) lineBreakOffsets.clone();
+					clone.lineBreakOffsets = (ArrayList<Float>) lineBreakOffsets.clone();
 				}
 				
 				return clone;
@@ -192,11 +192,11 @@ public class TextMeasurer implements JRTextMeasurer
 			{
 				if (lineBreakOffsets == null)
 				{
-					lineBreakOffsets = new ArrayList<Integer>();
+					lineBreakOffsets = new ArrayList<Float>();
 				}
 
-				int breakOffset = textOffset - lastOffset;
-				lineBreakOffsets.add(Integer.valueOf(breakOffset));
+				float breakOffset = textOffset - lastOffset;
+				lineBreakOffsets.add(breakOffset);
 				lastOffset = textOffset;
 			}
 		}
@@ -223,7 +223,7 @@ public class TextMeasurer implements JRTextMeasurer
 			boolean overflow = false;
 			for (int i = 0; i < offsets.length; i++)
 			{
-				int offset = lineBreakOffsets.get(i).intValue();
+				float offset = lineBreakOffsets.get(i);
 				if (offset > Short.MAX_VALUE)
 				{
 					if (log.isWarnEnabled())
@@ -285,7 +285,7 @@ public class TextMeasurer implements JRTextMeasurer
 	protected void initialize(
 		JRStyledText styledText,
 		int remainingTextStart,
-		int availableStretchHeight, 
+		float availableStretchHeight, 
 		boolean canOverflow
 		)
 	{
@@ -305,7 +305,7 @@ public class TextMeasurer implements JRTextMeasurer
 			{
 				width = textElement.getHeight();
 				height = textElement.getWidth();
-				int tmpPadding = topPadding;
+                float tmpPadding = topPadding;
 				topPadding = leftPadding;
 				leftPadding = bottomPadding;
 				bottomPadding = rightPadding;
@@ -316,7 +316,7 @@ public class TextMeasurer implements JRTextMeasurer
 			{
 				width = textElement.getHeight();
 				height = textElement.getWidth();
-				int tmpPadding = topPadding;
+                float tmpPadding = topPadding;
 				topPadding = rightPadding;
 				rightPadding = bottomPadding;
 				bottomPadding = leftPadding;
@@ -325,7 +325,7 @@ public class TextMeasurer implements JRTextMeasurer
 			}
 			case UPSIDE_DOWN :
 			{
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = bottomPadding;
 				bottomPadding = tmpPadding;
 				tmpPadding = leftPadding;
@@ -366,7 +366,7 @@ public class TextMeasurer implements JRTextMeasurer
 	public JRMeasuredText measure(
 		JRStyledText styledText,
 		int remainingTextStart,
-		int availableStretchHeight,
+		float availableStretchHeight,
 		boolean canOverflow
 		)
 	{
@@ -521,7 +521,7 @@ public class TextMeasurer implements JRTextMeasurer
 			return false;
 		}
 		
-		int availableWidth = width - leftPadding - rightPadding;
+		float availableWidth = width - leftPadding - rightPadding;
 		
 		// a test to exclude cases of very large texts
 		if (text.length() * size.intValue() * FontInfo.FONT_SIZE_MIN_FACTOR > availableWidth)
@@ -623,7 +623,7 @@ public class TextMeasurer implements JRTextMeasurer
 		else
 		{
 			measuredState.textOffset = 0;
-			measuredState.textHeight = 0;
+			measuredState.textHeight = 0f;
 		}
 
 		measuredState.firstLineLeading = - (float)bounds.getY();

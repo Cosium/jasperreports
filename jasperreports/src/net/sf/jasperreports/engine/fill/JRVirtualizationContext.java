@@ -79,7 +79,7 @@ public class JRVirtualizationContext implements Serializable, VirtualizationList
 	private volatile boolean readOnly;
 	private volatile boolean disposed;
 	
-	private int pageElementSize;
+	private float pageElementSize;
 	
 	private transient List<VirtualizationListener<VirtualElementsData>> listeners;
 	
@@ -97,7 +97,7 @@ public class JRVirtualizationContext implements Serializable, VirtualizationList
 		cachedRenderers = new ConcurrentHashMap<String,Renderable>(16, 0.75f, 1);
 		cachedTemplates = new ConcurrentHashMap<String,JRTemplateElement>(16, 0.75f, 1);
 		
-		pageElementSize = JRPropertiesUtil.getInstance(jasperReportsContext).getIntegerProperty(JRVirtualPrintPage.PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE, 0);
+		pageElementSize = JRPropertiesUtil.getInstance(jasperReportsContext).getFloatProperty(JRVirtualPrintPage.PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE, 0);
 		
 		initLock();
 	}
@@ -335,7 +335,7 @@ public class JRVirtualizationContext implements Serializable, VirtualizationList
 	 * @return the virtual page size used by the report
 	 * @see JRVirtualPrintPage#PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE
 	 */
-	public int getPageElementSize()
+	public float getPageElementSize()
 	{
 		return pageElementSize;
 	}
@@ -346,7 +346,7 @@ public class JRVirtualizationContext implements Serializable, VirtualizationList
 	 * @param pageElementSize the virtual page size
 	 * @see JRVirtualPrintPage#PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE
 	 */
-	public void setPageElementSize(int pageElementSize)
+	public void setPageElementSize(float pageElementSize)
 	{
 		this.pageElementSize = pageElementSize;
 	}
@@ -374,7 +374,7 @@ public class JRVirtualizationContext implements Serializable, VirtualizationList
 		cachedTemplates = (Map<String, JRTemplateElement>) fields.get("cachedTemplates", null);
 		readOnly = fields.get("readOnly", false);
 		// use configured default if serialized by old version
-		pageElementSize = fields.get("pageElementSize", JRPropertiesUtil.getInstance(jasperReportsContext).getIntegerProperty(
+		pageElementSize = fields.get("pageElementSize", JRPropertiesUtil.getInstance(jasperReportsContext).getFloatProperty(
 				JRVirtualPrintPage.PROPERTY_VIRTUAL_PAGE_ELEMENT_SIZE, 0));
 		
 		setThreadVirtualizer();

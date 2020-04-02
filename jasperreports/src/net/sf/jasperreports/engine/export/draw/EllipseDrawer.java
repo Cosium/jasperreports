@@ -72,19 +72,19 @@ public class EllipseDrawer extends ElementDrawer<JRPrintEllipse>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintEllipse ellipse, int offsetX, int offsetY)
+	public void draw(Graphics2D grx, JRPrintEllipse ellipse, float offsetX, float offsetY)
 	{
-		int width = ellipse.getWidth();
-		int height = ellipse.getHeight();
+		float width = ellipse.getWidth();
+		float height = ellipse.getHeight();
 		
 		if (ellipse.getModeValue() == ModeEnum.OPAQUE)
 		{
 			grx.setColor(ellipse.getBackcolor());
 			grx.fillOval(
-				ellipse.getX() + offsetX, 
-				ellipse.getY() + offsetY, 
-				width,
-				height
+				(int) (ellipse.getX() + offsetX), 
+				(int) (ellipse.getY() + offsetY), 
+				(int)width,
+				(int)height
 				);
 		}
 
@@ -115,8 +115,8 @@ public class EllipseDrawer extends ElementDrawer<JRPrintEllipse>
 				grx.drawOval(
 					0, 
 					0, 
-					width,
-					height
+					(int)width,
+					(int)height
 					);
 				
 				grx.setTransform(oldTx);
@@ -144,8 +144,8 @@ public class EllipseDrawer extends ElementDrawer<JRPrintEllipse>
 				grx.drawOval(
 					0, 
 					0, 
-					width,
-					height
+					(int)width,
+					(int)height
 					);
 			}
 			else
@@ -175,8 +175,8 @@ public class EllipseDrawer extends ElementDrawer<JRPrintEllipse>
 				grx.drawOval(
 					0, 
 					0, 
-					width,
-					height
+					(int)width,
+					(int)height
 					);
 			}
 

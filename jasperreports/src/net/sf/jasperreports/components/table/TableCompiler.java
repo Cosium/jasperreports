@@ -172,7 +172,7 @@ public class TableCompiler implements ComponentCompiler
 					{
 						column.visitColumn(this);
 						
-						Integer width = column.getWidth();
+						Float width = column.getWidth();
 						if (width == null)
 						{
 							subwidthValid = false;
@@ -202,7 +202,7 @@ public class TableCompiler implements ComponentCompiler
 	
 	protected void verifyBaseColumn(TableComponent table, BaseColumn column, JRVerifier verifier)
 	{
-		Integer width = column.getWidth();
+		Float width = column.getWidth();
 		if (width == null)
 		{
 			verifier.addBrokenRule("Column width not set", column);
@@ -222,7 +222,7 @@ public class TableCompiler implements ComponentCompiler
 		}
 	}
 	
-	protected void verifyGroupCells(TableComponent table, List<GroupCell> cells, int width, 
+	protected void verifyGroupCells(TableComponent table, List<GroupCell> cells, float width, 
 			String cellName, JRVerifier verifier)
 	{
 		if (cells != null)
@@ -262,7 +262,7 @@ public class TableCompiler implements ComponentCompiler
 		}
 	}
 	
-	protected void verifyCell(Cell cell, int width, String cellName, JRVerifier verifier)
+	protected void verifyCell(Cell cell, float width, String cellName, JRVerifier verifier)
 	{
 		if (cell == null)
 		{
@@ -274,7 +274,7 @@ public class TableCompiler implements ComponentCompiler
 			verifier.addBrokenRule("Negative or zero cell row span", cell);
 		}
 		
-		Integer height = cell.getHeight();
+		Float height = cell.getHeight();
 		if (height == null)
 		{
 			verifier.addBrokenRule("Cell height not set", cell);
@@ -293,8 +293,8 @@ public class TableCompiler implements ComponentCompiler
 				int bottomPadding = cell.getLineBox().getBottomPadding().intValue();
 				int rightPadding = cell.getLineBox().getRightPadding().intValue();
 
-				int avlblWidth = width - leftPadding - rightPadding;
-				int avlblHeight = height - topPadding - bottomPadding;
+				float avlblWidth = width - leftPadding - rightPadding;
+				float avlblHeight = height - topPadding - bottomPadding;
 				
 				for (JRElement element : elements)
 				{
@@ -550,18 +550,18 @@ public class TableCompiler implements ComponentCompiler
 		
 		boolean validRowHeights = true;
 		
-		List<Integer> rowHeights = new ArrayList<Integer>(tableCellRows.size());
+		List<Float> rowHeights = new ArrayList<Float>(tableCellRows.size());
 		for (int rowIdx = 0; rowIdx < tableCellRows.size(); ++rowIdx)
 		{
-			Integer rowHeight = null;
+			Float rowHeight = null;
 			// going back on rows in order to determine row height
-			int spanHeight = 0;
+			float spanHeight = 0;
 			prevRowLoop:
 			for (int idx = rowIdx; idx >= 0; --idx)
 			{
 				for (Cell cell : tableCellRows.get(idx))
 				{
-					int rowSpan = cell.getRowSpan() == null ? 1 : cell.getRowSpan();
+					float rowSpan = cell.getRowSpan() == null ? 1 : cell.getRowSpan();
 					if (idx + rowSpan - 1 == rowIdx && cell.getHeight() != null)
 					{
 						rowHeight = cell.getHeight() - spanHeight;
@@ -595,12 +595,12 @@ public class TableCompiler implements ComponentCompiler
 			{
 				List<Cell> row = rowIt.next();
 				int rowIdx = rowIt.previousIndex();
-				int rowHeight = rowHeights.get(rowIdx);
+				float rowHeight = rowHeights.get(rowIdx);
 				
 				for (Cell cell : row)
 				{
 					Integer rowSpan = cell.getRowSpan();
-					Integer height = cell.getHeight();
+					Float height = cell.getHeight();
 					if ((rowSpan == null || rowSpan >= 1) 
 							&& height != null)
 					{
@@ -612,7 +612,7 @@ public class TableCompiler implements ComponentCompiler
 						}
 						else
 						{
-							int spanHeight = rowHeight;
+							float spanHeight = rowHeight;
 							for (int idx = 1; idx < span; ++idx)
 							{
 								spanHeight += rowHeights.get(rowIdx + idx);

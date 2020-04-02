@@ -91,7 +91,7 @@ public class JRFillComponentElement extends JRFillElement implements JRComponent
 		filling = false;
 	}
 	
-	protected boolean prepare(int availableHeight, boolean isOverflow)
+	protected boolean prepare(float availableHeight, boolean isOverflow)
 			throws JRException
 	{
 		boolean willOverflow = false;
@@ -223,7 +223,7 @@ public class JRFillComponentElement extends JRFillElement implements JRComponent
 		return super.getElementOrigin();
 	}
 
-	public int getElementPrintY()
+	public float getElementPrintY()
 	{
 		return getRelativeY();
 	}

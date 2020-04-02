@@ -75,13 +75,13 @@ public class JasperDesignFactory extends JRBaseFactory
 		String pageWidth = atts.getValue(JRXmlConstants.ATTRIBUTE_pageWidth);
 		if (pageWidth != null && pageWidth.length() > 0)
 		{
-			jasperDesign.setPageWidth(Integer.parseInt(pageWidth));
+			jasperDesign.setPageWidth(Float.parseFloat(pageWidth));
 		}
 		
 		String pageHeight = atts.getValue(JRXmlConstants.ATTRIBUTE_pageHeight);
 		if (pageHeight != null && pageHeight.length() > 0)
 		{
-			jasperDesign.setPageHeight(Integer.parseInt(pageHeight));
+			jasperDesign.setPageHeight(Float.parseFloat(pageHeight));
 		}
 
 		OrientationEnum orientation = OrientationEnum.getByName(atts.getValue(JRXmlConstants.ATTRIBUTE_orientation));
@@ -99,37 +99,37 @@ public class JasperDesignFactory extends JRBaseFactory
 		String columnWidth = atts.getValue(JRXmlConstants.ATTRIBUTE_columnWidth);
 		if (columnWidth != null && columnWidth.length() > 0)
 		{
-			jasperDesign.setColumnWidth(Integer.parseInt(columnWidth));
+			jasperDesign.setColumnWidth(Float.parseFloat(columnWidth));
 		}
 
 		String columnSpacing = atts.getValue(JRXmlConstants.ATTRIBUTE_columnSpacing);
 		if (columnSpacing != null && columnSpacing.length() > 0)
 		{
-			jasperDesign.setColumnSpacing(Integer.parseInt(columnSpacing));
+			jasperDesign.setColumnSpacing(Float.parseFloat(columnSpacing));
 		}
 
 		String leftMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_leftMargin);
 		if (leftMargin != null && leftMargin.length() > 0)
 		{
-			jasperDesign.setLeftMargin(Integer.parseInt(leftMargin));
+			jasperDesign.setLeftMargin(Float.parseFloat(leftMargin));
 		}
 
 		String rightMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_rightMargin);
 		if (rightMargin != null && rightMargin.length() > 0)
 		{
-			jasperDesign.setRightMargin(Integer.parseInt(rightMargin));
+			jasperDesign.setRightMargin(Float.parseFloat(rightMargin));
 		}
 
 		String topMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_topMargin);
 		if (topMargin != null && topMargin.length() > 0)
 		{
-			jasperDesign.setTopMargin(Integer.parseInt(topMargin));
+			jasperDesign.setTopMargin(Float.parseFloat(topMargin));
 		}
 
 		String bottomMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_bottomMargin);
 		if (bottomMargin != null && bottomMargin.length() > 0)
 		{
-			jasperDesign.setBottomMargin(Integer.parseInt(bottomMargin));
+			jasperDesign.setBottomMargin(Float.parseFloat(bottomMargin));
 		}
 
 		String isTitleNewPage = atts.getValue(JRXmlConstants.ATTRIBUTE_isTitleNewPage);

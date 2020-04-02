@@ -53,8 +53,8 @@ public abstract class JRExporterGridCell
 	private Color forecolor;
 	private JRLineBox box;
 	
-	private int width;
-	private int height;
+	private float width;
+	private float height;
 	private int colSpan;
 	private int rowSpan;
 
@@ -66,8 +66,8 @@ public abstract class JRExporterGridCell
 	 */
 	public JRExporterGridCell(
 		ElementWrapper wrapper, 
-		int width, 
-		int height,
+		float width, 
+		float height,
 		int colSpan, 
 		int rowSpan
 		)
@@ -92,19 +92,19 @@ public abstract class JRExporterGridCell
 	}
 
 
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
 
 
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		this.width = width;
 	}
 
 
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}

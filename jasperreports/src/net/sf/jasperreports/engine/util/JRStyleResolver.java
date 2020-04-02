@@ -1183,31 +1183,31 @@ public final class JRStyleResolver
 	 *
 	 */
 	@SuppressWarnings("deprecation")
-	public static int getFontSize(JRFont font)
+	public static float getFontSize(JRFont font)
 	{
-		Integer ownFontSize = font.getOwnFontSize();
+		Float ownFontSize = font.getOwnFontSize();
 		if (ownFontSize != null)
 		{
-			return ownFontSize.intValue();
+			return ownFontSize.floatValue();
 		}
 		JRStyle baseStyle = getBaseStyle(font);
 		if (baseStyle != null)
 		{
-			Integer fontSize = baseStyle.getFontSize();
+			Float fontSize = baseStyle.getFontSize();
 			if (fontSize != null)
 			{
-				return fontSize.intValue();
+				return fontSize.floatValue();
 			}
 		}
-		return JRProperties.getIntegerProperty(JRFont.DEFAULT_FONT_SIZE);
+		return JRProperties.getFloatProperty(JRFont.DEFAULT_FONT_SIZE);
 	}
 	
 	/**
 	 *
 	 */
-	public static Integer getFontSize(JRStyle style)
+	public static Float getFontSize(JRStyle style)
 	{
-		Integer ownFontSize = style.getOwnFontSize();
+		Float ownFontSize = style.getOwnFontSize();
 		if (ownFontSize != null)
 		{
 			return ownFontSize;

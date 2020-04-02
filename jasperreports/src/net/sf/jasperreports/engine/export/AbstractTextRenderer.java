@@ -56,14 +56,14 @@ public abstract class AbstractTextRenderer
 	protected JRPrintText text;
 	protected JRStyledText styledText;
 	protected String allText;
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
-	protected int topPadding;
-	protected int leftPadding;
-	protected int bottomPadding;
-	protected int rightPadding;
+	protected float x;
+	protected float y;
+	protected float width;
+	protected float height;
+	protected float topPadding;
+	protected float leftPadding;
+	protected float bottomPadding;
+	protected float rightPadding;
 	
 	//protected float formatWidth;
 	protected float verticalAlignOffset;
@@ -116,7 +116,7 @@ public abstract class AbstractTextRenderer
 	/**
 	 *
 	 */
-	public int getX()
+	public float getX()
 	{
 		return x;
 	}
@@ -125,7 +125,7 @@ public abstract class AbstractTextRenderer
 	/**
 	 *
 	 */
-	public int getY()
+	public float getY()
 	{
 		return y;
 	}
@@ -134,7 +134,7 @@ public abstract class AbstractTextRenderer
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -143,7 +143,7 @@ public abstract class AbstractTextRenderer
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -170,7 +170,7 @@ public abstract class AbstractTextRenderer
 	/**
 	 * 
 	 */
-	public void initialize(JRPrintText text, int offsetX, int offsetY)
+	public void initialize(JRPrintText text, float offsetX, float offsetY)
 	{
 		styledText = text.getStyledText(JRStyledTextAttributeSelector.NO_BACKCOLOR);
 		
@@ -185,10 +185,10 @@ public abstract class AbstractTextRenderer
 		y = text.getY() + offsetY;
 		width = text.getWidth();
 		height = text.getHeight();
-		topPadding = text.getLineBox().getTopPadding().intValue();
-		leftPadding = text.getLineBox().getLeftPadding().intValue();
-		bottomPadding = text.getLineBox().getBottomPadding().intValue();
-		rightPadding = text.getLineBox().getRightPadding().intValue();
+		topPadding = text.getLineBox().getTopPadding().floatValue();
+		leftPadding = text.getLineBox().getLeftPadding().floatValue();
+		bottomPadding = text.getLineBox().getBottomPadding().floatValue();
+		rightPadding = text.getLineBox().getRightPadding().floatValue();
 		
 		switch (text.getRotationValue())
 		{
@@ -197,7 +197,7 @@ public abstract class AbstractTextRenderer
 				y = text.getY() + offsetY + text.getHeight();
 				width = text.getHeight();
 				height = text.getWidth();
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = leftPadding;
 				leftPadding = bottomPadding;
 				bottomPadding = rightPadding;
@@ -209,7 +209,7 @@ public abstract class AbstractTextRenderer
 				x = text.getX() + offsetX + text.getWidth();
 				width = text.getHeight();
 				height = text.getWidth();
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				topPadding = rightPadding;
 				rightPadding = bottomPadding;
 				bottomPadding = leftPadding;
@@ -218,7 +218,7 @@ public abstract class AbstractTextRenderer
 			}
 			case UPSIDE_DOWN :
 			{
-				int tmpPadding = topPadding;
+				float tmpPadding = topPadding;
 				x = text.getX() + offsetX + text.getWidth();
 				y = text.getY() + offsetY + text.getHeight();
 				topPadding = bottomPadding;

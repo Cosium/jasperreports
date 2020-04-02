@@ -43,7 +43,7 @@ public class JRPrintBand implements JRPrintElementContainer
 	/**
 	 *
 	 */
-	private int height;
+	private float height;
 	// adding both elements and OffsetElements to this list
 	private List<Object> elements = new ArrayList<Object>();
 	private boolean iterated = false;
@@ -52,7 +52,7 @@ public class JRPrintBand implements JRPrintElementContainer
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return this.height;
 	}
@@ -60,7 +60,7 @@ public class JRPrintBand implements JRPrintElementContainer
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
 		this.height = height;
 	}
@@ -96,7 +96,7 @@ public class JRPrintBand implements JRPrintElementContainer
 		this.elements.add(element);
 	}
 	
-	public void addOffsetElements(Collection<? extends JRPrintElement> elements, int offsetX, int offsetY)
+	public void addOffsetElements(Collection<? extends JRPrintElement> elements, float offsetX, float offsetY)
 	{
 		if (elements == null || elements.isEmpty())
 		{
@@ -111,11 +111,11 @@ public class JRPrintBand implements JRPrintElementContainer
 	protected static class OffsetElements
 	{
 		private final Collection<? extends JRPrintElement> elements;
-		private final int offsetX;
-		private final int offsetY;
+		private final float offsetX;
+		private final float offsetY;
 		
 		public OffsetElements(Collection<? extends JRPrintElement> elements,
-				int offsetX, int offsetY)
+				float offsetX, float offsetY)
 		{
 			this.elements = elements;
 			this.offsetX = offsetX;

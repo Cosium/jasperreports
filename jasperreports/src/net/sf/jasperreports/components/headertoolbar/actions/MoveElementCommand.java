@@ -33,11 +33,11 @@ import net.sf.jasperreports.web.commands.Command;
 public class MoveElementCommand implements Command 
 {
 	
-	private int x;
-	private int oldX;
+	private float x;
+	private float oldX;
 	private JRBaseElement receiver;
 	
-	public MoveElementCommand(JRBaseElement receiver, int x) {
+	public MoveElementCommand(JRBaseElement receiver, float x) {
 		this.receiver = receiver;
 		this.x = x;
 		this.oldX = receiver.getX();

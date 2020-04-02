@@ -73,8 +73,8 @@ public abstract class AbstractPdfTextRenderer extends AbstractTextRenderer
 		JRPdfExporter pdfExporter, 
 		PdfContentByte pdfContentByte,
 		JRPrintText text,
-		int offsetX,
-		int offsetY
+		float offsetX,
+		float offsetY
 		)
 	{
 		this.pdfExporter = pdfExporter;

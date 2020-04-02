@@ -61,9 +61,9 @@ public class JRFillBreak extends JRFillElement implements JRBreak
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
-		int width;
+		float width;
 		switch (getTypeValue())
 		{
 			case PAGE:
@@ -175,7 +175,7 @@ public class JRFillBreak extends JRFillElement implements JRBreak
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{

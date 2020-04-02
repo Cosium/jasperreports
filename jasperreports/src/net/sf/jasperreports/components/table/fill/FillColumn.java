@@ -39,7 +39,7 @@ public class FillColumn implements JRPropertiesHolder
 {
 
 	private BaseColumn tableColumn;
-	private int width;
+	private float width;
 	private List<FillColumn> subcolumns;
 
 	private JRPropertiesMap properties;
@@ -51,7 +51,7 @@ public class FillColumn implements JRPropertiesHolder
 				null, properties);
 	}
 	
-	public FillColumn(BaseColumn tableColumn, int width,
+	public FillColumn(BaseColumn tableColumn, float width,
 			List<FillColumn> subcolumns, JRPropertiesMap properties)
 	{
 		super();
@@ -67,7 +67,7 @@ public class FillColumn implements JRPropertiesHolder
 		return tableColumn;
 	}
 
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -103,7 +103,7 @@ public class FillColumn implements JRPropertiesHolder
 	public int hashCode()
 	{
 		int hash = tableColumn.hashCode();
-		hash = hash * 37 + width;
+		hash = (int)(hash * 37 + width);
 		hash = hash * 37 + (subcolumns == null ? 0 : subcolumns.hashCode());
 		return hash;
 	}

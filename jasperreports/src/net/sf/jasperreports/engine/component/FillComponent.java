@@ -80,7 +80,7 @@ public interface FillComponent
 	 * @return the result of the preparation, which specifies whether the
 	 * component will print and how much it will stretch vertically.
 	 */
-	FillPrepareResult prepare(int availableHeight);
+	FillPrepareResult prepare(float availableHeight);
 
 	/**
 	 * Fills the component by creating a print element which will be included

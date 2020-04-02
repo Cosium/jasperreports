@@ -169,7 +169,7 @@ public abstract class JRTemplateElement implements JRCommonElement, Serializable
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -177,7 +177,7 @@ public abstract class JRTemplateElement implements JRCommonElement, Serializable
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		throw new UnsupportedOperationException();
 	}

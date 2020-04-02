@@ -35,6 +35,8 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRPrintRectangle;
@@ -72,33 +74,33 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintRectangle rectangle, int offsetX, int offsetY)
+	public void draw(Graphics2D grx, JRPrintRectangle rectangle, float offsetX, float offsetY)
 	{
-		int width = rectangle.getWidth();
-		int height = rectangle.getHeight();
+		float width = rectangle.getWidth();
+		float height = rectangle.getHeight();
 		
 		if (rectangle.getModeValue() == ModeEnum.OPAQUE)
 		{
 			grx.setColor(rectangle.getBackcolor());
 			if (rectangle.getRadius() > 0)
 			{
-				grx.fillRoundRect(
+				grx.fill(new RoundRectangle2D.Float(
 					rectangle.getX() + offsetX, 
 					rectangle.getY() + offsetY, 
 					width,
 					height,
 					2 * rectangle.getRadius(),
 					2 * rectangle.getRadius()
-					);
+					));
 			}
 			else
 			{
-				grx.fillRect(
+				grx.fill(new Rectangle2D.Float(
 					rectangle.getX() + offsetX, 
 					rectangle.getY() + offsetY, 
 					width,
 					height
-					);
+					));
 			}
 		}
 
@@ -128,14 +130,14 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 						(height + 2 * lineWidth / 3) 
 							/ height 
 						);
-					grx.drawRoundRect(
+					grx.draw(new RoundRectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height,
 						2 * rectangle.getRadius(),
 						2 * rectangle.getRadius()
-						);
+						));
 					grx.setTransform(oldTx);
 					grx.translate(
 						rectangle.getX() + offsetX + lineWidth / 3, 
@@ -157,14 +159,14 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 								/ height 
 							);
 					}
-					grx.drawRoundRect(
+					grx.draw(new RoundRectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height,
 						2 * rectangle.getRadius(),
 						2 * rectangle.getRadius()
-						);
+						));
 				}
 				else
 				{
@@ -178,12 +180,12 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 						(height + 2 * lineWidth / 3) 
 							/ height 
 						);
-					grx.drawRect(
+					grx.draw(new Rectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height
-						);
+						));
 					grx.setTransform(oldTx);
 					grx.translate(
 						rectangle.getX() + offsetX + lineWidth / 3, 
@@ -205,12 +207,12 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 								/ height 
 							);
 					}
-					grx.drawRect(
+					grx.draw(new Rectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height
-						);
+						));
 				}
 			}
 			else
@@ -240,23 +242,23 @@ public class RectangleDrawer extends ElementDrawer<JRPrintRectangle>
 
 				if (rectangle.getRadius() > 0)
 				{
-					grx.drawRoundRect(
+					grx.draw(new RoundRectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height,
 						2 * rectangle.getRadius(),
 						2 * rectangle.getRadius()
-						);
+						));
 				}
 				else
 				{
-					grx.drawRect(
+					grx.draw(new Rectangle2D.Float(
 						0, 
 						0, 
 						width,
 						height
-						);
+						));
 				}
 			}
 

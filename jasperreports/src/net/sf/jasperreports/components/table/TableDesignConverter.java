@@ -23,7 +23,7 @@
  */
 package net.sf.jasperreports.components.table;
 
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
 
@@ -65,21 +65,21 @@ public class TableDesignConverter implements ComponentDesignConverter
 				(JasperDesign)reportConverter.getReport()
 				);
 		
-		Map<Cell, Rectangle> cellBounds = tableManager.getCellBounds();
+		Map<Cell, Rectangle2D.Float> cellBounds = tableManager.getCellBounds();
 		
-		for (Map.Entry<Cell, Rectangle> pair : cellBounds.entrySet()) 
+		for (Map.Entry<Cell, Rectangle2D.Float> pair : cellBounds.entrySet()) 
 		{
 			Cell cell = pair.getKey();
-			Rectangle rectangle = pair.getValue(); 
+			Rectangle2D rectangle = pair.getValue(); 
 			
 			JRBasePrintFrame cellFrame = 
 				new JRBasePrintFrame(
 					reportConverter.getDefaultStyleProvider()
 					);
-			cellFrame.setX((int)rectangle.getX());
-			cellFrame.setY((int)rectangle.getY());
-			cellFrame.setWidth((int)rectangle.getWidth());			
-			cellFrame.setHeight((int)rectangle.getHeight());
+			cellFrame.setX((float)rectangle.getX());
+			cellFrame.setY((float)rectangle.getY());
+			cellFrame.setWidth((float)rectangle.getWidth());			
+			cellFrame.setHeight((float)rectangle.getHeight());
 			cellFrame.setStyle(reportConverter.resolveStyle(cell));
 			
 			if (cell.getLineBox() != null)

@@ -62,7 +62,7 @@ public class FillPrepareResult
 	 * argument passed to {@link FillComponent#prepare(int)}
 	 * @return a result as described above
 	 */
-	public static FillPrepareResult noPrintOverflow(int stretchHeight)
+	public static FillPrepareResult noPrintOverflow(float stretchHeight)
 	{
 		return new FillPrepareResult(false, stretchHeight, true);
 	}
@@ -78,14 +78,14 @@ public class FillPrepareResult
 	 * @return a result that the component will print with the specified
 	 * stretch height and overflow flag
 	 */
-	public static FillPrepareResult printStretch(int stretchHeight, boolean overflow)
+	public static FillPrepareResult printStretch(float stretchHeight, boolean overflow)
 	{
 		return new FillPrepareResult(true, stretchHeight, overflow);
 	}
 	
 	private final boolean toPrint;
 	private final boolean overflow;
-	private final int stretchHeight;
+	private final float stretchHeight;
 
 	/**
 	 * Creates a fill preparation result.
@@ -98,7 +98,7 @@ public class FillPrepareResult
 	 * to continue the component fill on a new column/page 
 	 */
 	public FillPrepareResult(boolean toPrint,
-			int stretchHeight, boolean overflow)
+			float stretchHeight, boolean overflow)
 	{
 		this.stretchHeight = stretchHeight;
 		this.toPrint = toPrint;
@@ -132,7 +132,7 @@ public class FillPrepareResult
 	 * 
 	 * @return the amount of vertical space consumed by the component
 	 */
-	public int getStretchHeight()
+	public float getStretchHeight()
 	{
 		return stretchHeight;
 	}

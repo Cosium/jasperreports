@@ -124,7 +124,7 @@ public abstract class JRFillGraphicElement extends JRFillElement implements JRGr
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{

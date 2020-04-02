@@ -247,9 +247,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets page width (including margins etc.). Default is 595.
 	 */
-	public void setPageWidth(int pageWidth)
+	public void setPageWidth(float pageWidth)
 	{
-		int old = this.pageWidth;
+		float old = this.pageWidth;
 		this.pageWidth = pageWidth;
 		getEventSupport().firePropertyChange(PROPERTY_PAGE_WIDTH, old, this.pageWidth);
 	}
@@ -258,9 +258,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets page height (including margins etc.). Default is 842.
 	 */
-	public void setPageHeight(int pageHeight)
+	public void setPageHeight(float pageHeight)
 	{
-		int old = this.pageHeight;
+		float old = this.pageHeight;
 		this.pageHeight = pageHeight;
 		getEventSupport().firePropertyChange(PROPERTY_PAGE_HEIGHT, old, this.pageHeight);
 	}
@@ -282,9 +282,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the column width.
 	 */
-	public void setColumnWidth(int columnWidth)
+	public void setColumnWidth(float columnWidth)
 	{
-		int old = this.columnWidth;
+		float old = this.columnWidth;
 		this.columnWidth = columnWidth;
 		getEventSupport().firePropertyChange(PROPERTY_COLUMN_WIDTH, old, this.columnWidth);
 	}
@@ -293,9 +293,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the spacing between columns.
 	 */
-	public void setColumnSpacing(int columnSpacing)
+	public void setColumnSpacing(float columnSpacing)
 	{
-		int old = this.columnSpacing;
+		float old = this.columnSpacing;
 		this.columnSpacing = columnSpacing;
 		getEventSupport().firePropertyChange(PROPERTY_COLUMN_SPACING, old, this.columnSpacing);
 	}
@@ -304,9 +304,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the left margin. The working space is calculated by subtracting the margins from the page width.
 	 */
-	public void setLeftMargin(int leftMargin)
+	public void setLeftMargin(float leftMargin)
 	{
-		int old = this.leftMargin;
+		float old = this.leftMargin;
 		this.leftMargin = leftMargin;
 		getEventSupport().firePropertyChange(PROPERTY_LEFT_MARGIN, old, this.leftMargin);
 	}
@@ -315,9 +315,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the right margin. The working space is calculated by subtracting the margins from the page width.
 	 */
-	public void setRightMargin(int rightMargin)
+	public void setRightMargin(float rightMargin)
 	{
-		int old = this.rightMargin;
+		float old = this.rightMargin;
 		this.rightMargin = rightMargin;
 		getEventSupport().firePropertyChange(PROPERTY_RIGHT_MARGIN, old, this.rightMargin);
 	}
@@ -326,9 +326,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the top margin. The working space is calculated by subtracting the margins from the page height.
 	 */
-	public void setTopMargin(int topMargin)
+	public void setTopMargin(float topMargin)
 	{
-		int old = this.topMargin;
+		float old = this.topMargin;
 		this.topMargin = topMargin;
 		getEventSupport().firePropertyChange(PROPERTY_TOP_MARGIN, old, this.topMargin);
 	}
@@ -337,9 +337,9 @@ public class JasperDesign extends JRBaseReport
 	/**
 	 * Sets the top margin. The working space is calculated by subtracting the margins from the page height.
 	 */
-	public void setBottomMargin(int bottomMargin)
+	public void setBottomMargin(float bottomMargin)
 	{
-		int old = this.bottomMargin;
+		float old = this.bottomMargin;
 		this.bottomMargin = bottomMargin;
 		getEventSupport().firePropertyChange(PROPERTY_BOTTOM_MARGIN, old, this.bottomMargin);
 	}

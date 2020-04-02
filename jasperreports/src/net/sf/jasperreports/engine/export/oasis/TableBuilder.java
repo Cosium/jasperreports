@@ -85,7 +85,7 @@ public class TableBuilder
 	}
 
 
-	public void buildTableStyle(int width) throws IOException 
+	public void buildTableStyle(float width) throws IOException 
 	{
 		styleWriter.write(" <style:style style:name=\"" + tableName + "\"");//FIXMEODT can we have only one page style per report?
 		if (!isFrame)
@@ -141,7 +141,7 @@ public class TableBuilder
 		bodyWriter.write("</table:table>\n");
 	}
 	
-	public void buildRowStyle(int rowIndex, int rowHeight) throws IOException 
+	public void buildRowStyle(int rowIndex, float rowHeight) throws IOException 
 	{
 		String rowName = tableName + "_row_" + rowIndex;
 		styleWriter.write(" <style:style style:name=\"" + rowName + "\"");
@@ -167,7 +167,7 @@ public class TableBuilder
 		bodyWriter.write("</table:table-row>\n");
 	}
 	
-	public void buildColumnStyle(int colIndex, int colWidth) throws IOException 
+	public void buildColumnStyle(int colIndex, float colWidth) throws IOException 
 	{
 		String columnName = tableName + "_col_" + colIndex;
 		styleWriter.write(" <style:style style:name=\"" + columnName + "\"");
@@ -191,7 +191,7 @@ public class TableBuilder
 		bodyWriter.write("</table:table-column>\n");		
 	}
 
-	public void buildCellHeader(String cellStyleName, int colSpan, int rowSpan) throws IOException 
+	public void buildCellHeader(String cellStyleName, float colSpan, int rowSpan) throws IOException 
 	{
 		//FIXMEODT officevalue bodyWriter.write("<table:table-cell office:value-type=\"string\"");
 		bodyWriter.write("<table:table-cell");

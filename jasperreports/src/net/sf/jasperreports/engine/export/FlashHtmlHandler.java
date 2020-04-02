@@ -96,8 +96,8 @@ public class FlashHtmlHandler implements GenericElementHtmlHandler//FIXME need t
 		String flashVars = flashVarsBuf.toString();
 		
 		String id = "jrflash_" + System.identityHashCode(element);
-		int width = element.getWidth();
-		int height = element.getHeight();
+		float width = element.getWidth();
+		float height = element.getHeight();
 		String allowScriptAccess = FlashUtils.getAllowScriptAccess(exporterContext, element);
 		
 		StringBuilder out = new StringBuilder();

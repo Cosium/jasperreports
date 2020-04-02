@@ -90,10 +90,10 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	protected StretchTypeEnum stretchTypeValue = StretchTypeEnum.NO_STRETCH;
 	protected boolean isPrintRepeatedValues = true;
 	protected ModeEnum modeValue;
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	protected float x;
+	protected float y;
+	protected float width;
+	protected float height;
 	protected boolean isRemoveLineWhenBlank;
 	protected boolean isPrintInFirstWholeBand;
 	protected boolean isPrintWhenDetailOverflows;
@@ -307,7 +307,7 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public int getX()
+	public float getX()
 	{
 		return this.x;
 	}
@@ -315,9 +315,9 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public void setX(int x)
+	public void setX(float x)
 	{
-		int old = this.x;
+		float old = this.x;
 		this.x = x;
 		getEventSupport().firePropertyChange(PROPERTY_X, old, this.x);
 	}
@@ -325,7 +325,7 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public int getY()
+	public float getY()
 	{
 		return this.y;
 	}
@@ -333,7 +333,7 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return this.width;
 	}
@@ -341,9 +341,9 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
-		int old = this.width;
+		float old = this.width;
 		this.width = width;
 		getEventSupport().firePropertyChange(PROPERTY_WIDTH, old, this.width);
 	}
@@ -351,7 +351,7 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return this.height;
 	}
@@ -547,7 +547,7 @@ public abstract class JRBaseElement implements JRElement, Serializable, JRChange
 	}
 
 	@Override
-	public JRElement clone(JRElementGroup parentGroup, int y)
+	public JRElement clone(JRElementGroup parentGroup, float y)
 	{
 		JRBaseElement clone = (JRBaseElement) clone(parentGroup);
 		clone.y = y;

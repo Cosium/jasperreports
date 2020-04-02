@@ -75,7 +75,7 @@ public class JRBaseGroup implements JRGroup, Serializable, JRChangeEventsSupport
 	protected boolean isStartNewPage;
 	protected boolean isResetPageNumber;
 	protected boolean isReprintHeaderOnEachPage;
-	protected int minHeightToStartNewPage;
+	protected float minHeightToStartNewPage;
 	protected FooterPositionEnum footerPositionValue = FooterPositionEnum.NORMAL;
 	protected boolean keepTogether;
 
@@ -203,7 +203,7 @@ public class JRBaseGroup implements JRGroup, Serializable, JRChangeEventsSupport
 	/**
 	 *
 	 */
-	public int getMinHeightToStartNewPage()
+	public float getMinHeightToStartNewPage()
 	{
 		return this.minHeightToStartNewPage;
 	}
@@ -211,9 +211,9 @@ public class JRBaseGroup implements JRGroup, Serializable, JRChangeEventsSupport
 	/**
 	 *
 	 */
-	public void setMinHeightToStartNewPage(int minHeight)
+	public void setMinHeightToStartNewPage(float minHeight)
 	{
-		int old = this.minHeightToStartNewPage;
+		float old = this.minHeightToStartNewPage;
 		this.minHeightToStartNewPage = minHeight;
 		getEventSupport().firePropertyChange(PROPERTY_MIN_HEIGHT_TO_START_NEW_PAGE, old, this.minHeightToStartNewPage);
 	}

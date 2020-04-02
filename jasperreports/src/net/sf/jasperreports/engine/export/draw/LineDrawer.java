@@ -34,6 +34,7 @@ package net.sf.jasperreports.engine.export.draw;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.geom.Line2D;
 
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRPrintLine;
@@ -70,7 +71,7 @@ public class LineDrawer extends ElementDrawer<JRPrintLine>
 	/**
 	 *
 	 */
-	public void draw(Graphics2D grx, JRPrintLine line, int offsetX, int offsetY)
+	public void draw(Graphics2D grx, JRPrintLine line, float offsetX, float offsetY)
 	{
 		grx.setColor(line.getLinePen().getLineColor());
 		
@@ -90,30 +91,30 @@ public class LineDrawer extends ElementDrawer<JRPrintLine>
 					if (line.getLinePen().getLineStyleValue() ==LineStyleEnum.DOUBLE)
 					{
 						grx.translate(0.5 - lineWidth / 3, 0);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX,  
 							line.getY() + offsetY + line.getHeight()
-							);
+							));
 						grx.translate(2 * lineWidth / 3, 0);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX,  
 							line.getY() + offsetY + line.getHeight()
-							);
+							));
 						grx.translate(-0.5 - lineWidth / 3, 0);
 					}
 					else
 					{
 						grx.translate(0.5, 0);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX,  
 							line.getY() + offsetY + line.getHeight()
-							);
+							));
 						grx.translate(-0.5, 0);
 					}
 				}
@@ -126,30 +127,30 @@ public class LineDrawer extends ElementDrawer<JRPrintLine>
 					if (line.getLinePen().getLineStyleValue() == LineStyleEnum.DOUBLE)
 					{
 						grx.translate(0, 0.5 - lineWidth / 3);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX + line.getWidth(),  
 							line.getY() + offsetY
-							);
+							));
 						grx.translate(0, 2 * lineWidth / 3);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX + line.getWidth(),  
 							line.getY() + offsetY
-							);
+							));
 						grx.translate(0, -0.5 - lineWidth / 3);
 					}
 					else
 					{
 						grx.translate(0, 0.5);
-						grx.drawLine(
+						grx.draw(new Line2D.Float(
 							line.getX() + offsetX, 
 							line.getY() + offsetY,
 							line.getX() + offsetX + line.getWidth(),  
 							line.getY() + offsetY
-							);
+							));
 						grx.translate(0, -0.5);
 					}
 				}
@@ -163,29 +164,29 @@ public class LineDrawer extends ElementDrawer<JRPrintLine>
 							double xtrans = lineWidth / (3 * Math.sqrt(1 + Math.pow(line.getWidth(), 2) / Math.pow(line.getHeight(), 2))); 
 							double ytrans = lineWidth / (3 * Math.sqrt(1 + Math.pow(line.getHeight(), 2) / Math.pow(line.getWidth(), 2))); 
 							grx.translate(xtrans, -ytrans);
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY,
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY + line.getHeight()
-								);
+								));
 							grx.translate(-2 * xtrans, 2 * ytrans);
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY,
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY + line.getHeight()
-								);
+								));
 							grx.translate(xtrans, -ytrans);
 						}
 						else
 						{
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY,
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY + line.getHeight()
-								);
+								));
 						}
 					}
 					else
@@ -195,29 +196,29 @@ public class LineDrawer extends ElementDrawer<JRPrintLine>
 							double xtrans = lineWidth / (3 * Math.sqrt(1 + Math.pow(line.getWidth(), 2) / Math.pow(line.getHeight(), 2))); 
 							double ytrans = lineWidth / (3 * Math.sqrt(1 + Math.pow(line.getHeight(), 2) / Math.pow(line.getWidth(), 2))); 
 							grx.translate(-xtrans, -ytrans);
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY + line.getHeight(),
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY
-								);
+								));
 							grx.translate(2 * xtrans, 2 * ytrans);
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY + line.getHeight(),
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY
-								);
+								));
 							grx.translate(-xtrans, -ytrans);
 						}
 						else
 						{
-							grx.drawLine(
+							grx.draw(new Line2D.Float(
 								line.getX() + offsetX, 
 								line.getY() + offsetY + line.getHeight(),
 								line.getX() + offsetX + line.getWidth(),  
 								line.getY() + offsetY
-								);
+								));
 						}
 					}
 				}

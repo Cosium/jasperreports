@@ -150,7 +150,7 @@ public final class ChartUtil
 		JRPrintImageArea area = new JRPrintImageArea();
 		area.setShape(JRPrintImageArea.getShape(entity.getShapeType()));
 		
-		int[] coordinates = getCoordinates(entity);
+		float[] coordinates = getCoordinates(entity);
 		if (coordinates != null)
 		{
 			area.setCoordinates(coordinates);
@@ -158,19 +158,19 @@ public final class ChartUtil
 		return area;
 	}
 	
-	private static int[] getCoordinates(ChartEntity entity)
+	private static float[] getCoordinates(ChartEntity entity)
 	{
-		int[] coordinates = null;
+		float[] coordinates = null;
 		String shapeCoords = entity.getShapeCoords();
 		if (shapeCoords != null && shapeCoords.length() > 0)
 		{
 			StringTokenizer tokens = new StringTokenizer(shapeCoords, ",");
-			coordinates = new int[tokens.countTokens()];
+			coordinates = new float[tokens.countTokens()];
 			int idx = 0;
 			while (tokens.hasMoreTokens())
 			{
 				String coord = tokens.nextToken();
-				coordinates[idx] = Integer.parseInt(coord);
+				coordinates[idx] = Float.parseFloat(coord);
 				++idx;
 			}
 		}

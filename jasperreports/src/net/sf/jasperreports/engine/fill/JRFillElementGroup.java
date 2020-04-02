@@ -57,7 +57,7 @@ public class JRFillElementGroup implements JRElementGroup, JRFillCloneable
 	 */
 	private JRElement topElementInGroup;
 	private JRElement bottomElementInGroup;
-	private int stretchHeightDiff;
+	private float stretchHeightDiff;
 
 
 	/**
@@ -190,7 +190,7 @@ public class JRFillElementGroup implements JRElementGroup, JRFillCloneable
 	/**
 	 *
 	 */
-	protected int getStretchHeightDiff()
+	protected float getStretchHeightDiff()
 	{
 		if (topElementInGroup == null)
 		{

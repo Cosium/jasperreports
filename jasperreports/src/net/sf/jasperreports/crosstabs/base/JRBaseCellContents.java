@@ -55,8 +55,8 @@ public class JRBaseCellContents extends JRBaseElementGroup implements JRCellCont
 	protected ModeEnum modeValue;
 	protected Color backcolor;
 	protected JRLineBox lineBox;
-	protected int width;
-	protected int height;
+	protected float width;
+	protected float height;
 
 	public JRBaseCellContents(JRCellContents cell, JRBaseObjectFactory factory)
 	{
@@ -82,12 +82,12 @@ public class JRBaseCellContents extends JRBaseElementGroup implements JRCellCont
 		return lineBox;
 	}
 
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
 
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}

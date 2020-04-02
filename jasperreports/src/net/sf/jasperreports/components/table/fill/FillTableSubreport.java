@@ -153,7 +153,7 @@ public class FillTableSubreport extends JRFillSubreport
 		parameterValues.put(JRParameter.REPORT_TEMPLATES, templates);
 	}
 	
-	protected FillPrepareResult prepareSubreport(int availableHeight, boolean isOverflow) 
+	protected FillPrepareResult prepareSubreport(float availableHeight, boolean isOverflow) 
 		throws JRException
 	{
 		boolean willOverflow = prepare(availableHeight, isOverflow);
@@ -168,7 +168,7 @@ public class FillTableSubreport extends JRFillSubreport
 	}
 
 	@Override
-	protected int getContentsStretchHeight()
+	protected float getContentsStretchHeight()
 	{
 		// overriding this for package access
 		return super.getContentsStretchHeight();

@@ -483,7 +483,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	 *
 	 */
 	protected void chopTextElement(
-		int availableStretchHeight
+		float availableStretchHeight
 		)
 	{
 		ensureTextMeasurer();
@@ -512,7 +512,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 		setTextHeight(measuredText.getTextHeight());
 		if (getRotationValue().equals(RotationEnum.NONE))
 		{
-			setStretchHeight((int)getTextHeight() + getLineBox().getTopPadding().intValue() + getLineBox().getBottomPadding().intValue());
+			setStretchHeight(getTextHeight() + getLineBox().getTopPadding().floatValue() + getLineBox().getBottomPadding().floatValue());
 		}
 		else
 		{
@@ -690,7 +690,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	/**
 	 *
 	 */
-	public int getFontSize()
+	public float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
@@ -698,7 +698,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return ((JRFont)parent).getOwnFontSize();
 	}
@@ -706,7 +706,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	/**
 	 *
 	 */
-	public void setFontSize(int size)
+	public void setFontSize(float size)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -715,7 +715,7 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	 * Alternative setSize method which allows also to reset
 	 * the "own" size property.
 	 */
-	public void setFontSize(Integer size)
+	public void setFontSize(Float size)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -816,7 +816,8 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	@Override
+    public void setHeight(float height)
 	{
 		super.setHeight(height);
 		
@@ -824,7 +825,8 @@ public abstract class JRFillTextElement extends JRFillElement implements JRTextE
 	}
 
 
-	public void setWidth(int width)
+	@Override
+    public void setWidth(float width)
 	{
 		super.setWidth(width);
 		

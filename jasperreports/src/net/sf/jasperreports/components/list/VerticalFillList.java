@@ -53,7 +53,7 @@ public class VerticalFillList extends BaseFillList
 		this.listContents = new FillListContents(component.getContents(), datasetFactory);
 	}
 
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		createPrintFrame();
 		try
@@ -140,10 +140,10 @@ public class VerticalFillList extends BaseFillList
 		}
 	}
 
-	protected boolean fillContents(int availableHeight) throws JRException
+	protected boolean fillContents(float availableHeight) throws JRException
 	{
 		boolean overflow;
-		int contentsAvailableHeight = availableHeight - printFrame.getHeight();
+		float contentsAvailableHeight = availableHeight - printFrame.getHeight();
 		if (contentsAvailableHeight < listContents.getHeight())
 		{
 			overflow = true;

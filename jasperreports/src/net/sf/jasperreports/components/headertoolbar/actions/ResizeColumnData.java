@@ -31,13 +31,13 @@ package net.sf.jasperreports.components.headertoolbar.actions;
 public class ResizeColumnData extends BaseColumnData {
 
 	private int columnIndex;
-	private int width;
+	private float width;
 	private String direction;
 	
 	public ResizeColumnData() {
 	}
 	
-	public ResizeColumnData(String tableUuid, int columnIndex, int width, String direction) {
+	public ResizeColumnData(String tableUuid, int columnIndex, float width, String direction) {
 		super(tableUuid);
 		this.columnIndex = columnIndex;
 		this.width = width;
@@ -52,11 +52,11 @@ public class ResizeColumnData extends BaseColumnData {
 		this.columnIndex = columnIndex;
 	}
 
-	public int getWidth() {
+	public float getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width) {
+	public void setWidth(float width) {
 		this.width = width;
 	}
 

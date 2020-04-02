@@ -77,7 +77,7 @@ public class JRPdfExporterTagHelper
 	protected PdfStructureElement allTag;
 	protected Stack<PdfStructureElement> tagStack;
 	protected boolean isTagEmpty = true;
-	protected int crtCrosstabRowY = -1;
+	protected float crtCrosstabRowY = -1;
 	protected int crosstabFrameDepth;
 	protected boolean isDataCellPrinted;
 
@@ -479,20 +479,20 @@ public class JRPdfExporterTagHelper
 
 	protected void createSpanTags(JRPrintElement element, PdfStructureElement parentTag)
 	{
-		int colSpan = 0;
-		int rowSpan = 0;
+		float colSpan = 0;
+		float rowSpan = 0;
 		try	{
-			colSpan = Integer.valueOf(element.getPropertiesMap().getProperty(PROPERTY_TAG_COLSPAN)).intValue();
+			colSpan = Float.valueOf(element.getPropertiesMap().getProperty(PROPERTY_TAG_COLSPAN)).intValue();
 		} catch (NumberFormatException e) {
 			try	{
-				colSpan = Integer.valueOf(element.getPropertiesMap().getProperty(JRCellContents.PROPERTY_COLUMN_SPAN)).intValue();
+				colSpan = Float.valueOf(element.getPropertiesMap().getProperty(JRCellContents.PROPERTY_COLUMN_SPAN)).intValue();
 			} catch (NumberFormatException ex) {}
 		}
 		try {
-			rowSpan = Integer.valueOf(element.getPropertiesMap().getProperty(PROPERTY_TAG_ROWSPAN)).intValue();
+			rowSpan = Float.valueOf(element.getPropertiesMap().getProperty(PROPERTY_TAG_ROWSPAN)).intValue();
 		} catch (NumberFormatException e) {
 			try {
-				rowSpan = Integer.valueOf(element.getPropertiesMap().getProperty(JRCellContents.PROPERTY_ROW_SPAN)).intValue();
+				rowSpan = Float.valueOf(element.getPropertiesMap().getProperty(JRCellContents.PROPERTY_ROW_SPAN)).intValue();
 			} catch (NumberFormatException ex) {}
 		}
 		if (colSpan > 1 || rowSpan > 1)

@@ -257,12 +257,12 @@ public class TableReport implements JRReport
 	{
 		final ReportBandInfo bandInfo;
 		final FillColumn fillColumn;
-		int xOffset;
-		int yOffset;
+		float xOffset;
+		float yOffset;
 		int level;
 		
 		public ReportBandCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			this.bandInfo = bandInfo;
 			this.fillColumn = fillColumn;
@@ -315,7 +315,7 @@ public class TableReport implements JRReport
 		public Void visitColumnGroup(ColumnGroup columnGroup)
 		{
 			Cell cell = columnGroupCell(columnGroup);
-			int cellHeight = 0;
+			float cellHeight = 0;
 			int sublevel = level;
 			if (cell != null)
 			{
@@ -347,7 +347,7 @@ public class TableReport implements JRReport
 		protected abstract Cell columnGroupCell(ColumnGroup group);
 		
 		protected abstract ReportBandCreator createSubVisitor(FillColumn subcolumn, 
-				int xOffset, int yOffset, int subLevel);
+				float xOffset, float yOffset, int subLevel);
 		
 		public void visit()
 		{
@@ -358,7 +358,7 @@ public class TableReport implements JRReport
 	protected abstract class ReverseReportBandCreator extends ReportBandCreator
 	{
 		public ReverseReportBandCreator(ReportBandInfo bandInfo,
-				FillColumn fillColumn, int xOffset, int yOffset, int level)
+				FillColumn fillColumn, float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 		}
@@ -381,8 +381,8 @@ public class TableReport implements JRReport
 				rowSpan = cell.getRowSpan();
 			}
 			
-			int origXOffset = xOffset;
-			int origYOffset = yOffset;
+			float origXOffset = xOffset;
+			float origYOffset = yOffset;
 			
 			for (FillColumn subcolumn : fillColumn.getSubcolumns())
 			{
@@ -418,7 +418,7 @@ public class TableReport implements JRReport
 	{
 
 		public DetailBandCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 		}
@@ -437,7 +437,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new DetailBandCreator(bandInfo, subcolumn, xOffset, yOffset, sublevel);
 		}
@@ -463,7 +463,7 @@ public class TableReport implements JRReport
 		detailBand.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(detailBand);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			DetailBandCreator subVisitor = new DetailBandCreator(
@@ -481,7 +481,7 @@ public class TableReport implements JRReport
 		private final AtomicBoolean firstColumn;// we need a mutable boolean reference
 		
 		public ColumnHeaderCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level, 
+				float xOffset, float yOffset, int level, 
 				Map<Integer, String> headerClasses, AtomicBoolean firstColumn)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
@@ -704,7 +704,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new ColumnHeaderCreator(bandInfo, subcolumn, xOffset, yOffset, sublevel, 
 					headerHtmlClasses, firstColumn);
@@ -717,7 +717,7 @@ public class TableReport implements JRReport
 		columnHeader.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(columnHeader);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			ColumnHeaderCreator subVisitor = new ColumnHeaderCreator(
@@ -737,7 +737,7 @@ public class TableReport implements JRReport
 	protected class PageFooterCreator extends ReverseReportBandCreator
 	{
 		public PageFooterCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 		}
@@ -756,7 +756,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new PageFooterCreator(bandInfo, subcolumn, xOffset, yOffset, sublevel);
 		}
@@ -768,7 +768,7 @@ public class TableReport implements JRReport
 		pageFooter.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(pageFooter);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			PageFooterCreator subVisitor = new PageFooterCreator(
@@ -787,7 +787,7 @@ public class TableReport implements JRReport
 	protected class TitleCreator extends ReportBandCreator
 	{
 		public TitleCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 		}
@@ -806,7 +806,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new TitleCreator(bandInfo, subcolumn, xOffset, yOffset, sublevel);
 		}
@@ -818,7 +818,7 @@ public class TableReport implements JRReport
 		title.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(title);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			TitleCreator subVisitor = new TitleCreator(
@@ -837,7 +837,7 @@ public class TableReport implements JRReport
 	protected class SummaryCreator extends ReverseReportBandCreator
 	{
 		public SummaryCreator(ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 		}
@@ -856,7 +856,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new SummaryCreator(bandInfo, subcolumn, xOffset, yOffset, sublevel);
 		}
@@ -868,7 +868,7 @@ public class TableReport implements JRReport
 		summary.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(summary);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			SummaryCreator subVisitor = new SummaryCreator(
@@ -890,7 +890,7 @@ public class TableReport implements JRReport
 		
 		public GroupHeaderCreator(String groupName,
 				ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 			
@@ -911,7 +911,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new GroupHeaderCreator(groupName, 
 					bandInfo, subcolumn, xOffset, yOffset, sublevel);
@@ -924,7 +924,7 @@ public class TableReport implements JRReport
 		header.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(header);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			GroupHeaderCreator subVisitor = new GroupHeaderCreator(groupName,
@@ -946,7 +946,7 @@ public class TableReport implements JRReport
 		
 		public GroupFooterCreator(String groupName,
 				ReportBandInfo bandInfo, FillColumn fillColumn,
-				int xOffset, int yOffset, int level)
+				float xOffset, float yOffset, int level)
 		{
 			super(bandInfo, fillColumn, xOffset, yOffset, level);
 			
@@ -967,7 +967,7 @@ public class TableReport implements JRReport
 
 		@Override
 		protected ReportBandCreator createSubVisitor(FillColumn subcolumn,
-				int xOffset, int yOffset, int sublevel)
+				float xOffset, float yOffset, int sublevel)
 		{
 			return new GroupFooterCreator(groupName, 
 					bandInfo, subcolumn, xOffset, yOffset, sublevel);
@@ -980,7 +980,7 @@ public class TableReport implements JRReport
 		footer.setSplitType(SplitTypeEnum.PREVENT);
 		
 		ReportBandInfo bandInfo = new ReportBandInfo(footer);
-		int xOffset = 0;
+		float xOffset = 0;
 		for (FillColumn subcolumn : fillColumns)
 		{
 			GroupFooterCreator subVisitor = new GroupFooterCreator(groupName,
@@ -1130,8 +1130,8 @@ public class TableReport implements JRReport
 	}
 
 	protected JRElement createCell(JRElementGroup parentGroup, Cell cell, 
-			int originalWidth, int width, 
-			int x, int y, Integer columnHashCode, 
+			float originalWidth, float width, 
+			float x, float y, Integer columnHashCode, 
 			boolean forceFrame)
 	{
 		if (!forceFrame)
@@ -1208,8 +1208,8 @@ public class TableReport implements JRReport
 	}
 	
 	protected JRElement createCellElement(JRElementGroup elementGroup, Cell cell, 
-			int originalWidth, int width, 
-			int x, int y, Integer columnHashCode)
+			float originalWidth, float width, 
+			float x, float y, Integer columnHashCode)
 	{
 		List<JRChild> children = cell.getChildren();
 		if (children.size() != 1)
@@ -1272,10 +1272,10 @@ public class TableReport implements JRReport
 		return cellElement;
 	}
 
-	protected void scaleCellElement(JRElement element, Integer cellWidth,
-			int scaledCellWidth)
+	protected void scaleCellElement(JRElement element, Float cellWidth,
+			float scaledCellWidth)
 	{
-		int scaledWidth = Math.round(((float) element.getWidth() * scaledCellWidth) / cellWidth);
+		int scaledWidth = Math.round(( element.getWidth() * scaledCellWidth) / cellWidth);
 		element.setWidth(scaledWidth);
 	}
 	
@@ -1291,7 +1291,7 @@ public class TableReport implements JRReport
 		return null;
 	}
 
-	public int getBottomMargin()
+	public float getBottomMargin()
 	{
 		return 0;
 	}
@@ -1311,12 +1311,12 @@ public class TableReport implements JRReport
 		return columnHeader;
 	}
 
-	public int getColumnSpacing()
+	public float getColumnSpacing()
 	{
 		return 0;
 	}
 
-	public int getColumnWidth()
+	public float getColumnWidth()
 	{
 		return fillContext.getComponentElement().getWidth();
 	}
@@ -1382,7 +1382,7 @@ public class TableReport implements JRReport
 		return lastPageFooter;
 	}
 
-	public int getLeftMargin()
+	public float getLeftMargin()
 	{
 		return 0;
 	}
@@ -1417,12 +1417,12 @@ public class TableReport implements JRReport
 		return null;
 	}
 
-	public int getPageHeight()
+	public float getPageHeight()
 	{
 		return parentReport.getPageHeight();
 	}
 
-	public int getPageWidth()
+	public float getPageWidth()
 	{
 		return fillContext.getComponentElement().getWidth();
 	}
@@ -1462,7 +1462,7 @@ public class TableReport implements JRReport
 		return mainDataset.getResourceBundle();
 	}
 
-	public int getRightMargin()
+	public float getRightMargin()
 	{
 		return 0;
 	}
@@ -1503,7 +1503,7 @@ public class TableReport implements JRReport
 		return title;
 	}
 
-	public int getTopMargin()
+	public float getTopMargin()
 	{
 		return 0;
 	}

@@ -33,10 +33,9 @@
 package net.sf.jasperreports.engine.export;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.font.TextAttribute;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -106,6 +105,7 @@ import net.sf.jasperreports.engine.util.Pair;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -202,7 +202,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 	protected Writer writer;
 	protected JRExportProgressMonitor progressMonitor;
 	protected Map<String,String> rendererToImagePathMap;
-	protected Map<Pair<String, Rectangle>,String> imageMaps;
+	protected Map<Pair<String, Rectangle2D.Float>,String> imageMaps;
 	protected Map<String,byte[]> imageNameToImageDataMap;
 	protected List<JRPrintElementIndex> imagesToProcess;
 	protected boolean isPxImageLoaded;
@@ -345,7 +345,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 					);
 	
 			rendererToImagePathMap = new HashMap<String,String>();
-			imageMaps = new HashMap<Pair<String, Rectangle>,String>();
+			imageMaps = new HashMap<Pair<String, Rectangle2D.Float>,String>();
 			imagesToProcess = new ArrayList<JRPrintElementIndex>();
 			isPxImageLoaded = false;
 	
@@ -396,7 +396,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 				emptyCellStringProvider =
 					new StringProvider()
 					{
-						public String getStringForCollapsedTD(Object value, int width, int height)
+						public String getStringForCollapsedTD(Object value, float width, float height)
 						{
 							return "><img alt=\"\" src=\"" + value + "px\" style=\"width: " + toSizeUnit(width) + "; height: " + toSizeUnit(height) + ";\"/>";
 						}
@@ -418,7 +418,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 				emptyCellStringProvider =
 					new StringProvider()
 					{
-						public String getStringForCollapsedTD(Object value, int width, int height)
+						public String getStringForCollapsedTD(Object value, float width, float height)
 						{
 							return " style=\"width: " + toSizeUnit(width) + "; height: " + toSizeUnit(height) + ";\">";
 						}
@@ -648,7 +648,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 							renderer =
 								new JRWrappingSvgRenderer(
 									renderer,
-									new Dimension(image.getWidth(), image.getHeight()),
+									new FloatDimension(image.getWidth(), image.getHeight()),
 									ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 									);
 						}
@@ -875,7 +875,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 		}
 
 		writer.write("<tr>\n");
-		int width = 0;
+		float width = 0;
 		for(int i = 1; i < xCuts.size(); i++)
 		{
 			width = xCuts.getCutOffset(i) - xCuts.getCutOffset(i - 1);
@@ -890,7 +890,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 			{
 				JRExporterGridCell[] gridRow = grid[y];
 				
-				int rowHeight = JRGridLayout.getRowHeight(gridRow);
+				float rowHeight = JRGridLayout.getRowHeight(gridRow);
 				
 				boolean hasEmptyCell = hasEmptyCell(gridRow);
 				
@@ -1001,7 +1001,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 	}
 
 
-	protected void writeEmptyCell(JRExporterGridCell cell, int rowHeight) throws IOException
+	protected void writeEmptyCell(JRExporterGridCell cell, float rowHeight) throws IOException
 	{
 		String cellTag = getCellTag(cell);
 		
@@ -2040,7 +2040,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 								renderer =
 									new JRWrappingSvgRenderer(
 										renderer,
-										new Dimension(image.getWidth(), image.getHeight()),
+										new FloatDimension(image.getWidth(), image.getHeight()),
 										ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 										);
 							}
@@ -2054,11 +2054,11 @@ public class JRHtmlExporter extends JRAbstractExporter
 				
 				if (imageMapRenderer)
 				{
-					Rectangle renderingArea = new Rectangle(image.getWidth(), image.getHeight());
+					Rectangle2D.Float renderingArea = new Rectangle2D.Float(0,0,image.getWidth(), image.getHeight());
 					
 					if (renderer.getTypeValue() == RenderableTypeEnum.IMAGE)
 					{
-						imageMapName = imageMaps.get(new Pair<String, Rectangle>(renderer.getId(), renderingArea));
+						imageMapName = imageMaps.get(new Pair<String, Rectangle2D.Float>(renderer.getId(), renderingArea));
 					}
 	
 					if (imageMapName == null)
@@ -2068,7 +2068,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 						
 						if (renderer.getTypeValue() == RenderableTypeEnum.IMAGE)
 						{
-							imageMaps.put(new Pair<String, Rectangle>(renderer.getId(), renderingArea), imageMapName);
+							imageMaps.put(new Pair<String, Rectangle2D.Float>(renderer.getId(), renderingArea), imageMapName);
 						}
 					}
 				}
@@ -2087,13 +2087,13 @@ public class JRHtmlExporter extends JRAbstractExporter
 			}
 			writer.write("\"");
 		
-			int imageWidth = image.getWidth() - image.getLineBox().getLeftPadding().intValue() - image.getLineBox().getRightPadding().intValue();
+			float imageWidth = image.getWidth() - image.getLineBox().getLeftPadding().intValue() - image.getLineBox().getRightPadding().intValue();
 			if (imageWidth < 0)
 			{
 				imageWidth = 0;
 			}
 		
-			int imageHeight = image.getHeight() - image.getLineBox().getTopPadding().intValue() - image.getLineBox().getBottomPadding().intValue();
+			float imageHeight = image.getHeight() - image.getLineBox().getTopPadding().intValue() - image.getLineBox().getBottomPadding().intValue();
 			if (imageHeight < 0)
 			{
 				imageHeight = 0;
@@ -2215,7 +2215,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 		if (image.getHyperlinkTypeValue() != HyperlinkTypeEnum.NONE)
 		{
 			writer.write("  <area shape=\"default\"");
-			writeImageAreaCoordinates(new int[]{0, 0, image.getWidth(), image.getHeight()});//for IE
+			writeImageAreaCoordinates(new float[]{0, 0, image.getWidth(), image.getHeight()});//for IE
 			writeImageAreaHyperlink(image);
 			writer.write("/>\n");
 		}
@@ -2224,7 +2224,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 	}
 
 	
-	protected void writeImageAreaCoordinates(int[] coords) throws IOException
+	protected void writeImageAreaCoordinates(float[] coords) throws IOException
 	{
 		if (coords != null && coords.length > 0)
 		{
@@ -2296,7 +2296,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 		/**
 		 *
 		 */
-		public String getStringForCollapsedTD(Object value, int width, int height);
+		public String getStringForCollapsedTD(Object value, float width, float height);
 
 		/**
 		 *
@@ -2314,7 +2314,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 	{
 		boolean addedToStyle = false;
 		
-		if (padding.intValue() > 0)
+		if (padding.floatValue() > 0)
 		{
 			sb.append("padding");
 			if (side != null)
@@ -2323,7 +2323,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 				sb.append(side);
 			}
 			sb.append(": ");
-			sb.append(toSizeUnit(padding.intValue()));
+			sb.append(toSizeUnit(padding.floatValue()));
 			sb.append("; ");
 
 			addedToStyle = true;
@@ -2382,7 +2382,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 			}
 
 			sb.append(": ");
-			sb.append(toSizeUnit((int)borderWidth));
+			sb.append(toSizeUnit(borderWidth));
 			
 			sb.append(" ");
 			sb.append(borderStyle);
@@ -2474,7 +2474,7 @@ public class JRHtmlExporter extends JRAbstractExporter
 
 
 	protected void exportGenericElement(JRGenericPrintElement element,
-			JRExporterGridCell gridCell, int rowHeight) throws IOException
+			JRExporterGridCell gridCell, float rowHeight) throws IOException
 	{
 		GenericElementHtmlHandler handler = (GenericElementHtmlHandler) 
 				GenericElementHandlerEnviroment.getInstance(getJasperReportsContext()).getElementHandler(
@@ -2536,14 +2536,14 @@ public class JRHtmlExporter extends JRAbstractExporter
 		return jasperPrint;
 	}
 
-	public String toSizeUnit(int size)
+	public String toSizeUnit(float size)
 	{
 		return String.valueOf(toZoom(size)) + sizeUnit;
 	}
 
-	public int toZoom(int size)
+	public float toZoom(float size)
 	{
-		return (int)(zoom * size);
+		return zoom * size;
 	}
 
 

@@ -67,8 +67,8 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 	private boolean willOverflow;
 	protected boolean isOverflow;
 	
-	private int stretchHeight;
-	private int firstY;
+	private float stretchHeight;
+	private float firstY;
 	protected JRFillElement firstYElement;
 	
 	protected final JRFillExpressionEvaluator expressionEvaluator;
@@ -208,8 +208,8 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 				{
 					JRFillElement jElem = ySortedElements[j];
 					
-					int left = Math.min(iElem.getX(), jElem.getX());
-					int right = Math.max(iElem.getX() + iElem.getWidth(), jElem.getX() + jElem.getWidth());
+					float left = Math.min(iElem.getX(), jElem.getX());
+					float right = Math.max(iElem.getX() + iElem.getWidth(), jElem.getX() + jElem.getWidth());
 					
 					if (
 						((isBreakElem && jElem.getPositionTypeValue() == PositionTypeEnum.FIX_RELATIVE_TO_TOP) || jElem.getPositionTypeValue() == PositionTypeEnum.FLOAT) &&
@@ -306,14 +306,14 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 	 *
 	 */
 	protected void prepareElements(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflowAllowed
 		) throws JRException
 	{
 		boolean tmpWillOverflow = false;
 
-		int maxBandStretch = 0;
-		int bandStretch = 0;
+        float maxBandStretch = 0;
+        float bandStretch = 0;
 
 		firstY = isOverflow ? getContainerHeight() : 0;
 		firstYElement = null;
@@ -378,9 +378,9 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 		willOverflow = tmpWillOverflow && isOverflowAllowed;
 	}
 
-	private int getElementFirstY(JRFillElement element)
+	private float getElementFirstY(JRFillElement element)
 	{
-		int elemFirstY;
+        float elemFirstY;
 		if (!isOverflow || hasPrintWhenOverflowElement)
 		{
 			elemFirstY = 0;
@@ -396,7 +396,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 		return elemFirstY;
 	}
 
-	protected void setStretchHeight(int stretchHeight)
+	protected void setStretchHeight(float stretchHeight)
 	{
 		if (stretchHeight > this.stretchHeight)
 		{
@@ -433,7 +433,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 	}
 
 	
-	protected int getStretchHeight()
+	protected float getStretchHeight()
 	{
 		return stretchHeight;
 	}
@@ -478,7 +478,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 			{
 				JRFillElement iElem = (JRFillElement)remElems[i];
 
-				int blankHeight;
+                float blankHeight;
 				if (iElem.isToPrint())
 				{
 					blankHeight = iElem.getHeight() - iElem.getStretchHeight();
@@ -494,7 +494,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 					iElem.getRelativeY() >= firstY
 					)
 				{
-					int blankY = iElem.getRelativeY() + iElem.getHeight() - blankHeight;
+                    float blankY = iElem.getRelativeY() + iElem.getHeight() - blankHeight;
 					boolean isToRemove = true;
 					
 					for(int j = 0; j < elems.length; j++)
@@ -503,9 +503,9 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 						
 						if (iElem != jElem && jElem.isToPrint())
 						{
-							int top = 
+                            float top = 
 								Math.min(blankY, jElem.getRelativeY());
-							int bottom = 
+                            float bottom = 
 								Math.max(
 									blankY + blankHeight, 
 									jElem.getRelativeY() + jElem.getStretchHeight()
@@ -663,7 +663,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 		willOverflow = false;
 	}
 	
-	protected int getFirstY()
+	protected float getFirstY()
 	{
 		return firstY;
 	}
@@ -674,7 +674,7 @@ public abstract class JRFillElementContainer extends JRFillElementGroup
 	 * 
 	 * @return the height of the element container
 	 */
-	protected abstract int getContainerHeight();
+	protected abstract float getContainerHeight();
 
 
 	/**

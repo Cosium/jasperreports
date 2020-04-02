@@ -112,7 +112,7 @@ public class JRBasePrintText extends JRBasePrintElement implements JRPrintText
 	protected Boolean isItalic;
 	protected Boolean isUnderline;
 	protected Boolean isStrikeThrough;
-	protected Integer fontSize;
+	protected Float fontSize;
 	protected String pdfFontName;
 	protected String pdfEncoding;
 	protected Boolean isPdfEmbedded;
@@ -792,7 +792,7 @@ public class JRBasePrintText extends JRBasePrintElement implements JRPrintText
 	/**
 	 *
 	 */
-	public int getFontSize()
+	public float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
@@ -800,7 +800,7 @@ public class JRBasePrintText extends JRBasePrintElement implements JRPrintText
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return fontSize;
 	}
@@ -808,16 +808,16 @@ public class JRBasePrintText extends JRBasePrintElement implements JRPrintText
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize)
+	public void setFontSize(float fontSize)
 	{
-		setFontSize(Integer.valueOf(fontSize));
+		setFontSize(new Float(fontSize));
 	}
 
 	/**
 	 * Alternative setSize method which allows also to reset
 	 * the "own" size property.
 	 */
-	public void setFontSize(Integer fontSize)
+	public void setFontSize(Float fontSize)
 	{
 		this.fontSize = fontSize;
 	}

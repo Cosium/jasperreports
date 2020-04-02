@@ -50,10 +50,10 @@ public class JRHorizontalFiller extends JRBaseFiller
 
 	private static final Log log = LogFactory.getLog(JRHorizontalFiller.class);
 
-	private int lastDetailOffsetX = -1;
-	private int lastDetailOffsetY = -1;
-	private int currentDetailOffsetY;
-	private int maxDetailOffsetY;
+	private float lastDetailOffsetX = -1;
+	private float lastDetailOffsetY = -1;
+	private float currentDetailOffsetY;
+	private float maxDetailOffsetY;
 	
 
 	/**
@@ -113,7 +113,7 @@ public class JRHorizontalFiller extends JRBaseFiller
 	/**
 	 *
 	 */
-	protected void setPageHeight(int pageHeight)
+    protected void setPageHeight(float pageHeight)
 	{
 		this.pageHeight = pageHeight;
 
@@ -455,7 +455,7 @@ public class JRHorizontalFiller extends JRBaseFiller
 
 	private boolean fillBandNoOverflow(JRFillBand band, byte evaluation) throws JRException
 	{
-		int availableHeight = columnFooterOffsetY - offsetY;
+		float availableHeight = columnFooterOffsetY - offsetY;
 		boolean overflow = availableHeight < band.getHeight();
 
 		if (!overflow)
@@ -1041,7 +1041,7 @@ public class JRHorizontalFiller extends JRBaseFiller
 			columnFooterOffsetY = offsetY;
 		}
 
-		int tmpColumnFooterOffsetY = columnFooterOffsetY;
+        float tmpColumnFooterOffsetY = columnFooterOffsetY;
 
 		if (isFloatColumnFooter || fillContext.isIgnorePagination())
 		{

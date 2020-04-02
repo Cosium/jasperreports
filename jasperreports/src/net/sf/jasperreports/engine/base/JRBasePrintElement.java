@@ -62,10 +62,10 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	 *
 	 */
 	protected ModeEnum modeValue;
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	protected float x;
+	protected float y;
+	protected float width;
+	protected float height;
 	protected Color forecolor;
 	protected Color backcolor;
 
@@ -168,7 +168,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getX()
+	public float getX()
 	{
 		return this.x;
 	}
@@ -176,7 +176,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = x;
 	}
@@ -184,7 +184,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getY()
+	public float getY()
 	{
 		return this.y;
 	}
@@ -192,7 +192,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = y;
 	}
@@ -200,7 +200,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getWidth()
+	public float getWidth()
 	{
 		return this.width;
 	}
@@ -208,7 +208,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		this.width = width;
 	}
@@ -216,7 +216,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return this.height;
 	}
@@ -224,7 +224,7 @@ public class JRBasePrintElement implements JRPrintElement, Serializable
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
 		this.height = height;
 	}

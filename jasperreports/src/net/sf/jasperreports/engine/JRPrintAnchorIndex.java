@@ -38,8 +38,8 @@ public class JRPrintAnchorIndex
 	 */
 	private int pageIndex;
 	private JRPrintElement element;
-	private final int offsetX;
-	private final int offsetY;
+	private final float offsetX;
+	private final float offsetY;
 
 	
 	/**
@@ -66,7 +66,7 @@ public class JRPrintAnchorIndex
 	 * @see #getElementAbsoluteX()
 	 * @see #getElementAbsoluteY()
 	 */
-	public JRPrintAnchorIndex(int page, JRPrintElement elem, int offsetX, int offsetY)
+	public JRPrintAnchorIndex(int page, JRPrintElement elem, float offsetX, float offsetY)
 	{
 		this.pageIndex = page;
 		this.element = elem;
@@ -102,7 +102,7 @@ public class JRPrintAnchorIndex
 	 * 
 	 * @return the absolute X coordinate of the anchor element
 	 */
-	public int getElementAbsoluteX()
+	public float getElementAbsoluteX()
 	{
 		return element.getX() + offsetX;
 	}
@@ -117,7 +117,7 @@ public class JRPrintAnchorIndex
 	 * 
 	 * @return the absolute Y coordinate of the anchor element
 	 */
-	public int getElementAbsoluteY()
+	public float getElementAbsoluteY()
 	{
 		return element.getY() + offsetY;
 	}

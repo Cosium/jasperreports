@@ -48,37 +48,37 @@ public class JasperPrintFactory extends JRBaseFactory
 		String pageWidth = atts.getValue(JRXmlConstants.ATTRIBUTE_pageWidth);
 		if (pageWidth != null && pageWidth.length() > 0)
 		{
-			jasperPrint.setPageWidth(Integer.parseInt(pageWidth));
+			jasperPrint.setPageWidth(Float.parseFloat(pageWidth));
 		}
 
 		String pageHeight = atts.getValue(JRXmlConstants.ATTRIBUTE_pageHeight);
 		if (pageHeight != null && pageHeight.length() > 0)
 		{
-			jasperPrint.setPageHeight(Integer.parseInt(pageHeight));
+			jasperPrint.setPageHeight(Float.parseFloat(pageHeight));
 		}
 
 		String topMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_topMargin);
 		if (topMargin != null && topMargin.length() > 0)
 		{
-			jasperPrint.setTopMargin(Integer.valueOf(topMargin));
+			jasperPrint.setTopMargin(Float.valueOf(topMargin));
 		}
 
 		String leftMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_leftMargin);
 		if (leftMargin != null && leftMargin.length() > 0)
 		{
-			jasperPrint.setLeftMargin(Integer.valueOf(leftMargin));
+			jasperPrint.setLeftMargin(Float.valueOf(leftMargin));
 		}
 
 		String bottomMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_bottomMargin);
 		if (bottomMargin != null && bottomMargin.length() > 0)
 		{
-			jasperPrint.setBottomMargin(Integer.valueOf(bottomMargin));
+			jasperPrint.setBottomMargin(Float.valueOf(bottomMargin));
 		}
 
 		String rightMargin = atts.getValue(JRXmlConstants.ATTRIBUTE_rightMargin);
 		if (rightMargin != null && rightMargin.length() > 0)
 		{
-			jasperPrint.setRightMargin(Integer.valueOf(rightMargin));
+			jasperPrint.setRightMargin(Float.valueOf(rightMargin));
 		}
 
 		OrientationEnum orientation = OrientationEnum.getByName(atts.getValue(JRXmlConstants.ATTRIBUTE_orientation));

@@ -87,7 +87,7 @@ public class BarcodeFillComponent extends BaseFillComponent
 		message = evaluator.getMessage();
 	}
 	
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		if (isEvaluateNow() && message == null)
 		{

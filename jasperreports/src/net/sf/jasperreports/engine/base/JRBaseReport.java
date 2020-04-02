@@ -82,16 +82,16 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	protected int columnCount = 1;
 	protected PrintOrderEnum printOrderValue = PrintOrderEnum.VERTICAL;
 	protected RunDirectionEnum columnDirection = RunDirectionEnum.LTR;
-	protected int pageWidth = 595;
-	protected int pageHeight = 842;
+	protected float pageWidth = 595;
+	protected float pageHeight = 842;
 	protected OrientationEnum orientationValue = OrientationEnum.PORTRAIT;
 	protected WhenNoDataTypeEnum whenNoDataTypeValue = WhenNoDataTypeEnum.NO_PAGES;
-	protected int columnWidth = 555;
-	protected int columnSpacing;
-	protected int leftMargin = 20;
-	protected int rightMargin = 20;
-	protected int topMargin = 30;
-	protected int bottomMargin = 30;
+	protected float columnWidth = 555;
+	protected float columnSpacing;
+	protected float leftMargin = 20;
+	protected float rightMargin = 20;
+	protected float topMargin = 30;
+	protected float bottomMargin = 30;
 	protected boolean isTitleNewPage;
 	protected boolean isSummaryNewPage;
 	protected boolean isSummaryWithPageHeaderAndFooter;
@@ -297,7 +297,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getPageWidth()
+	public float getPageWidth()
 	{
 		return pageWidth;
 	}
@@ -305,7 +305,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getPageHeight()
+	public float getPageHeight()
 	{
 		return pageHeight;
 	}
@@ -339,7 +339,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getColumnWidth()
+	public float getColumnWidth()
 	{
 		return columnWidth;
 	}
@@ -347,7 +347,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getColumnSpacing()
+	public float getColumnSpacing()
 	{
 		return columnSpacing;
 	}
@@ -355,7 +355,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getLeftMargin()
+	public float getLeftMargin()
 	{
 		return leftMargin;
 	}
@@ -363,7 +363,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getRightMargin()
+	public float getRightMargin()
 	{
 		return rightMargin;
 	}
@@ -371,7 +371,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getTopMargin()
+	public float getTopMargin()
 	{
 		return topMargin;
 	}
@@ -379,7 +379,7 @@ public class JRBaseReport implements JRReport, Serializable, JRChangeEventsSuppo
 	/**
 	 *
 	 */
-	public int getBottomMargin()
+	public float getBottomMargin()
 	{
 		return bottomMargin;
 	}

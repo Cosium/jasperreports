@@ -82,12 +82,12 @@ public interface JRReport extends JRDefaultStyleProvider, JRPropertiesHolder, JR
 	/**
 	 *
 	 */
-	public int getPageWidth();
+	public float getPageWidth();
 
 	/**
 	 *
 	 */
-	public int getPageHeight();
+	public float getPageHeight();
 
 	/**
 	 * Specifies whether document pages will be rendered in a portrait or landscape layout.
@@ -108,32 +108,32 @@ public interface JRReport extends JRDefaultStyleProvider, JRPropertiesHolder, JR
 	/**
 	 *
 	 */
-	public int getColumnWidth();
+	public float getColumnWidth();
 
 	/**
 	 * Specifies the space between columns on the same page.
 	 */
-	public int getColumnSpacing();
+	public float getColumnSpacing();
 
 	/**
 	 *
 	 */
-	public int getLeftMargin();
+	public float getLeftMargin();
 
 	/**
 	 *
 	 */
-	public int getRightMargin();
+	public float getRightMargin();
 
 	/**
 	 *
 	 */
-	public int getTopMargin();
+	public float getTopMargin();
 
 	/**
 	 *
 	 */
-	public int getBottomMargin();
+	public float getBottomMargin();
 
 	/**
 	 * Specifies if the title section will be printed on a separate initial page.

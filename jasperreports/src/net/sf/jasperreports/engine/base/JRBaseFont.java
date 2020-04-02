@@ -87,7 +87,7 @@ public class JRBaseFont implements JRFont, Serializable, JRChangeEventsSupport, 
 	protected Boolean isItalic;
 	protected Boolean isUnderline;
 	protected Boolean isStrikeThrough;
-	protected Integer fontSize;
+	protected Float fontSize;
 	protected String pdfFontName;
 	protected String pdfEncoding;
 	protected Boolean isPdfEmbedded;
@@ -127,7 +127,7 @@ public class JRBaseFont implements JRFont, Serializable, JRChangeEventsSupport, 
 		Float sizeAttr = (Float)attributes.get(TextAttribute.SIZE);
 		if (sizeAttr != null)
 		{
-			setFontSize(sizeAttr.intValue());
+			setFontSize(sizeAttr.floatValue());
 		}
 		
 		Object underline = attributes.get(TextAttribute.UNDERLINE);
@@ -415,7 +415,7 @@ public class JRBaseFont implements JRFont, Serializable, JRChangeEventsSupport, 
 	/**
 	 *
 	 */
-	public int getFontSize()
+	public float getFontSize()
 	{
 		return JRStyleResolver.getFontSize(this);
 	}
@@ -423,7 +423,7 @@ public class JRBaseFont implements JRFont, Serializable, JRChangeEventsSupport, 
 	/**
 	 *
 	 */
-	public Integer getOwnFontSize()
+	public Float getOwnFontSize()
 	{
 		return fontSize;
 	}
@@ -431,16 +431,16 @@ public class JRBaseFont implements JRFont, Serializable, JRChangeEventsSupport, 
 	/**
 	 *
 	 */
-	public void setFontSize(int fontSize)
+	public void setFontSize(float fontSize)
 	{
-		setFontSize(Integer.valueOf(fontSize));
+		setFontSize(new Float(fontSize));
 	}
 
 	/**
 	 * Alternative setSize method which allows also to reset
 	 * the "own" size property.
 	 */
-	public void setFontSize(Integer fontSize) 
+	public void setFontSize(Float fontSize) 
 	{
 		Object old = this.fontSize;
 		this.fontSize = fontSize;

@@ -147,7 +147,7 @@ public final class JRFontUtil
 	{
 		attributes.put(TextAttribute.FAMILY, font.getFontName());
 
-		attributes.put(TextAttribute.SIZE, new Float(font.getFontSize()));
+		attributes.put(TextAttribute.SIZE, font.getFontSize());
 
 		if (font.isBold())
 		{
@@ -253,7 +253,7 @@ public final class JRFontUtil
 	/**
 	 *
 	 */
-	public static Font getAwtFontFromBundles(String name, int style, int size, Locale locale, boolean ignoreMissingFont)
+	public static Font getAwtFontFromBundles(String name, int style, float size, Locale locale, boolean ignoreMissingFont)
 	{
 		Font awtFont = null;
 		FontInfo fontInfo = getFontInfo(name, locale);
@@ -305,7 +305,7 @@ public final class JRFontUtil
 				// In such case, we take the family name and consider it as JVM available font name.
 				checkAwtFont(family.getName(), ignoreMissingFont);
 				
-				awtFont = new Font(family.getName(), style, size);
+				awtFont = new Font(family.getName(), style, (int)size);
 			}
 			else
 			{

@@ -120,7 +120,7 @@ public class JRFillStaticText extends JRFillTextElement implements JRStaticText
 	 *
 	 */
 	protected boolean prepare(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflow
 		) throws JRException
 	{

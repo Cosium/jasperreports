@@ -70,7 +70,7 @@ public abstract class StandardBaseColumn implements BaseColumn, Serializable, JR
 	private List<GroupCell> groupFooters; 
 	private Cell columnHeader;
 	private Cell columnFooter;
-	private Integer width;
+	private Float width;
 
 	private JRPropertiesMap propertiesMap;
 	private List<JRPropertyExpression> propertyExpressions = new ArrayList<JRPropertyExpression>();
@@ -223,12 +223,12 @@ public abstract class StandardBaseColumn implements BaseColumn, Serializable, JR
 				old, this.tableFooter);
 	}
 
-	public Integer getWidth()
+	public Float getWidth()
 	{
 		return width;
 	}
 
-	public void setWidth(Integer width)
+	public void setWidth(Float width)
 	{
 		Object old = this.width;
 		this.width = width;

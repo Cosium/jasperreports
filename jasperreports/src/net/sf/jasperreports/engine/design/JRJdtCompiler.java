@@ -506,6 +506,9 @@ public class JRJdtCompiler extends JRAbstractJavaCompiler
 		settings.put(CompilerOptions.OPTION_LineNumberAttribute, CompilerOptions.GENERATE);
 		settings.put(CompilerOptions.OPTION_SourceFileAttribute, CompilerOptions.GENERATE);
 		settings.put(CompilerOptions.OPTION_ReportDeprecation, CompilerOptions.IGNORE);
+        settings.put(CompilerOptions.OPTION_TargetPlatform, CompilerOptions.VERSION_1_5);
+        settings.put(CompilerOptions.OPTION_Compliance, CompilerOptions.VERSION_1_5);
+        settings.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_1_5);
 //		if (ctxt.getOptions().getJavaEncoding() != null) 
 //		{
 //			settings.put(CompilerOptions.OPTION_Encoding, ctxt.getOptions().getJavaEncoding());

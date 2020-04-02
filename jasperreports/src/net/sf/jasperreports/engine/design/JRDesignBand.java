@@ -54,7 +54,7 @@ public class JRDesignBand extends JRDesignElementGroup implements JRBand
 	/**
 	 *
 	 */
-	protected int height;
+	protected float height;
 	protected SplitTypeEnum splitTypeValue;
 
 	/**
@@ -67,7 +67,7 @@ public class JRDesignBand extends JRDesignElementGroup implements JRBand
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -75,9 +75,9 @@ public class JRDesignBand extends JRDesignElementGroup implements JRBand
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+	public void setHeight(float height)
 	{
-		int old = this.height;
+		float old = this.height;
 		this.height = height;
 		getEventSupport().firePropertyChange(PROPERTY_HEIGHT, old, this.height);
 	}

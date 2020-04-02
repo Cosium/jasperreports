@@ -85,14 +85,14 @@ public class ReportConverter
 	private final JRReport report;
 	private JasperPrint jasperPrint;
 	private JRPrintPage page;
-	int pageWidth;
-	private int offsetY;
-	private int upColumnHeader;
-	private int downColumnHeader;
-	private int upDetails;
-	private int downDetails;
-	private int upColumnFooter;
-	private int downColumnFooter;
+	float pageWidth;
+	private float offsetY;
+	private float upColumnHeader;
+	private float downColumnHeader;
+	private float upDetails;
+	private float downDetails;
+	private float upColumnFooter;
+	private float downColumnFooter;
 	
 	/**
 	 * List containing page elements in a given order 
@@ -201,7 +201,7 @@ public class ReportConverter
 			jasperPrint.setPageHeight(offsetY + report.getBottomMargin());
 			
 			// column dotted delimitation 
-			int colX = report.getLeftMargin();
+			float colX = report.getLeftMargin();
 			for(int i = 0; i < report.getColumnCount(); i++)
 			{
 				addColumnSeparator(colX);
@@ -410,7 +410,7 @@ public class ReportConverter
 	/**
 	 *
 	 */
-	private void addBandSeparator(int bandY)
+	private void addBandSeparator(float bandY)
 	{
 		addHorizontalGridLine(0, bandY, pageWidth);
 	}
@@ -418,7 +418,7 @@ public class ReportConverter
 	/**
 	 *
 	 */
-	private void addColumnSeparator(int colX)
+	private void addColumnSeparator(float colX)
 	{
 		if (report.getPrintOrderValue() == PrintOrderEnum.HORIZONTAL)
 		{
@@ -449,7 +449,7 @@ public class ReportConverter
 	/**
 	 *
 	 */
-	private void addHorizontalGridLine(int x, int y, int width)
+	private void addHorizontalGridLine(float x, float y, float width)
 	{
 		JRPrintFrame printFrame = new JRBasePrintFrame(getDefaultStyleProvider());
 		printFrame.setX(x);
@@ -467,7 +467,7 @@ public class ReportConverter
 	/**
 	 *
 	 */
-	private void addVerticalGridLine(int x, int y, int height)
+	private void addVerticalGridLine(float x, float y, float height)
 	{
 		JRPrintFrame printFrame = new JRBasePrintFrame(getDefaultStyleProvider());
 		printFrame.setX(x);

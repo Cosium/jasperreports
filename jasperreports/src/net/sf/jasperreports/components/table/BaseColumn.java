@@ -58,7 +58,7 @@ public interface BaseColumn extends JRCloneable, JRPropertiesHolder, JRIdentifia
 	
 	Cell getColumnFooter();
 	
-	Integer getWidth();
+	Float getWidth();
 
 	<R> R visitColumn(ColumnVisitor<R> visitor);
 

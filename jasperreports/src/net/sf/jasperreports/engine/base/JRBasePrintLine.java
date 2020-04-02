@@ -64,7 +64,7 @@ public class JRBasePrintLine extends JRBasePrintGraphicElement implements JRPrin
 	/**
 	 *
 	 */
-	public void setWidth(int width)
+    public void setWidth(float width)
 	{
 		if (width == 0)
 		{
@@ -77,7 +77,7 @@ public class JRBasePrintLine extends JRBasePrintGraphicElement implements JRPrin
 	/**
 	 *
 	 */
-	public void setHeight(int height)
+    public void setHeight(float height)
 	{
 		if (height == 0)
 		{

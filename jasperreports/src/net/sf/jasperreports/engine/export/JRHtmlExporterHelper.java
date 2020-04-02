@@ -120,10 +120,10 @@ public class JRHtmlExporterHelper
 	 */
 	private void sizeFrame(JRBasePrintFrame frame)
 	{
-		int x = Integer.MAX_VALUE;
-		int y = Integer.MAX_VALUE;
-		int width = 0;
-		int height = 0;
+		float x = Float.MAX_VALUE;
+		float y = Float.MAX_VALUE;
+		float width = 0;
+		float height = 0;
 		for (Iterator<JRPrintElement> it = frame.getElements().iterator(); it.hasNext();)
 		{
 			JRPrintElement element = it.next();

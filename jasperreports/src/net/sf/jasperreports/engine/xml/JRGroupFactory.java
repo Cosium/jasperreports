@@ -72,7 +72,7 @@ public class JRGroupFactory extends JRBaseFactory
 		String minHeightToStartNewPage = atts.getValue(JRXmlConstants.ATTRIBUTE_minHeightToStartNewPage);
 		if (minHeightToStartNewPage != null && minHeightToStartNewPage.length() > 0)
 		{
-			group.setMinHeightToStartNewPage(Integer.parseInt(minHeightToStartNewPage));
+			group.setMinHeightToStartNewPage(Float.parseFloat(minHeightToStartNewPage));
 		}
 
 		FooterPositionEnum footerPosition = FooterPositionEnum.getByName(atts.getValue(JRXmlConstants.ATTRIBUTE_footerPosition));

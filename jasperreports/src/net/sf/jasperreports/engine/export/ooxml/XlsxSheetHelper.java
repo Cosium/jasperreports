@@ -102,7 +102,7 @@ public class XlsxSheetHelper extends BaseHelper
 	/**
 	 *
 	 */
-	public void exportHeader(int scale, int rowFreeze, int columnFreeze, JasperPrint jasperPrint)
+	public void exportHeader(float scale, int rowFreeze, int columnFreeze, JasperPrint jasperPrint)
 	{
 		write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		write("<worksheet\n");
@@ -173,7 +173,7 @@ public class XlsxSheetHelper extends BaseHelper
 			JasperPrint jasperPrint, 
 			boolean isIgnorePageMargins, 
 			String autoFilter,
-			Integer scale,
+			Float scale,
 			Integer firstPageNumber,
 			boolean firstPageNotSet)
 	{
@@ -274,7 +274,7 @@ public class XlsxSheetHelper extends BaseHelper
 	/**
 	 *
 	 */
-	public void exportColumn(int colIndex, int colWidth, boolean autoFit) 
+	public void exportColumn(int colIndex, float colWidth, boolean autoFit) 
 	{
 		try
 		{
@@ -292,7 +292,7 @@ public class XlsxSheetHelper extends BaseHelper
 	/**
 	 *
 	 */
-	public void exportRow(int rowHeight, Cut yCut, XlsRowLevelInfo levelInfo) 
+	public void exportRow(float rowHeight, Cut yCut, XlsRowLevelInfo levelInfo) 
 	{
 		if (rowIndex > 0)
 		{

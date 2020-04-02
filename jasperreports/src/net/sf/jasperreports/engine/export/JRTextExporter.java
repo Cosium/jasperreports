@@ -250,7 +250,7 @@ public class JRTextExporter extends JRAbstractExporter
 	public void setReportParameters() throws JRException
 	{
 		charWidth = 
-			getFloatParameter(
+			getIntegerParameter(
 				JRTextExporterParameter.CHARACTER_WIDTH,
 				JRTextExporterParameter.PROPERTY_CHARACTER_WIDTH,
 				0
@@ -272,7 +272,7 @@ public class JRTextExporter extends JRAbstractExporter
 				throw new JRException("Character width in pixels or page width in characters must be specified and must be greater than zero.");
 			}
 			
-			charWidth = jasperPrint.getPageWidth() / (float)pageWidthInChars;
+			charWidth = (int)(jasperPrint.getPageWidth() / pageWidthInChars);
 		}
 		else
 		{
@@ -281,7 +281,7 @@ public class JRTextExporter extends JRAbstractExporter
 		
 
 		charHeight = 
-			getFloatParameter(
+			getIntegerParameter(
 				JRTextExporterParameter.CHARACTER_HEIGHT,
 				JRTextExporterParameter.PROPERTY_CHARACTER_HEIGHT,
 				0
@@ -303,7 +303,7 @@ public class JRTextExporter extends JRAbstractExporter
 				throw new JRException("Character height in pixels or page height in characters must be specified and must be greater than zero.");
 			}
 
-			charHeight = jasperPrint.getPageHeight() / (float)pageHeightInChars;
+			charHeight = (int)(jasperPrint.getPageHeight() / pageHeightInChars);
 		}
 		else
 		{
@@ -663,7 +663,7 @@ public class JRTextExporter extends JRAbstractExporter
 	/**
 	 * Transforms height from pixel space to character space.
 	 */
-	protected int getHeightInChars(int height)
+	protected int getHeightInChars(float height)
 	{
 		//return (int) (((long) pageHeightInChars * height) / jasperPrint.getPageHeight());
 		return Math.round(height / charHeight);
@@ -672,7 +672,7 @@ public class JRTextExporter extends JRAbstractExporter
 	/**
 	 * Transforms width from pixel space to character space.
 	 */
-	protected int getWidthInChars(int width)
+	protected int getWidthInChars(float width)
 	{
 //		return pageWidthInChars * width / jasperPrint.getPageWidth();
 		return Math.round(width / charWidth);

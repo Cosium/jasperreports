@@ -91,6 +91,7 @@ import net.sf.jasperreports.engine.util.JRTextAttribute;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -419,7 +420,7 @@ public class JRDocxExporter extends JRAbstractExporter
 					renderer =
 						new JRWrappingSvgRenderer(
 							renderer,
-							new Dimension(image.getWidth(), image.getHeight()),
+							new FloatDimension(image.getWidth(), image.getHeight()),
 							ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 							);
 				}
@@ -545,7 +546,7 @@ public class JRDocxExporter extends JRAbstractExporter
 							)
 						);
 			}
-			int rowHeight = gridLayout.getRowHeight(row) - maxBottomPadding;
+			float rowHeight = gridLayout.getRowHeight(row) - maxBottomPadding;
 			
 			tableHelper.exportRowHeader(
 				rowHeight,
@@ -857,10 +858,10 @@ public class JRDocxExporter extends JRAbstractExporter
 		int rightPadding = image.getLineBox().getRightPadding().intValue();
 		int bottomPadding = image.getLineBox().getBottomPadding().intValue();
 
-		int availableImageWidth = image.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = image.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 
-		int availableImageHeight = image.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = image.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 
 		tableHelper.getCellHelper().exportHeader(image, gridCell);
@@ -889,8 +890,8 @@ public class JRDocxExporter extends JRAbstractExporter
 
 		if (renderer != null)
 		{
-			int width = availableImageWidth;
-			int height = availableImageHeight;
+			float width = availableImageWidth;
+			float height = availableImageHeight;
 
 			double normalWidth = availableImageWidth;
 			double normalHeight = availableImageHeight;

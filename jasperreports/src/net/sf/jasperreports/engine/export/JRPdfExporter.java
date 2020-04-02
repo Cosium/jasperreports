@@ -775,16 +775,16 @@ public class JRPdfExporter extends JRAbstractExporter
 	 */
 	protected void setPageSize(JRPrintPage page) throws JRException, DocumentException, IOException
 	{
-		int pageWidth = jasperPrint.getPageWidth(); 
-		int pageHeight = jasperPrint.getPageHeight();
+		float pageWidth = jasperPrint.getPageWidth(); 
+		float pageHeight = jasperPrint.getPageHeight();
 		
 		if (page != null)
 		{
 			Collection<JRPrintElement> elements = page.getElements();
 			for (JRPrintElement element : elements)
 			{
-				int elementRight = element.getX() + element.getWidth();
-				int elementBottom = element.getY() + element.getHeight();
+				float elementRight = element.getX() + element.getWidth();
+				float elementBottom = element.getY() + element.getHeight();
 				pageWidth = pageWidth < elementRight ? elementRight : pageWidth;
 				pageHeight = pageHeight < elementBottom ? elementBottom : pageHeight;
 			}
@@ -1213,15 +1213,15 @@ public class JRPdfExporter extends JRAbstractExporter
 			pdfContentByte.fill();
 		}
 
-		int topPadding = printImage.getLineBox().getTopPadding().intValue();
-		int leftPadding = printImage.getLineBox().getLeftPadding().intValue();
-		int bottomPadding = printImage.getLineBox().getBottomPadding().intValue();
-		int rightPadding = printImage.getLineBox().getRightPadding().intValue();
+		float topPadding = printImage.getLineBox().getTopPadding().floatValue();
+		float leftPadding = printImage.getLineBox().getLeftPadding().floatValue();
+		float bottomPadding = printImage.getLineBox().getBottomPadding().floatValue();
+		float rightPadding = printImage.getLineBox().getRightPadding().floatValue();
 
-		int availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
+		float availableImageWidth = printImage.getWidth() - leftPadding - rightPadding;
 		availableImageWidth = (availableImageWidth < 0)?0:availableImageWidth;
 
-		int availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
+		float availableImageHeight = printImage.getHeight() - topPadding - bottomPadding;
 		availableImageHeight = (availableImageHeight < 0)?0:availableImageHeight;
 
 		Renderable renderer = printImage.getRenderable();
@@ -1246,8 +1246,8 @@ public class JRPdfExporter extends JRAbstractExporter
 
 		if (renderer != null)
 		{
-			int xoffset = 0;
-			int yoffset = 0;
+			float xoffset = 0;
+			float yoffset = 0;
 
 			Chunk chunk = null;
 
@@ -1277,8 +1277,8 @@ public class JRPdfExporter extends JRAbstractExporter
 							break;
 						}
 						
-						int normalWidth = availableImageWidth;
-						int normalHeight = availableImageHeight;
+						float normalWidth = availableImageWidth;
+						float normalHeight = availableImageHeight;
 
 						Dimension2D dimension = renderer.getDimension(jasperReportsContext);
 						if (dimension != null)
@@ -1287,25 +1287,25 @@ public class JRPdfExporter extends JRAbstractExporter
 							normalHeight = (int)dimension.getHeight();
 						}
 
-						xoffset = (int)(xalignFactor * (availableImageWidth - normalWidth));
-						yoffset = (int)(yalignFactor * (availableImageHeight - normalHeight));
+						xoffset = (xalignFactor * (availableImageWidth - normalWidth));
+						yoffset = (yalignFactor * (availableImageHeight - normalHeight));
 
-						int minWidth = Math.min(normalWidth, availableImageWidth);
-						int minHeight = Math.min(normalHeight, availableImageHeight);
+						float minWidth = Math.min(normalWidth, availableImageWidth);
+						float minHeight = Math.min(normalHeight, availableImageHeight);
 
 						BufferedImage bi =
-							new BufferedImage(minWidth, minHeight, BufferedImage.TYPE_INT_ARGB);
+							new BufferedImage((int)minWidth,(int) minHeight, BufferedImage.TYPE_INT_ARGB);
 
 						Graphics2D g = bi.createGraphics();
 						if (printImage.getModeValue() == ModeEnum.OPAQUE)
 						{
 							g.setColor(printImage.getBackcolor());
-							g.fillRect(0, 0, minWidth, minHeight);
+							g.fill(new Rectangle2D.Float(0, 0, minWidth, minHeight));
 						}
 						renderer.render(
 							jasperReportsContext,
 							g,
-							new java.awt.Rectangle(
+							new Rectangle2D.Float(
 								(xoffset > 0 ? 0 : xoffset),
 								(yoffset > 0 ? 0 : yoffset),
 								normalWidth,
@@ -1400,8 +1400,8 @@ public class JRPdfExporter extends JRAbstractExporter
 
 						image.scaleToFit(availableImageWidth, availableImageHeight);
 
-						xoffset = (int)(xalignFactor * (availableImageWidth - image.getPlainWidth()));
-						yoffset = (int)(yalignFactor * (availableImageHeight - image.getPlainHeight()));
+						xoffset = (xalignFactor * (availableImageWidth - image.getPlainWidth()));
+						yoffset = (yalignFactor * (availableImageHeight - image.getPlainHeight()));
 
 						xoffset = (xoffset < 0 ? 0 : xoffset);
 						yoffset = (yoffset < 0 ? 0 : yoffset);
@@ -1446,8 +1446,8 @@ public class JRPdfExporter extends JRAbstractExporter
 					{
 						case CLIP:
 						{
-							xoffset = (int) (xalignFactor * (availableImageWidth - normalWidth));
-							yoffset = (int) (yalignFactor * (availableImageHeight - normalHeight));
+							xoffset =  (float)(xalignFactor * (availableImageWidth - normalWidth));
+							yoffset =  (float)(yalignFactor * (availableImageHeight - normalHeight));
 							clip =
 								new Rectangle2D.Double(
 									- xoffset,
@@ -1476,8 +1476,8 @@ public class JRPdfExporter extends JRAbstractExporter
 							ratioY = ratioX;
 							normalWidth *= ratioX;
 							normalHeight *= ratioY;
-							xoffset = (int) (xalignFactor * (availableImageWidth - normalWidth));
-							yoffset = (int) (yalignFactor * (availableImageHeight - normalHeight));
+							xoffset = (float) (xalignFactor * (availableImageWidth - normalWidth));
+							yoffset = (float) (yalignFactor * (availableImageHeight - normalHeight));
 							break;
 						}
 					}
@@ -1540,8 +1540,8 @@ public class JRPdfExporter extends JRAbstractExporter
 				tagHelper.startImage(printImage);
 				
 				ColumnText colText = new ColumnText(pdfContentByte);
-				int upperY = jasperPrint.getPageHeight() - printImage.getY() - topPadding - getOffsetY() - yoffset;
-				int lowerX = printImage.getX() + leftPadding + getOffsetX() + xoffset;
+				float upperY = jasperPrint.getPageHeight() - printImage.getY() - topPadding - getOffsetY() - yoffset;
+				float lowerX = printImage.getX() + leftPadding + getOffsetX() + xoffset;
 				colText.setSimpleColumn(
 					new Phrase(chunk),
 					lowerX,
@@ -2091,7 +2091,7 @@ public class JRPdfExporter extends JRAbstractExporter
 	public void exportText(JRPrintText text) throws DocumentException
 	{
 		AbstractPdfTextRenderer textRenderer = 
-			text.getLeadingOffset() == 0 
+			text.getLeadingOffset() == Float.valueOf(0) 
 			? new PdfTextRenderer(
 				jasperReportsContext,
 				getPropertiesUtil().getBooleanProperty(JRStyledText.PROPERTY_AWT_IGNORE_MISSING_FONT)
@@ -2541,7 +2541,7 @@ public class JRPdfExporter extends JRAbstractExporter
 		final PdfOutline pdfOutline;
 		final int level;
 
-		Bookmark(Bookmark parent, int x, int top, String title)
+		Bookmark(Bookmark parent, float x, float top, String title)
 		{
 			this(parent, new PdfDestination(PdfDestination.XYZ, x, top, 0), title);
 		}
@@ -2595,7 +2595,7 @@ public class JRPdfExporter extends JRAbstractExporter
 	}
 
 
-	protected void addBookmark(int level, String title, int x, int y)
+	protected void addBookmark(int level, String title, float x, float y)
 	{
 		Bookmark parent = bookmarkStack.peek();
 		// searching for parent
@@ -2640,8 +2640,8 @@ public class JRPdfExporter extends JRAbstractExporter
 	{
 		if (frame.getModeValue() == ModeEnum.OPAQUE)
 		{
-			int x = frame.getX() + getOffsetX();
-			int y = frame.getY() + getOffsetY();
+			float x = frame.getX() + getOffsetX();
+			float y = frame.getY() + getOffsetY();
 
 			Color backcolor = frame.getBackcolor();
 			pdfContentByte.setRGBColorFill(

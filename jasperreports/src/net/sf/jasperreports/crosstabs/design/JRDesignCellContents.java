@@ -62,8 +62,8 @@ public class JRDesignCellContents extends JRDesignElementGroup implements JRCell
 	protected ModeEnum modeValue;
 	private Color backcolor;
 	private JRLineBox lineBox;
-	private int width = JRCellContents.NOT_CALCULATED;
-	private int height = JRCellContents.NOT_CALCULATED;
+	private float width = JRCellContents.NOT_CALCULATED;
+	private float height = JRCellContents.NOT_CALCULATED;
 
 	private JRCrosstabOrigin origin;
 	
@@ -102,7 +102,7 @@ public class JRDesignCellContents extends JRDesignElementGroup implements JRCell
 	}
 	
 	
-	public int getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -114,12 +114,12 @@ public class JRDesignCellContents extends JRDesignElementGroup implements JRCell
 	 * @param height the cell height
 	 * @see JRCellContents#getHeight()
 	 */
-	protected void setHeight(int height)
+	protected void setHeight(float height)
 	{
 		this.height = height;
 	}
 
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -131,7 +131,7 @@ public class JRDesignCellContents extends JRDesignElementGroup implements JRCell
 	 * @param width the cell width
 	 * @see JRCellContents#getWidth()
 	 */
-	protected void setWidth(int width)
+	protected void setWidth(float width)
 	{
 		this.width = width;
 	}

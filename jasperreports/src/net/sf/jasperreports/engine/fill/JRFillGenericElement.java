@@ -116,7 +116,7 @@ public class JRFillGenericElement extends JRFillElement implements
 		}
 	}
 
-	protected boolean prepare(int availableHeight, boolean isOverflow)
+	protected boolean prepare(float availableHeight, boolean isOverflow)
 			throws JRException
 	{
 		boolean willOverflow = false;

@@ -55,14 +55,14 @@ public class DesignCell extends JRDesignElementGroup implements Cell, DesignStyl
 	private String styleNameReference;
 	private JRLineBox box;
 	private Integer rowSpan;
-	private Integer height;
+	private Float height;
 
 	public DesignCell()
 	{
 		this.box = new JRBaseLineBox(this);
 	}
 	
-	public Integer getHeight()
+	public Float getHeight()
 	{
 		return height;
 	}
@@ -117,7 +117,7 @@ public class DesignCell extends JRDesignElementGroup implements Cell, DesignStyl
 				old, this.styleNameReference);
 	}
 
-	public void setHeight(Integer height)
+	public void setHeight(Float height)
 	{
 		Object old = this.height;
 		this.height = height;

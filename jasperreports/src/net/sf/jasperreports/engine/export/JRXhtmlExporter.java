@@ -37,6 +37,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.font.TextAttribute;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -107,6 +108,7 @@ import net.sf.jasperreports.engine.util.Pair;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -171,7 +173,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	protected Writer writer;
 	protected JRExportProgressMonitor progressMonitor;
 	protected Map<String,String> rendererToImagePathMap;
-	protected Map<Pair<String,Rectangle>,String> imageMaps;
+	protected Map<Pair<String,Rectangle2D.Float>,String> imageMaps;
 	protected Map<String,byte[]> imageNameToImageDataMap;
 	protected List<JRPrintElementIndex> imagesToProcess;
 	
@@ -179,10 +181,10 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	protected int pageIndex;
 	protected List<FrameInfo> frameInfoStack;
 	protected int elementIndex;
-	protected int topLimit;
-	protected int leftLimit;
-	protected int rightLimit;
-	protected int bottomLimit;
+	protected float topLimit;
+	protected float leftLimit;
+	protected float rightLimit;
+	protected float bottomLimit;
 
 	/**
 	 *
@@ -300,7 +302,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 					);
 
 			rendererToImagePathMap = new HashMap<String,String>();
-			imageMaps = new HashMap<Pair<String,Rectangle>,String>();
+			imageMaps = new HashMap<Pair<String,Rectangle2D.Float>,String>();
 			imagesToProcess = new ArrayList<JRPrintElementIndex>();
 	
 			//backward compatibility with the IMAGE_MAP parameter
@@ -496,7 +498,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 							renderer =
 								new JRWrappingSvgRenderer(
 									renderer,
-									new Dimension(image.getWidth(), image.getHeight()),
+									new FloatDimension(image.getWidth(), image.getHeight()),
 									ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 									);
 						}
@@ -1126,10 +1128,10 @@ public class JRXhtmlExporter extends JRAbstractExporter
 			
 			JRBoxUtil.rotate(rotatedText.getLineBox(), text.getRotationValue());
 			
-			int rotationIE = 0;
-			int rotationAngle = 0;
-			int translateX = 0;
-			int translateY = 0;
+			float rotationIE = 0;
+			float rotationAngle = 0;
+			float translateX = 0;
+			float translateY = 0;
 			switch (text.getRotationValue())
 			{
 				case LEFT : 
@@ -1661,8 +1663,8 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	
 	protected void appendSizeStyle(JRPrintElement element, JRBoxContainer boxContainer, StringBuffer styleBuffer)
 	{
-		int widthDiff = 0;
-		int heightDiff = 0;
+		float widthDiff = 0;
+		float heightDiff = 0;
 
 		JRLineBox box = boxContainer == null ? null :  boxContainer.getLineBox();
 		if (box != null)
@@ -1704,7 +1706,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	}
 
 
-	protected void appendSizeStyle(int width, int height, StringBuffer styleBuffer)
+	protected void appendSizeStyle(float width, float height, StringBuffer styleBuffer)
 	{
 		styleBuffer.append("width:");
 		styleBuffer.append(toSizeUnit(width));
@@ -1760,7 +1762,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	}
 
 
-	protected void appendPositionStyle(int x, int y, StringBuffer styleBuffer)
+	protected void appendPositionStyle(float x, float y, StringBuffer styleBuffer)
 	{
 		styleBuffer.append("position:absolute;");
 		styleBuffer.append("left:");
@@ -1920,7 +1922,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 								renderer =
 									new JRWrappingSvgRenderer(
 										renderer,
-										new Dimension(image.getWidth(), image.getHeight()),
+										new FloatDimension(image.getWidth(), image.getHeight()),
 										ModeEnum.OPAQUE == image.getModeValue() ? image.getBackcolor() : null
 										);
 							}
@@ -1934,11 +1936,11 @@ public class JRXhtmlExporter extends JRAbstractExporter
 				
 				if (imageMapRenderer)
 				{
-					Rectangle renderingArea = new Rectangle(image.getWidth(), image.getHeight());
+					Rectangle2D.Float renderingArea = new Rectangle2D.Float(0,0,image.getWidth(), image.getHeight());
 					
 					if (renderer.getTypeValue() == RenderableTypeEnum.IMAGE)
 					{
-						imageMapName = imageMaps.get(new Pair<String,Rectangle>(renderer.getId(), renderingArea));
+						imageMapName = imageMaps.get(new Pair<String,Rectangle2D.Float>(renderer.getId(), renderingArea));
 					}
 	
 					if (imageMapName == null)
@@ -1948,7 +1950,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 						
 						if (renderer.getTypeValue() == RenderableTypeEnum.IMAGE)
 						{
-							imageMaps.put(new Pair<String,Rectangle>(renderer.getId(), renderingArea), imageMapName);
+							imageMaps.put(new Pair<String,Rectangle2D.Float>(renderer.getId(), renderingArea), imageMapName);
 						}
 					}
 				}
@@ -1961,13 +1963,13 @@ public class JRXhtmlExporter extends JRAbstractExporter
 			}
 			writer.write("\"");
 		
-			int availableImageWidth = image.getWidth() - image.getLineBox().getLeftPadding().intValue() - image.getLineBox().getRightPadding().intValue();
+			float availableImageWidth = image.getWidth() - image.getLineBox().getLeftPadding().intValue() - image.getLineBox().getRightPadding().intValue();
 			if (availableImageWidth < 0)
 			{
 				availableImageWidth = 0;
 			}
 		
-			int availableImageHeight = image.getHeight() - image.getLineBox().getTopPadding().intValue() - image.getLineBox().getBottomPadding().intValue();
+			float availableImageHeight = image.getHeight() - image.getLineBox().getTopPadding().intValue() - image.getLineBox().getBottomPadding().intValue();
 			if (availableImageHeight < 0)
 			{
 				availableImageHeight = 0;
@@ -2203,7 +2205,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 		if (image.getHyperlinkTypeValue() != HyperlinkTypeEnum.NONE)
 		{
 			writer.write("  <area shape=\"default\"");
-			writeImageAreaCoordinates(new int[]{0, 0, image.getWidth(), image.getHeight()});//for IE
+			writeImageAreaCoordinates(new float[]{0, 0, image.getWidth(), image.getHeight()});//for IE
 			writeImageAreaHyperlink(image);
 			writer.write("/>\n");
 		}
@@ -2212,7 +2214,7 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	}
 
 	
-	protected void writeImageAreaCoordinates(int[] coords) throws IOException
+	protected void writeImageAreaCoordinates(float[] coords) throws IOException
 	{
 		if (coords != null && coords.length > 0)
 		{
@@ -2533,14 +2535,14 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	}
 
 
-	public String toSizeUnit(int size)
+	public String toSizeUnit(float size)
 	{
 		return String.valueOf(toZoom(size)) + sizeUnit;
 	}
 
-	public int toZoom(int size)
+	public float toZoom(float size)
 	{
-		return (int)(zoom * size);
+		return zoom * size;
 	}
 
 
@@ -2575,8 +2577,8 @@ public class JRXhtmlExporter extends JRAbstractExporter
 	private static class FrameInfo
 	{
 		protected int elementIndex;
-		protected int leftInsideBorderOffset;
-		protected int topInsideBorderOffset;
+		protected float leftInsideBorderOffset;
+		protected float topInsideBorderOffset;
 	}
 }
 

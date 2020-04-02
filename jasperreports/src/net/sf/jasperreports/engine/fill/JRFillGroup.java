@@ -192,7 +192,7 @@ public class JRFillGroup implements JRGroup
 	/**
 	 *
 	 */
-	public int getMinHeightToStartNewPage()
+	public float getMinHeightToStartNewPage()
 	{
 		return parent.getMinHeightToStartNewPage();
 	}
@@ -200,7 +200,7 @@ public class JRFillGroup implements JRGroup
 	/**
 	 *
 	 */
-	public void setMinHeightToStartNewPage(int minHeight)
+	public void setMinHeightToStartNewPage(float minHeight)
 	{
 	}
 		

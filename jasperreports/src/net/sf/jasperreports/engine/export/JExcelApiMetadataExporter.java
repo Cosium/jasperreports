@@ -34,8 +34,8 @@ package net.sf.jasperreports.engine.export;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Dimension2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -128,6 +128,7 @@ import net.sf.jasperreports.repo.RepositoryUtil;
 import org.apache.commons.collections.ReferenceMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jfree.ui.FloatDimension;
 
 
 /**
@@ -390,7 +391,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 		}
 	}
 
-	protected void setColumnWidth(int col, int width, boolean autoFit)
+	protected void setColumnWidth(int col, float width, boolean autoFit)
 	{
 		if (!autoFit)
 		{
@@ -398,7 +399,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 			if(cv == null || cv.getSize() < 43 * width)
 			{
 				cv = new CellView();
-				cv.setSize(43 * width);
+				cv.setSize((int)(43 * width));
 				sheet.setColumnView(col, cv);
 			}
 		}
@@ -414,7 +415,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 		}
 	}
 
-	protected void setRowHeight(int rowIndex, int lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException
+	protected void setRowHeight(int rowIndex, float lastRowHeight, Cut yCut, XlsRowLevelInfo levelInfo) throws JRException
 	{
 		Map<String, Object> cutProperties = yCut == null ? null : yCut.getPropertiesMap();
 		
@@ -1108,10 +1109,10 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 			int rightPadding = 
 				Math.max(element.getLineBox().getRightPadding().intValue(), getImageBorderCorrection(element.getLineBox().getRightPen()));
 			
-			int availableImageWidth = element.getWidth() - leftPadding - rightPadding;
+			float availableImageWidth = element.getWidth() - leftPadding - rightPadding;
 			availableImageWidth = availableImageWidth < 0 ? 0 : availableImageWidth;
 	
-			int availableImageHeight = element.getHeight() - topPadding - bottomPadding;
+			float availableImageHeight = element.getHeight() - topPadding - bottomPadding;
 			availableImageHeight = availableImageHeight < 0 ? 0 : availableImageHeight;
 	
 			Renderable renderer = element.getRenderable();
@@ -1137,7 +1138,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 					renderer =
 						new JRWrappingSvgRenderer(
 							renderer,
-							new Dimension(element.getWidth(), element.getHeight()),
+							new FloatDimension(element.getWidth(), element.getHeight()),
 							ModeEnum.OPAQUE == element.getModeValue() ? element.getBackcolor() : null
 							);
 				}
@@ -1149,8 +1150,8 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 	
 			if (renderer != null)
 			{
-				int normalWidth = availableImageWidth;
-				int normalHeight = availableImageHeight;
+				float normalWidth = availableImageWidth;
+				float normalHeight = availableImageHeight;
 	
 				Dimension2D dimension = renderer.getDimension(jasperReportsContext);
 				if (dimension != null)
@@ -1220,7 +1221,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 						Graphics2D grx = bi.createGraphics();
 						grx.scale(scale, scale);
 						grx.clip(
-							new Rectangle(
+							new Rectangle2D.Float(
 								0, 
 								0, 
 								availableImageWidth, 
@@ -1231,9 +1232,9 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 						renderer.render(
 							jasperReportsContext,
 							grx, 
-							new Rectangle(
-								(int) (xalignFactor * (availableImageWidth - normalWidth)),
-								(int) (yalignFactor * (availableImageHeight - normalHeight)),
+							new Rectangle2D.Float(
+								xalignFactor * (availableImageWidth - normalWidth),
+								yalignFactor * (availableImageHeight - normalHeight),
 								normalWidth, 
 								normalHeight
 								)
@@ -1462,7 +1463,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 			{
 				WritableFont cf = (WritableFont) this.loadedFonts.get(i);
 
-				int fontSize = font.getFontSize();
+				float fontSize = font.getFontSize();
 				if (isFontSizeFixEnabled)
 				{
 					fontSize -= 1;
@@ -1505,7 +1506,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 		{
 			if (cellFont == null)
 			{
-				int fontSize = font.getFontSize();
+				float fontSize = font.getFontSize();
 				if (isFontSizeFixEnabled)
 				{
 					fontSize -= 1;
@@ -1519,7 +1520,7 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 				cellFont =
 					new WritableFont(
 						WritableFont.createFont(fontName),
-						fontSize,
+						(int)fontSize,
 						font.isBold() ? WritableFont.BOLD : WritableFont.NO_BOLD,
 						font.isItalic(),
 						font.isUnderline() ? UnderlineStyle.SINGLE : UnderlineStyle.NO_UNDERLINE,
@@ -2496,12 +2497,12 @@ public class JExcelApiMetadataExporter extends JRXlsAbstractMetadataExporter
 		// TODO set row levels
 	}
 	
-	protected void setScale(Integer scale)
+	protected void setScale(Float scale)
 	{
 		if (scale != null && scale > 9 && scale < 401)
 		{
 			SheetSettings sheetSettings = sheet.getSettings();
-			sheetSettings.setScaleFactor(scale);
+			sheetSettings.setScaleFactor(scale.intValue());
 			
 			/* the scale factor takes precedence over fitWidth and fitHeight properties */			
 			sheetSettings.setFitWidth(0);

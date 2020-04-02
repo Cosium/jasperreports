@@ -62,8 +62,8 @@ public class MapElementImageProvider
 		Integer zoom = (Integer)element.getParameterValue(MapPrintElement.PARAMETER_ZOOM);
 		zoom = zoom == null ? 0 : zoom;
 
-		int elementWidth = element.getWidth();
-		int elementHeight = element.getHeight();
+		float elementWidth = element.getWidth();
+		float elementHeight = element.getHeight();
 		
 		String imageLocation = 
 			"http://maps.google.com/maps/api/staticmap?center=" 

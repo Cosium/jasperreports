@@ -84,7 +84,7 @@ public class BarbecueFillComponent extends BaseFillComponent
 		return barcodeComponent.getEvaluationTimeValue() == EvaluationTimeEnum.NOW;
 	}
 
-	public FillPrepareResult prepare(int availableHeight)
+	public FillPrepareResult prepare(float availableHeight)
 	{
 		//FIXMENOW do like for map and spider chart, because it crashes with null code one evaluationTime != NOW; check barbecue too
 		return isEvaluateNow() && code == null 

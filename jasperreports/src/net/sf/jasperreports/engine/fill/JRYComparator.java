@@ -41,7 +41,7 @@ public class JRYComparator implements Comparator<JRElement>
 	 */
 	public int compare(JRElement elem1, JRElement elem2)
 	{
-		return elem1.getY() - elem2.getY();
+		return (int)(elem1.getY() - elem2.getY());
 	}
 
 

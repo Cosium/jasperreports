@@ -73,7 +73,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	protected JROrigin origin;
 	
 	private SplitTypeEnum splitType;
-	private int breakHeight;
+	private float breakHeight;
 
 	
 	/**
@@ -115,7 +115,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 			for(int i = 0; i < elements.length; i++)
 			{
 				JRElement element = elements[i];
-				int bottom = element.getY() + element.getHeight();
+				float bottom = element.getY() + element.getHeight();
 				breakHeight = bottom < breakHeight ? bottom : breakHeight;
 			}
 		}
@@ -209,7 +209,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	/**
 	 *
 	 */
-	public int getHeight()
+	public float getHeight()
 	{
 		return (parent == null ? 0 : parent.getHeight());
 	}
@@ -217,7 +217,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	/**
 	 *
 	 */
-	public int getBreakHeight()
+	public float getBreakHeight()
 	{
 		return breakHeight;
 	}
@@ -322,7 +322,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	 *
 	 */
 	protected JRPrintBand refill(
-		int availableHeight
+		float availableHeight
 		) throws JRException
 	{
 		rewind();
@@ -345,7 +345,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	 *
 	 */
 	protected JRPrintBand fill(
-		int availableHeight
+		float availableHeight
 		) throws JRException
 	{
 		return fill(availableHeight, true);
@@ -356,7 +356,7 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	 *
 	 */
 	protected JRPrintBand fill(
-		int availableHeight,
+		float availableHeight,
 		boolean isOverflowAllowed
 		) throws JRException
 	{
@@ -393,7 +393,8 @@ public class JRFillBand extends JRFillElementContainer implements JRBand, JROrig
 	}
 
 
-	protected int getContainerHeight()
+	@Override
+    protected float getContainerHeight()
 	{
 		return getHeight();
 	}

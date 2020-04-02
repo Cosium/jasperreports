@@ -70,7 +70,7 @@ public final class ParagraphUtil
 			lastTabStop.getPosition() + paragraph.getTabStopWidth() <= endX
 			)
 		{
-			lastTabStop = new TabStop((lastTabStop.getPosition() / paragraph.getTabStopWidth() + 1) * paragraph.getTabStopWidth(), TabStopAlignEnum.LEFT);
+			lastTabStop = new TabStop((lastTabStop.getPosition() / paragraph.getTabStopWidth().intValue() + 1) * paragraph.getTabStopWidth().intValue(), TabStopAlignEnum.LEFT);
 			tabStopList.add(lastTabStop);
 		}
 		
