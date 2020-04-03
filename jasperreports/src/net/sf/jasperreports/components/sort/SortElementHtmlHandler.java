@@ -70,8 +70,8 @@ import net.sf.jasperreports.web.util.WebUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.VelocityContext;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
@@ -404,7 +404,7 @@ public class SortElementHtmlHandler extends BaseElementHtmlHandler
 				ObjectMapper mapper = new ObjectMapper();
 				List<DatasetFilter> existingFilters = null;
 				try {
-					existingFilters = mapper.readValue(serializedFilters, new TypeReference<List<FieldFilter>>(){});
+					existingFilters = mapper.readValue(serializedFilters, new TypeReference<List<DatasetFilter>>(){});
 				} catch (Exception e) {
 					throw new JRRuntimeException(e);
 				}

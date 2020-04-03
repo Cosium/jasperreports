@@ -91,8 +91,8 @@ import net.sf.jasperreports.web.util.ReportInteractionHyperlinkProducer;
 import net.sf.jasperreports.web.util.VelocityUtil;
 import net.sf.jasperreports.web.util.WebUtil;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
@@ -573,7 +573,7 @@ public class HeaderToolbarElementHtmlHandler extends BaseElementHtmlHandler
 			ObjectMapper mapper = new ObjectMapper();
 			List<DatasetFilter> existingFilters = null;
 			try {
-				existingFilters = mapper.readValue(serializedFilters, new TypeReference<List<FieldFilter>>(){});
+				existingFilters = mapper.readValue(serializedFilters, new TypeReference<List<DatasetFilter>>(){});
 			} catch (Exception e) {
 				throw new JRRuntimeException(e);
 			}

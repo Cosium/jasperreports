@@ -44,7 +44,7 @@ import net.sf.jasperreports.repo.JasperDesignReportResource;
 import net.sf.jasperreports.web.commands.CommandStack;
 import net.sf.jasperreports.web.commands.CommandTarget;
 
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * @author Narcis Marcu (narcism@users.sourceforge.net)
