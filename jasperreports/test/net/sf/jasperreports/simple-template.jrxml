@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fr-standard-quotation-annex-offers" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6737db91-aaac-48d7-b87c-beed218272f1">
+	<property name="ireport.zoom" value="3.4522712143931042"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="DefaultStyle" isDefault="true" fontName="DejaVu Sans"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="amountLabel" class="java.lang.String"/>
+	<field name="amountValue" class="java.lang.String"/>
+	<field name="currencySymbol" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e48ecbd8-e749-4dd0-a2f4-66e1558fb1e4" x="0" y="0" width="234" height="13" isRemoveLineWhenBlank="true"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Left" markup="html">
+					<font size="9"/>
+					<paragraph firstLineIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountLabel} + " : " + $F{amountValue} ]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
