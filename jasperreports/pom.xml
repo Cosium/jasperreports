@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.jasperreports</groupId>
 	<artifactId>jasperreports</artifactId>
-	<version>4.7.1.1.cosium-SNAPSHOT</version>
+	<version>4.7.1.1.cosium</version>
 	<packaging>jar</packaging>
 	<name>JasperReports</name>
 	<url>http://jasperreports.sourceforge.net</url>
@@ -16,7 +16,7 @@
 	</licenses>
 	<scm>
 		<connection>scm:git:git@github.com:Cosium/jasperreports.git</connection>
-	  <tag>HEAD</tag>
+	  <tag>jasperreports-4.7.1.1.cosium</tag>
   </scm>
 	<developers>
 		<developer>
