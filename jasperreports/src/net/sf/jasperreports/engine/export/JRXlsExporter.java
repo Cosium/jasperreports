@@ -97,6 +97,8 @@ import net.sf.jasperreports.repo.RepositoryUtil;
 import org.apache.commons.collections.ReferenceMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.hssf.record.cf.BorderFormatting;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
@@ -112,8 +114,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.jfree.ui.FloatDimension;
@@ -158,10 +166,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	/**
 	 *
 	 */
-	protected short whiteIndex = (new HSSFColor.WHITE()).getIndex();
-	protected short blackIndex = (new HSSFColor.BLACK()).getIndex();
+	protected short whiteIndex = (HSSFColor.HSSFColorPredefined.WHITE).getIndex();
+	protected short blackIndex = (HSSFColor.HSSFColorPredefined.BLACK).getIndex();
 
-	protected short backgroundMode = HSSFCellStyle.SOLID_FOREGROUND;
+	protected FillPatternType backgroundMode = FillPatternType.SOLID_FOREGROUND;
 
 	protected HSSFDataFormat dataFormat;
 
@@ -218,7 +226,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	{
 		if (!isWhitePageBackground)
 		{
-			backgroundMode = HSSFCellStyle.NO_FILL;
+			backgroundMode = FillPatternType.NO_FILL;
 		}
 	}
 
@@ -278,7 +286,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			}
 		}
 		emptyCellStyle = workbook.createCellStyle();
-		emptyCellStyle.setFillForegroundColor((new HSSFColor.WHITE()).getIndex());
+		emptyCellStyle.setFillForegroundColor((HSSFColor.HSSFColorPredefined.WHITE).getIndex());
 		emptyCellStyle.setFillPattern(backgroundMode);
 		dataFormat = workbook.createDataFormat();
 		createHelper = workbook.getCreationHelper();
@@ -510,11 +518,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	{
 		cell = row.createCell(colIndex);
 
-		short mode = backgroundMode;
+		FillPatternType mode = backgroundMode;
 		short backcolor = whiteIndex;
 		if (!isIgnoreCellBackground && gridCell.getCellBackcolor() != null)
 		{
-			mode = HSSFCellStyle.SOLID_FOREGROUND;
+			mode = FillPatternType.SOLID_FOREGROUND;
 			backcolor = getWorkbookColor(gridCell.getCellBackcolor()).getIndex();
 		}
 
@@ -528,8 +536,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			getLoadedCellStyle(
 				mode,
 				backcolor,
-				HSSFCellStyle.ALIGN_LEFT,
-				HSSFCellStyle.VERTICAL_TOP,
+				HorizontalAlignment.LEFT,
+				VerticalAlignment.TOP,
 				(short)0,
 				getLoadedFont(getDefaultFont(), forecolor, null, getLocale()),
 				gridCell
@@ -575,11 +583,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 		BoxStyle boxStyle = new BoxStyle(side, line.getLinePen());
 
-		short mode = backgroundMode;
+		FillPatternType mode = backgroundMode;
 		short backcolor = whiteIndex;
 		if (!isIgnoreCellBackground && gridCell.getCellBackcolor() != null)
 		{
-			mode = HSSFCellStyle.SOLID_FOREGROUND;
+			mode = FillPatternType.SOLID_FOREGROUND;
 			backcolor = getWorkbookColor(gridCell.getCellBackcolor()).getIndex();
 		}
 
@@ -587,8 +595,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			getLoadedCellStyle(
 				mode,
 				backcolor,
-				HSSFCellStyle.ALIGN_LEFT,
-				HSSFCellStyle.VERTICAL_TOP,
+				HorizontalAlignment.LEFT,
+				VerticalAlignment.TOP,
 				(short)0,
 				getLoadedFont(getDefaultFont(), forecolor, null, getLocale()),
 				boxStyle,
@@ -610,11 +618,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	{
 		short forecolor = getWorkbookColor(element.getLinePen().getLineColor()).getIndex();
 
-		short mode = backgroundMode;
+		FillPatternType mode = backgroundMode;
 		short backcolor = whiteIndex;
 		if (!isIgnoreCellBackground && gridCell.getCellBackcolor() != null)
 		{
-			mode = HSSFCellStyle.SOLID_FOREGROUND;
+			mode = FillPatternType.SOLID_FOREGROUND;
 			backcolor = getWorkbookColor(gridCell.getCellBackcolor()).getIndex();
 		}
 
@@ -622,8 +630,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			getLoadedCellStyle(
 				mode,
 				backcolor,
-				HSSFCellStyle.ALIGN_LEFT,
-				HSSFCellStyle.VERTICAL_TOP,
+				HorizontalAlignment.LEFT,
+				VerticalAlignment.TOP,
 				(short)0,
 				getLoadedFont(getDefaultFont(), forecolor, null, getLocale()),
 				gridCell,
@@ -651,15 +659,15 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		short forecolor = getWorkbookColor(textElement.getForecolor()).getIndex();
 
 		TextAlignHolder textAlignHolder = getTextAlignHolder(textElement);
-		short horizontalAlignment = getHorizontalAlignment(textAlignHolder);
-		short verticalAlignment = getVerticalAlignment(textAlignHolder);
+		HorizontalAlignment horizontalAlignment = getHorizontalAlignment(textAlignHolder);
+		VerticalAlignment verticalAlignment = getVerticalAlignment(textAlignHolder);
 		short rotation = getRotation(textAlignHolder);
 
-		short mode = backgroundMode;
+		FillPatternType mode = backgroundMode;
 		short backcolor = whiteIndex;
 		if (!isIgnoreCellBackground && gridCell.getCellBackcolor() != null)
 		{
-			mode = HSSFCellStyle.SOLID_FOREGROUND;
+			mode = FillPatternType.SOLID_FOREGROUND;
 			backcolor = getWorkbookColor(gridCell.getCellBackcolor()).getIndex();
 		}
 
@@ -713,7 +721,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 				}
 				
 				HSSFCellStyle cellStyle = initCreateCell(gridCell, colIndex, rowIndex, baseStyle);
-				cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+				cell.setCellType(CellType.FORMULA);
 				cell.setCellFormula(formula);
 				endCreateCell(cellStyle);
 				return;
@@ -759,7 +767,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					HSSFCellStyle cellStyle = initCreateCell(gridCell, colIndex, rowIndex, baseStyle);
 					if (textValue.getValue() == null)
 					{
-						cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+						cell.setCellType(CellType.BLANK);
 					}
 					else
 					{
@@ -779,7 +787,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					Date date = textValue.getValue();
 					if (date == null)
 					{
-						cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+						cell.setCellType(CellType.BLANK);
 					}
 					else
 					{
@@ -794,7 +802,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					HSSFCellStyle cellStyle = initCreateCell(gridCell, colIndex, rowIndex, baseStyle);
 					if (textValue.getValue() == null)
 					{
-						cell.setCellType(HSSFCell.CELL_TYPE_BLANK);
+						cell.setCellType(CellType.BLANK);
 					}
 					else
 					{
@@ -914,35 +922,35 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 	}
 
-	private short getHorizontalAlignment(TextAlignHolder alignment)
+	private HorizontalAlignment getHorizontalAlignment(TextAlignHolder alignment)
 	{
 		switch (alignment.horizontalAlignment)
 		{
 			case RIGHT:
-				return HSSFCellStyle.ALIGN_RIGHT;
+				return HorizontalAlignment.RIGHT;
 			case CENTER:
-				return HSSFCellStyle.ALIGN_CENTER;
+				return HorizontalAlignment.CENTER;
 			case JUSTIFIED:
-				return HSSFCellStyle.ALIGN_JUSTIFY;
+				return HorizontalAlignment.JUSTIFY;
 			case LEFT:
 			default:
-				return HSSFCellStyle.ALIGN_LEFT;
+				return HorizontalAlignment.LEFT;
 		}
 	}
 
-	private short getVerticalAlignment(TextAlignHolder alignment)
+	private VerticalAlignment getVerticalAlignment(TextAlignHolder alignment)
 	{
 		switch (alignment.verticalAlignment)
 		{
 			case BOTTOM:
-				return HSSFCellStyle.VERTICAL_BOTTOM;
+				return VerticalAlignment.BOTTOM;
 			case MIDDLE:
-				return HSSFCellStyle.VERTICAL_CENTER;
+				return VerticalAlignment.CENTER;
 			case JUSTIFIED:
-				return HSSFCellStyle.VERTICAL_JUSTIFY;
+				return VerticalAlignment.JUSTIFY;
 			case TOP:
 			default:
-				return HSSFCellStyle.VERTICAL_TOP;
+				return VerticalAlignment.TOP;
 		}
 	}
 
@@ -1088,7 +1096,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 				(cf.getFontHeightInPoints() == fontSize) &&
 				((cf.getUnderline() == HSSFFont.U_SINGLE)?(font.isUnderline()):(!font.isUnderline())) &&
 				(cf.getStrikeout() == font.isStrikeThrough()) &&
-				((cf.getBoldweight() == HSSFFont.BOLDWEIGHT_BOLD)?(font.isBold()):(!font.isBold())) &&
+				((cf.getBold())?(font.isBold()):(!font.isBold())) &&
 				(cf.getItalic() == font.isItalic()) &&
 				(cf.getTypeOffset() == superscriptType)
 				)
@@ -1122,7 +1130,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			}
 			if (font.isBold())
 			{
-				cellFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+				cellFont.setBold(true);
 			}
 			if (font.isItalic())
 			{
@@ -1178,10 +1186,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	}
 
 	protected HSSFCellStyle getLoadedCellStyle(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell
@@ -1191,10 +1199,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	}
 
 	protected HSSFCellStyle getLoadedCellStyle(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell,
@@ -1207,10 +1215,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	}
 
 	protected HSSFCellStyle getLoadedCellStyle(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box
@@ -1220,10 +1228,10 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 		}
 
 	protected HSSFCellStyle getLoadedCellStyle(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box,
@@ -1238,7 +1246,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	/**
 	 *
 	 */
-	protected static short getBorderStyle(JRPen pen)
+	protected static BorderStyle getBorderStyle(JRPen pen)
 	{
 		float lineWidth = pen.getLineWidth().floatValue();
 
@@ -1248,43 +1256,43 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			{
 				case DOUBLE :
 				{
-					return HSSFCellStyle.BORDER_DOUBLE;
+					return BorderStyle.DOUBLE;
 				}
 				case DOTTED :
 				{
-					return HSSFCellStyle.BORDER_DOTTED;
+					return BorderStyle.DOTTED;
 				}
 				case DASHED :
 				{
 					if (lineWidth >= 1f)
 					{
-						return HSSFCellStyle.BORDER_MEDIUM_DASHED;
+						return BorderStyle.MEDIUM_DASHED;
 					}
 
-					return HSSFCellStyle.BORDER_DASHED;
+					return BorderStyle.DASHED;
 				}
 				case SOLID :
 				default :
 				{
 					if (lineWidth >= 2f)
 					{
-						return HSSFCellStyle.BORDER_THICK;
+						return BorderStyle.THICK;
 					}
 					else if (lineWidth >= 1f)
 					{
-						return HSSFCellStyle.BORDER_MEDIUM;
+						return BorderStyle.MEDIUM;
 					}
 					else if (lineWidth >= 0.5f)
 					{
-						return HSSFCellStyle.BORDER_THIN;
+						return BorderStyle.THIN;
 					}
 
-					return HSSFCellStyle.BORDER_HAIR;
+					return BorderStyle.HAIR;
 				}
 			}
 		}
 
-		return HSSFCellStyle.BORDER_NONE;
+		return BorderStyle.NONE;
 	}
 
 	public void exportImage(
@@ -1495,11 +1503,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					}
 				}
 
-				short mode = backgroundMode;
+				FillPatternType mode = backgroundMode;
 				short backcolor = whiteIndex;
 				if (!isIgnoreCellBackground && gridCell.getCellBackcolor() != null)
 				{
-					mode = HSSFCellStyle.SOLID_FOREGROUND;
+					mode = FillPatternType.SOLID_FOREGROUND;
 					backcolor = getWorkbookColor(gridCell.getCellBackcolor()).getIndex();
 				}
 
@@ -1514,8 +1522,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					getLoadedCellStyle(
 						mode,
 						backcolor,
-						HSSFCellStyle.ALIGN_LEFT,
-						HSSFCellStyle.VERTICAL_TOP,
+						HorizontalAlignment.LEFT,
+						VerticalAlignment.TOP,
 						(short)0,
 						getLoadedFont(getDefaultFont(), forecolor, null, getLocale()),
 						gridCell,
@@ -1545,7 +1553,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 						//rowIndex + (isCollapseRowSpan ? 1 : gridCell.getRowSpan())
 						(short)(rowIndex + (int)bottomPos)
 						);
-				anchor.setAnchorType(2);
+				anchor.setAnchorType(ClientAnchor.AnchorType.MOVE_DONT_RESIZE);
 				//pngEncoder.setImage(bi);
 				//int imgIndex = workbook.addPicture(pngEncoder.pngEncode(), HSSFWorkbook.PICTURE_TYPE_PNG);
 				int imgIndex = workbook.addPicture(imageData, HSSFWorkbook.PICTURE_TYPE_PNG);
@@ -1622,11 +1630,11 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 	 */
 	protected void exportFrame(JRPrintFrame frame, JRExporterGridCell gridCell, int x, int y)
 	{
-		short mode = backgroundMode;
+		FillPatternType mode = backgroundMode;
 		short backcolor = whiteIndex;
 		if (frame.getModeValue() == ModeEnum.OPAQUE)
 		{
-			mode = HSSFCellStyle.SOLID_FOREGROUND;
+			mode = FillPatternType.SOLID_FOREGROUND;
 			backcolor = getWorkbookColor(frame.getBackcolor()).getIndex();
 		}
 
@@ -1636,8 +1644,8 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 			getLoadedCellStyle(
 				mode,
 				backcolor,
-				HSSFCellStyle.ALIGN_LEFT,
-				HSSFCellStyle.VERTICAL_TOP,
+				HorizontalAlignment.LEFT,
+				VerticalAlignment.TOP,
 				(short)0,
 				getLoadedFont(getDefaultFont(), forecolor, null, getLocale()),
 				gridCell,
@@ -1771,7 +1779,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					href = hyperlink.getHyperlinkReference();
 					if (href != null)
 					{
-						link = createHelper.createHyperlink(Hyperlink.LINK_URL);
+						link = createHelper.createHyperlink(HyperlinkType.URL);
 						link.setAddress(href);
 					}
 					break;
@@ -1783,7 +1791,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 						href = hyperlink.getHyperlinkAnchor();
 						if (href != null)
 						{
-							link = createHelper.createHyperlink(Hyperlink.LINK_DOCUMENT);
+							link = createHelper.createHyperlink(HyperlinkType.DOCUMENT);
 							if(anchorLinks.containsKey(href))
 							{
 								(anchorLinks.get(href)).add(link);
@@ -1804,7 +1812,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					Integer hrefPage = hyperlink.getHyperlinkPage();
 					if (hrefPage != null)
 					{
-						link = createHelper.createHyperlink(Hyperlink.LINK_DOCUMENT);
+						link = createHelper.createHyperlink(HyperlinkType.DOCUMENT);
 						if(pageLinks.containsKey(hrefPage))
 						{
 							pageLinks.get(hrefPage).add(link);
@@ -1824,7 +1832,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					if (href != null && hyperlink.getHyperlinkAnchor() != null)
 					{
 						href = href + "#" + hyperlink.getHyperlinkAnchor();
-						link = createHelper.createHyperlink(Hyperlink.LINK_FILE);
+						link = createHelper.createHyperlink(HyperlinkType.FILE);
 						link.setAddress(href);
 						
 					}
@@ -1837,7 +1845,7 @@ public class JRXlsExporter extends JRXlsAbstractExporter
 					if (href != null && hyperlink.getHyperlinkPage() != null)
 					{
 						href = href + "#JR_PAGE_ANCHOR_0_" + hyperlink.getHyperlinkPage().toString();
-						link = createHelper.createHyperlink(Hyperlink.LINK_FILE);
+						link = createHelper.createHyperlink(HyperlinkType.FILE);
 						link.setAddress(href);
 						
 					}
@@ -1958,7 +1966,12 @@ class BoxStyle
 	protected static final int BOTTOM = 2;
 	protected static final int RIGHT = 3;
 
-	protected short[] borderStyle = new short[4];
+	protected BorderStyle[] borderStyle = new BorderStyle[]{
+			BorderStyle.NONE, 
+			BorderStyle.NONE, 
+			BorderStyle.NONE, 
+			BorderStyle.NONE
+	};
 	protected short[] borderColour = new short[4];
 	private int hash;
 
@@ -2006,13 +2019,13 @@ class BoxStyle
 	public void setPen(JRPen pen)
 	{
 		if (
-			borderStyle[TOP] == HSSFCellStyle.BORDER_NONE
-			&& borderStyle[LEFT] == HSSFCellStyle.BORDER_NONE
-			&& borderStyle[BOTTOM] == HSSFCellStyle.BORDER_NONE
-			&& borderStyle[RIGHT] == HSSFCellStyle.BORDER_NONE
+			borderStyle[TOP] == BorderStyle.NONE
+			&& borderStyle[LEFT] == BorderStyle.NONE
+			&& borderStyle[BOTTOM] == BorderStyle.NONE
+			&& borderStyle[RIGHT] == BorderStyle.NONE
 			)
 		{
-			short style = JRXlsExporter.getBorderStyle(pen);
+			BorderStyle style = JRXlsExporter.getBorderStyle(pen);
 			short colour = JRXlsExporter.getWorkbookColor(pen.getLineColor()).getIndex();
 
 			borderStyle[TOP] = style;
@@ -2031,13 +2044,13 @@ class BoxStyle
 
 	private int computeHash()
 	{
-		int hashCode = borderStyle[TOP];
+		int hashCode = borderStyle[TOP].getCode();
 		hashCode = 31*hashCode + borderColour[TOP];
-		hashCode = 31*hashCode + borderStyle[BOTTOM];
+		hashCode = 31*hashCode + borderStyle[BOTTOM].getCode();
 		hashCode = 31*hashCode + borderColour[BOTTOM];
-		hashCode = 31*hashCode + borderStyle[LEFT];
+		hashCode = 31*hashCode + borderStyle[LEFT].getCode();
 		hashCode = 31*hashCode + borderColour[LEFT];
-		hashCode = 31*hashCode + borderStyle[RIGHT];
+		hashCode = 31*hashCode + borderStyle[RIGHT].getCode();
 		hashCode = 31*hashCode + borderColour[RIGHT];
 		return hashCode;
 	}
@@ -2078,10 +2091,10 @@ class BoxStyle
  */
 class StyleInfo
 {
-	protected final short mode;
+	protected final FillPatternType mode;
 	protected final short backcolor;
-	protected final short horizontalAlignment;
-	protected final short verticalAlignment;
+	protected final HorizontalAlignment horizontalAlignment;
+	protected final VerticalAlignment verticalAlignment;
 	protected final short rotation;
 	protected final HSSFFont font;
 	protected final BoxStyle box;
@@ -2092,10 +2105,10 @@ class StyleInfo
 	private int hashCode;
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell
@@ -2116,10 +2129,10 @@ class StyleInfo
 		}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell,
@@ -2143,10 +2156,10 @@ class StyleInfo
 		}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell,
@@ -2169,10 +2182,10 @@ class StyleInfo
 		}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			JRExporterGridCell gridCell,
@@ -2194,10 +2207,10 @@ class StyleInfo
 		}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box
@@ -2218,10 +2231,10 @@ class StyleInfo
 		}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box,
@@ -2244,10 +2257,10 @@ class StyleInfo
 
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box,
@@ -2270,10 +2283,10 @@ class StyleInfo
 	}
 
 	public StyleInfo(
-			short mode,
+			FillPatternType mode,
 			short backcolor,
-			short horizontalAlignment,
-			short verticalAlignment,
+			HorizontalAlignment horizontalAlignment,
+			VerticalAlignment verticalAlignment,
 			short rotation,
 			HSSFFont font,
 			BoxStyle box,
@@ -2299,10 +2312,10 @@ class StyleInfo
 
 	protected int computeHash()
 	{
-		int hash = mode;
+		int hash = mode.getCode();
 		hash = 31*hash + backcolor;
-		hash = 31*hash + horizontalAlignment;
-		hash = 31*hash + verticalAlignment;
+		hash = 31*hash + horizontalAlignment.getCode();
+		hash = 31*hash + verticalAlignment.getCode();
 		hash = 31*hash + rotation;
 		hash = 31*hash + (font == null ? 0 : font.getIndex());
 		hash = 31*hash + (box == null ? 0 : box.hashCode());
